@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.Domain", "PartShop.Domain\PartShop.Domain.csproj", "{4F24C7EC-A9AE-4AD7-9141-607D9C97D7EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartShop.EntityFramework", "PartShop.EntityFramework\PartShop.EntityFramework.csproj", "{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.EntityFramework", "PartShop.EntityFramework\PartShop.EntityFramework.csproj", "{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPart.ConsoleTest", "CarPart.ConsoleTest\CarPart.ConsoleTest.csproj", "{537C82A5-C579-4746-AF2E-C4ECF250264A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

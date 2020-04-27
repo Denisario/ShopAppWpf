@@ -5,9 +5,8 @@ using System.Text;
 
 namespace PartShop.Domain.Model
 {
-    public class Car
+    public class Car:DomainObject
     {
-        public int Id { get; set; }
         public string Mark { get; set; }
         public String Model { get; set; }
         public int Year { get; set; }

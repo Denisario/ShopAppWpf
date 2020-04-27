@@ -6,9 +6,8 @@ using System.Text;
 
 namespace PartShop.Domain.Model
 {
-    public class Account
+    public class Account:DomainObject
     {
-        public int Id { get; set; }
         public string Phone { get; set; }
         public int Balance { get; set; }
 

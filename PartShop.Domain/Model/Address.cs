@@ -4,9 +4,8 @@ using System.Text;
 
 namespace PartShop.Domain.Model
 {
-    public class Address
+    public class Address:DomainObject
     {
-        public int Id { get; set; }
         public string Country { get; set; }
         public string City { get; set; }
         public string Street { get; set; }

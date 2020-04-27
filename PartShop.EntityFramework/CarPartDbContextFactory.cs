@@ -8,7 +8,7 @@ namespace PartShop.EntityFramework
 {
     public class CarPartDbContextFactory:IDesignTimeDbContextFactory<CarPartDbContext>
     {
-        public CarPartDbContext CreateDbContext(string[] args)
+        public CarPartDbContext CreateDbContext(string[] args=null)
         {
             var options=new DbContextOptionsBuilder<CarPartDbContext>();
             options.UseSqlServer("Server=.\\SQLEXPRESS;Database=CarPartShopDB;Trusted_Connection=True;");
