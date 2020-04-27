@@ -22,13 +22,9 @@ namespace PartShop.EntityFramework
         public DbSet<Provider> Providers { get; set; }
         public DbSet<Address> Address { get; set; }
 
-
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CarPartDbContext(DbContextOptions options):base(options)
         {
-            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=CarPartShopDB;Trusted_Connection=True;");
-            base.OnConfiguring(optionsBuilder);
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
