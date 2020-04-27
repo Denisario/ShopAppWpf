@@ -20,6 +20,7 @@ namespace PartShop.EntityFramework
         public DbSet<Part> Parts { get; set; }
         public DbSet<PartOrder> PartOrders { get; set; }
         public DbSet<Provider> Providers { get; set; }
+        public DbSet<Address> Address { get; set; }
 
 
 
@@ -70,6 +71,16 @@ namespace PartShop.EntityFramework
                 .HasOne(r => r.Order)
                 .WithMany(ur => ur.PartOrders)
                 .HasForeignKey(ri => ri.OrderId);
+
+            modelBuilder.Entity<User>()
+                .HasOne(a => a.Account)
+                .WithOne(b => b.User)
+                .HasForeignKey<Account>(c => c.Id);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(a => a.Address)
+                .WithOne(b => b.Order)
+                .HasForeignKey<Address>(c => c.Id);
         }
     }
 }

@@ -11,7 +11,9 @@ namespace PartShop.Domain.Model
         public string Mark { get; set; }
         public String Model { get; set; }
         public int Year { get; set; }
-
+        public string CarcassType { get; set; }
+        public string FuelType { get; set; }
+        public int EngineVolume { get; set; }
         public IEnumerable<CarPart> CarParts { get; set; }
     }
 }

@@ -22,22 +22,51 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Balance")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Apartament")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("House")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.Car", b =>
@@ -46,6 +75,15 @@ namespace PartShop.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CarcassType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EngineVolume")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FuelType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mark")
                         .HasColumnType("nvarchar(max)");
@@ -89,6 +127,12 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int>("Cash")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Pin")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -106,6 +150,15 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreaationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
@@ -119,6 +172,15 @@ namespace PartShop.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -149,6 +211,9 @@ namespace PartShop.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("HasPart")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -188,6 +253,9 @@ namespace PartShop.EntityFramework.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
@@ -216,9 +284,18 @@ namespace PartShop.EntityFramework.Migrations
 
             modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
                 {
-                    b.HasOne("PartShop.Domain.Model.User", "AccountHolder")
+                    b.HasOne("PartShop.Domain.Model.User", "User")
                         .WithOne("Account")
-                        .HasForeignKey("PartShop.Domain.Model.Account", "UserId")
+                        .HasForeignKey("PartShop.Domain.Model.Account", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
+                {
+                    b.HasOne("PartShop.Domain.Model.Order", "Order")
+                        .WithOne("Address")
+                        .HasForeignKey("PartShop.Domain.Model.Address", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -248,7 +325,7 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
                 {
                     b.HasOne("PartShop.Domain.Model.Account", "Account")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("AccountId");
                 });
 
