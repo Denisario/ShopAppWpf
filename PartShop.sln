@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.Domain", "PartShop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.EntityFramework", "PartShop.EntityFramework\PartShop.EntityFramework.csproj", "{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPart.ConsoleTest", "CarPart.ConsoleTest\CarPart.ConsoleTest.csproj", "{537C82A5-C579-4746-AF2E-C4ECF250264A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPart.WPF", "CarPart.WPF\CarPart.WPF.csproj", "{B7A3FB04-ACB2-445D-918A-D69450E59847}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}.Release|Any CPU.Build.0 = Release|Any CPU
-		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{537C82A5-C579-4746-AF2E-C4ECF250264A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7A3FB04-ACB2-445D-918A-D69450E59847}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7A3FB04-ACB2-445D-918A-D69450E59847}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7A3FB04-ACB2-445D-918A-D69450E59847}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7A3FB04-ACB2-445D-918A-D69450E59847}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
