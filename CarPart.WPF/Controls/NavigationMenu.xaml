@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CarPart.WPF.Controls"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:nav="clr-namespace:CarPart.WPF.State.Navigators"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="400"
              Background="#FF222222">
@@ -35,8 +36,8 @@
                 </TextBlock.InputBindings>
             </TextBlock>
             <StackPanel Orientation="Horizontal" Height="70">
-                <Button Width="200"  Margin="0 30 0 0" Command="{Binding ChangeWindowCommand}" CommandParameter="Login">Login</Button>
-                <Button Width="200" Margin="0 30 0 0" Command="{Binding ChangeWindowCommand}" CommandParameter="Register">Register</Button>
+                <Button Width="200"  Margin="0 30 0 0" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.AUTH}">Login</Button>
+                <Button Width="200" Margin="0 30 0 0" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.REGISTER}">Register</Button>
             </StackPanel>
         </StackPanel>
 

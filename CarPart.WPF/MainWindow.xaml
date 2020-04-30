@@ -47,14 +47,11 @@
             </Button>
         </Grid>
         <Grid Grid.Row="1">
-
-
             <Grid HorizontalAlignment="Left" Panel.ZIndex="2">
-                <controls:NavigationMenu x:Name="GridMenu" HorizontalAlignment="Left"/>
+                <controls:NavigationMenu x:Name="GridMenu" HorizontalAlignment="Left" DataContext="{Binding Navigator}"/>
             </Grid>
-            <Grid Panel.ZIndex="1">
-                <views:RegisterView></views:RegisterView>
-            </Grid>
+            <ContentControl Panel.ZIndex="1" Content="{Binding Navigator.CurrentViewModel}" />
+            
 
         </Grid>
     </Grid>
