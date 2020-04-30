@@ -28,6 +28,7 @@ namespace CarPart.WPF.Controls
             UserData.Visibility = Visibility.Collapsed;
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
+            
         }
 
         private void ButtonOpenMenu_OnClick(object sender, RoutedEventArgs e)

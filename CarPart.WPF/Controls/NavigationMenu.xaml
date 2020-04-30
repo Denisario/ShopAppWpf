@@ -23,7 +23,7 @@
             <materialDesign:PackIcon Kind="ArrowLeft" Width="30" Height="30"/>
         </Button>
 
-        <Button Grid.Row="0" x:Name="ButtonOpenMenu" Height="40" Width="40" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Click="ButtonOpenMenu_OnClick" Visibility="Hidden">
+        <Button Grid.Row="0" x:Name="ButtonOpenMenu" Height="40" Width="40" Margin="5" HorizontalAlignment="Center" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" Visibility="Hidden" Click="ButtonOpenMenu_OnClick">
             <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"/>
         </Button>
 

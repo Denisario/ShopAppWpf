@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:CarPart.WPF"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:CarPart.WPF.Controls"
+        xmlns:views="clr-namespace:CarPart.WPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
 
@@ -28,9 +29,10 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
             <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
         </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
             <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
         </EventTrigger>
+
     </Window.Triggers>
 
     <Grid>
@@ -44,7 +46,16 @@
                 <materialDesign:PackIcon Kind="Power" Height="20" Width="20"/>
             </Button>
         </Grid>
-        <controls:NavigationMenu x:Name="GridMenu" Grid.Row="1" Width="400" HorizontalAlignment="Left"/>
+        <Grid Grid.Row="1">
 
+
+            <Grid HorizontalAlignment="Left" Panel.ZIndex="2">
+                <controls:NavigationMenu x:Name="GridMenu" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Panel.ZIndex="1">
+                <views:AuthView></views:AuthView>
+            </Grid>
+
+        </Grid>
     </Grid>
 </Window>
