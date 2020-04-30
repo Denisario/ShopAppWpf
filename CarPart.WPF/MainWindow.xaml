@@ -53,7 +53,7 @@
                 <controls:NavigationMenu x:Name="GridMenu" HorizontalAlignment="Left"/>
             </Grid>
             <Grid Panel.ZIndex="1">
-                <views:AuthView></views:AuthView>
+                <views:RegisterView></views:RegisterView>
             </Grid>
 
         </Grid>
