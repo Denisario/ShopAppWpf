@@ -24,10 +24,6 @@ namespace CarPart.WPF
             Window window = new MainWindow();
             window.DataContext = new MainViewModel();
 
-            //IServiceProvider serviceProvider = CreateServiceProvider();
-            //IAuthService authService = serviceProvider.GetRequiredService<IAuthService>();
-            //authService.Register("da", "sa", "sa", "la");
-            
             window.Show();
 
 

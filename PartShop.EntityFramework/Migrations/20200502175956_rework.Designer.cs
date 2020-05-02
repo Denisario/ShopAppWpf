@@ -10,8 +10,8 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200502141938_roles")]
-    partial class roles
+    [Migration("20200502175956_rework")]
+    partial class rework
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,9 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Balance")
                         .HasColumnType("int");
@@ -38,7 +40,13 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
@@ -46,7 +54,9 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Apartament")
                         .HasColumnType("int");
@@ -152,6 +162,9 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
@@ -164,6 +177,9 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique();
 
                     b.ToTable("Orders");
                 });
@@ -288,16 +304,7 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.HasOne("PartShop.Domain.Model.User", "User")
                         .WithOne("Account")
-                        .HasForeignKey("PartShop.Domain.Model.Account", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
-                {
-                    b.HasOne("PartShop.Domain.Model.Order", "Order")
-                        .WithOne("Address")
-                        .HasForeignKey("PartShop.Domain.Model.Address", "Id")
+                        .HasForeignKey("PartShop.Domain.Model.Account", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -329,6 +336,12 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasOne("PartShop.Domain.Model.Account", "Account")
                         .WithMany("Orders")
                         .HasForeignKey("AccountId");
+
+                    b.HasOne("PartShop.Domain.Model.Address", "Address")
+                        .WithOne("Order")
+                        .HasForeignKey("PartShop.Domain.Model.Order", "AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.PartOrder", b =>

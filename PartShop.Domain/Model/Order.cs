@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace PartShop.Domain.Model
@@ -11,6 +13,8 @@ namespace PartShop.Domain.Model
         public DateTime FinishDate { get; set; }
         public string Status { get; set; }
         public IEnumerable<PartOrder> PartOrders { get; set; }
+
+        public int AddressId { get; set; }
         public Address Address { get; set; }
     }
 }

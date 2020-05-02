@@ -10,52 +10,27 @@ namespace PartShop.Domain.Services.Impl
     public class AuthService : IAuthService
     {
         private readonly IDataService<Role> _roleService;
-        private readonly IDataService<Account> _accountService;
+        //private readonly IDataService<Account> _accountService;
         private readonly IDataService<User> _userService;
-        private readonly IDataService<UserRole> _userRoleService;
 
 
-        public AuthService(IDataService<Role> roleService, IDataService<UserRole> userRoleService, IDataService<User> userService, IDataService<Account> accountService)
+        public AuthService(IDataService<Role> roleService, IDataService<User> userService)
         {
             _roleService = roleService;
-            _userRoleService = userRoleService;
             _userService = userService;
-            _accountService = accountService;
+            //_accountService = accountService;
         }
 
         public async Task<bool> Register(string username, string password, string confirmPass, string email)
         {
-            Role role = _roleService.Get(1).Result;
-            bool success = false;
-            if (password == confirmPass)
+           await _userService.Create(new User()
             {
+                Username = username,
+                Password = password,
+                Account = new Account()
+            });
 
-                User user = new User()
-                {
-                    Username = username,
-                    Password = HashPass(password),
-                    Email = email,
-                    
-                };
-                Account account = new Account()
-                {
-                    User = user,
-                    CreationDate = DateTime.Now
-                };
-
-                UserRole userRole=new UserRole();
-                userRole.Role = role;
-                userRole.User = user;
-
-                user.Account = account;
-
-                await _userService.Create(user);
-                await _accountService.Create(account);
-                await _userRoleService.Create(userRole);
-                success = true;
-            }
-
-            return success;
+           return true;
         }
 
         public async Task<Account> Login(string username, string password)

@@ -8,12 +8,12 @@ namespace PartShop.EntityFramework
 {
     public class CarPartDbContext:DbContext
     {
-        public DbSet<User> Users { get; set; }
+        
         public DbSet<Role> Roles { get; set; }
-
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Card> Cards { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<CarPart> CarParts { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -70,13 +70,13 @@ namespace PartShop.EntityFramework
 
             modelBuilder.Entity<User>()
                 .HasOne(a => a.Account)
-                .WithOne(b => b.User)
-                .HasForeignKey<Account>(c => c.Id);
+                .WithOne(b=>b.User)
+                .HasForeignKey<Account>(c => c.UserId);
 
-            modelBuilder.Entity<Order>()
-                .HasOne(a => a.Address)
-                .WithOne(b => b.Order)
-                .HasForeignKey<Address>(c => c.Id);
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Order)
+                .WithOne(b => b.Address)
+                .HasForeignKey<Order>(c => c.AddressId);
 
 
             //Roles.Add(new Role()

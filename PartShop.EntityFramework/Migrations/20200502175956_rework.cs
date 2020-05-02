@@ -3,10 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PartShop.EntityFramework.Migrations
 {
-    public partial class roles : Migration
+    public partial class rework : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Address",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Country = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    House = table.Column<int>(nullable: false),
+                    Apartament = table.Column<int>(nullable: false),
+                    PostCode = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Address", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
@@ -119,18 +137,20 @@ namespace PartShop.EntityFramework.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Phone = table.Column<string>(nullable: true),
                     Balance = table.Column<int>(nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true)
+                    Status = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_Users_Id",
-                        column: x => x.Id,
+                        name: "FK_Accounts_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -191,7 +211,8 @@ namespace PartShop.EntityFramework.Migrations
                     AccountId = table.Column<int>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     FinishDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true)
+                    Status = table.Column<string>(nullable: true),
+                    AddressId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,27 +223,10 @@ namespace PartShop.EntityFramework.Migrations
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Address",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    Country = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    House = table.Column<int>(nullable: false),
-                    Apartament = table.Column<int>(nullable: false),
-                    PostCode = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Address", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_Orders_Id",
-                        column: x => x.Id,
-                        principalTable: "Orders",
+                        name: "FK_Orders_Address_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -252,6 +256,12 @@ namespace PartShop.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Accounts_UserId",
+                table: "Accounts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Cards_AccountId",
                 table: "Cards",
                 column: "AccountId");
@@ -265,6 +275,12 @@ namespace PartShop.EntityFramework.Migrations
                 name: "IX_Orders_AccountId",
                 table: "Orders",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_AddressId",
+                table: "Orders",
+                column: "AddressId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PartOrders_OrderId",
@@ -284,9 +300,6 @@ namespace PartShop.EntityFramework.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Address");
-
             migrationBuilder.DropTable(
                 name: "Cards");
 
@@ -316,6 +329,9 @@ namespace PartShop.EntityFramework.Migrations
 
             migrationBuilder.DropTable(
                 name: "Accounts");
+
+            migrationBuilder.DropTable(
+                name: "Address");
 
             migrationBuilder.DropTable(
                 name: "Users");
