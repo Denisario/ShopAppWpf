@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PartShop.EntityFramework.Migrations
 {
-    public partial class firstVersion : Migration
+    public partial class roles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -189,7 +189,7 @@ namespace PartShop.EntityFramework.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountId = table.Column<int>(nullable: true),
-                    CreaationDate = table.Column<DateTime>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
                     FinishDate = table.Column<DateTime>(nullable: false),
                     Status = table.Column<string>(nullable: true)
                 },

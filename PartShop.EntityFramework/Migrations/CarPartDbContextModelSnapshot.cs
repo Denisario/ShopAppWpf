@@ -150,7 +150,7 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreaationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FinishDate")

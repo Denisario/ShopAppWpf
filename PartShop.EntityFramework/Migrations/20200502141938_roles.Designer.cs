@@ -10,8 +10,8 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200427204124_initial")]
-    partial class initial
+    [Migration("20200502141938_roles")]
+    partial class roles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -152,7 +152,7 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreaationDate")
+                    b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("FinishDate")

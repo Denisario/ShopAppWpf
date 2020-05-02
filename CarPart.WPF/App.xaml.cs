@@ -5,7 +5,12 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using PartShop.Domain.Services;
+using PartShop.Domain.Services.Impl;
+using PartShop.EntityFramework;
 
 namespace CarPart.WPF
 {
@@ -18,7 +23,13 @@ namespace CarPart.WPF
         {
             Window window = new MainWindow();
             window.DataContext = new MainViewModel();
+
+            //IServiceProvider serviceProvider = CreateServiceProvider();
+            //IAuthService authService = serviceProvider.GetRequiredService<IAuthService>();
+            //authService.Register("da", "sa", "sa", "la");
+            
             window.Show();
+
 
             base.OnStartup(e);
         }

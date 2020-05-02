@@ -77,6 +77,16 @@ namespace PartShop.EntityFramework
                 .HasOne(a => a.Address)
                 .WithOne(b => b.Order)
                 .HasForeignKey<Address>(c => c.Id);
+
+
+            //Roles.Add(new Role()
+            //{
+            //    RoleName = "USER"
+            //});
+            //Roles.Add(new Role()
+            //{
+            //    RoleName = "ADMIN"
+            //});
         }
     }
 }
