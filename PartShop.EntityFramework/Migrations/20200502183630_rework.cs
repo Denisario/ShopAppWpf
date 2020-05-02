@@ -137,20 +137,18 @@ namespace PartShop.EntityFramework.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(nullable: false),
                     Phone = table.Column<string>(nullable: true),
                     Balance = table.Column<int>(nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Accounts_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Accounts_Users_Id",
+                        column: x => x.Id,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -206,13 +204,11 @@ namespace PartShop.EntityFramework.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(nullable: false),
                     AccountId = table.Column<int>(nullable: true),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     FinishDate = table.Column<DateTime>(nullable: false),
-                    Status = table.Column<string>(nullable: true),
-                    AddressId = table.Column<int>(nullable: false)
+                    Status = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -224,8 +220,8 @@ namespace PartShop.EntityFramework.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Orders_Address_AddressId",
-                        column: x => x.AddressId,
+                        name: "FK_Orders_Address_Id",
+                        column: x => x.Id,
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -256,12 +252,6 @@ namespace PartShop.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Accounts_UserId",
-                table: "Accounts",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Cards_AccountId",
                 table: "Cards",
                 column: "AccountId");
@@ -275,12 +265,6 @@ namespace PartShop.EntityFramework.Migrations
                 name: "IX_Orders_AccountId",
                 table: "Orders",
                 column: "AccountId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_AddressId",
-                table: "Orders",
-                column: "AddressId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_PartOrders_OrderId",

@@ -8,13 +8,14 @@ namespace PartShop.Domain.Model
 {
     public class Account:DomainObject
     {
+        [ForeignKey("User")]
+        public override int Id { get; set; }
         public string Phone { get; set; }
         public int Balance { get; set; }
 
         public DateTime CreationDate { get; set; }
 
         public string Status { get; set; }
-        public int UserId { get; set; }
 
         public User User { get; set; }
 

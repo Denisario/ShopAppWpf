@@ -22,9 +22,7 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Balance")
                         .HasColumnType("int");
@@ -38,13 +36,7 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("Accounts");
                 });
@@ -153,14 +145,9 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
+                    b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreationDate")
@@ -175,9 +162,6 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
-
-                    b.HasIndex("AddressId")
-                        .IsUnique();
 
                     b.ToTable("Orders");
                 });
@@ -302,7 +286,7 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.HasOne("PartShop.Domain.Model.User", "User")
                         .WithOne("Account")
-                        .HasForeignKey("PartShop.Domain.Model.Account", "UserId")
+                        .HasForeignKey("PartShop.Domain.Model.Account", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -337,7 +321,7 @@ namespace PartShop.EntityFramework.Migrations
 
                     b.HasOne("PartShop.Domain.Model.Address", "Address")
                         .WithOne("Order")
-                        .HasForeignKey("PartShop.Domain.Model.Order", "AddressId")
+                        .HasForeignKey("PartShop.Domain.Model.Order", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

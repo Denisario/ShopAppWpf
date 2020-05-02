@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +24,24 @@ namespace PartShop.Domain.Services.Impl
 
         public async Task<bool> Register(string username, string password, string confirmPass, string email)
         {
-           await _userService.Create(new User()
+            if (_userService.GetAll().Result.ToList().FirstOrDefault(x => x.Username==username) != null)
             {
-                Username = username,
-                Password = password,
-                Account = new Account()
-            });
+                return false;
+            }
+            if (password.Equals(confirmPass))
+            {
+                Role role=await _roleService.Get(1);
+                User user = new User()
+                {
+                    Username = username,
+                    Password = HashPass(password),
+                    Email = email
+                };
+                await _userService.Create(user);
+                return true;
+            }
 
-           return true;
+            return false;
         }
 
         public async Task<Account> Login(string username, string password)

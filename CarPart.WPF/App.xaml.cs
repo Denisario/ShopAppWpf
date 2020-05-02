@@ -8,9 +8,11 @@ using System.Windows;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 using PartShop.Domain.Services.Impl;
 using PartShop.EntityFramework;
+using PartShop.EntityFramework.Service;
 
 namespace CarPart.WPF
 {
@@ -26,6 +28,13 @@ namespace CarPart.WPF
 
             window.Show();
 
+            AuthService authService = new AuthService(
+                new GenericDataService<Role>(new CarPartDbContextFactory()),
+                new GenericDataService<User>(new CarPartDbContextFactory())
+            );
+
+            bool account = authService.Register("ddsadsaas", "fdsfl", "lfsfda", "das").Result;
+            Console.WriteLine(account);
 
             base.OnStartup(e);
         }
