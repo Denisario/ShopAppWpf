@@ -68,15 +68,17 @@ namespace PartShop.EntityFramework
                 .WithMany(ur => ur.PartOrders)
                 .HasForeignKey(ri => ri.OrderId);
 
-            //modelBuilder.Entity<User>()
-            //    .HasOne(a => a.Account)
-            //    .WithOne(b=>b.User)
-            //    .HasForeignKey<Account>(c => c.UserId);
+            modelBuilder.Entity<Account>().Property(a => a.Id).ValueGeneratedNever();
 
-            //modelBuilder.Entity<Address>()
-            //    .HasOne(a => a.Order)
-            //    .WithOne(b => b.Address)
-            //    .HasForeignKey<Order>(c => c.AddressId);
+            modelBuilder.Entity<Account>()
+                .HasOne(a => a.User)
+                .WithOne(b => b.Account)
+                .HasForeignKey<Account>(c => c.Id);
+
+            modelBuilder.Entity<Address>()
+                .HasOne(a => a.Order)
+                .WithOne(b => b.Address)
+                .HasForeignKey<Order>(c => c.Id);
 
 
             //Roles.Add(new Role()

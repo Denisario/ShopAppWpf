@@ -19,10 +19,11 @@ namespace PartShop.Domain.Test.Services.Impl
         {
             AuthService authService=new AuthService(
                 new GenericDataService<Role>(new CarPartDbContextFactory()),
-                new GenericDataService<User>(new CarPartDbContextFactory())
+                new GenericDataService<User>(new CarPartDbContextFactory()),
+                new GenericDataService<Account>(new CarPartDbContextFactory())
             );
 
-            bool account = authService.Register("dsadsaas", "fdsfl", "fdsfl", "das").Result;
+            bool account = authService.Register("122223", "fdsfl", "fdsfl", "das").Result;
 
             Console.WriteLine(account);
             Assert.AreEqual(account, true);

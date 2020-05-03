@@ -11,9 +11,7 @@ namespace PartShop.Domain.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-
         public Account Account { get; set; }
-
         public IEnumerable<UserRole> UserRoles { get; set; }
     }
 }

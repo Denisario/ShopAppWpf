@@ -11,15 +11,15 @@ namespace PartShop.Domain.Services.Impl
     public class AuthService : IAuthService
     {
         private readonly IDataService<Role> _roleService;
-        //private readonly IDataService<Account> _accountService;
+        private readonly IDataService<Account> _accountService;
         private readonly IDataService<User> _userService;
 
 
-        public AuthService(IDataService<Role> roleService, IDataService<User> userService)
+        public AuthService(IDataService<Role> roleService, IDataService<User> userService, IDataService<Account> accountService)
         {
             _roleService = roleService;
             _userService = userService;
-            //_accountService = accountService;
+            _accountService = accountService;
         }
 
         public async Task<bool> Register(string username, string password, string confirmPass, string email)
@@ -31,13 +31,25 @@ namespace PartShop.Domain.Services.Impl
             if (password.Equals(confirmPass))
             {
                 Role role=await _roleService.Get(1);
+                Account account = new Account()
+                {
+                    CreationDate = DateTime.Now
+                };
+
                 User user = new User()
                 {
                     Username = username,
                     Password = HashPass(password),
-                    Email = email
+                    Email = email,
+                    Account = account
                 };
+                account.Id = user.Id;
+                account.User = user;
+
                 await _userService.Create(user);
+
+                
+                await _accountService.Create(account);
                 return true;
             }
 

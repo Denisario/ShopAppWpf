@@ -28,13 +28,7 @@ namespace CarPart.WPF
 
             window.Show();
 
-            AuthService authService = new AuthService(
-                new GenericDataService<Role>(new CarPartDbContextFactory()),
-                new GenericDataService<User>(new CarPartDbContextFactory())
-            );
 
-            bool account = authService.Register("ddsadsaas", "fdsfl", "lfsfda", "das").Result;
-            Console.WriteLine(account);
 
             base.OnStartup(e);
         }

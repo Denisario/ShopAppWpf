@@ -10,7 +10,7 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200502183630_rework")]
+    [Migration("20200503111551_rework")]
     partial class rework
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
