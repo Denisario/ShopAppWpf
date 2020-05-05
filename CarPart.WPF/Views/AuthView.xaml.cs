@@ -21,30 +21,9 @@ namespace CarPart.WPF.Views
     /// </summary>
     public partial class AuthView : UserControl
     {
-        public static readonly DependencyProperty LoginCommandProperty=
-            DependencyProperty.Register("LoginCommand", typeof(ICommand), typeof(AuthView), new PropertyMetadata(null));
-
-        public ICommand LoginCommand
-        {
-            get => (ICommand) GetValue(LoginCommandProperty);
-            set => SetValue(LoginCommandProperty, value);
-        }
-
         public AuthView()
         {
             InitializeComponent();
-        }
-
-        
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-        {
-            Task.Yield();
-            if (LoginCommand != null)
-            {
-                string psw = pswBx.Password;
-                LoginCommand.Execute(psw);
-            }
         }
     }
 }

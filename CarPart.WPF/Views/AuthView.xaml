@@ -31,6 +31,6 @@
         <PasswordBox x:Name="pswBx" Grid.Row="2" Grid.Column="3" Height="50px" FontSize="30px" ></PasswordBox>
 
 
-        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="240px" Background="Blue" Foreground="Black" FontSize="20px" Height="80px" Click="ButtonBase_OnClick">Login</Button>
+        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="240px" Background="Blue" Foreground="Black" FontSize="20px" Height="80px" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pswBx}">Login</Button>
     </Grid>
 </UserControl>

@@ -22,15 +22,15 @@ namespace PartShop.Domain.Services
         public async Task<bool> Register(string username, string password, string confirmPassword, string email)
         {
             //REWORK
-
-            if (_accountService.GetAccountByUsername(username).Result != null)
+            Account account = await _accountService.GetAccountByUsername(username);
+            if (account != null)
             {
                 throw new UserHasBeenAlreadyRegisteredException("User has been already registered");
             }
 
             if (password!=confirmPassword) throw new IncorrectPasswordException("Passwords are not equal");
 
-               Account account = new Account()
+               Account newAccount = new Account()
                {
                    Username = username,
                    Password = HashPass(password),
@@ -39,7 +39,7 @@ namespace PartShop.Domain.Services
                    UserRole = Role.USER
                };
 
-              await _accountService.Create(account);
+              await _accountService.Create(newAccount);
               return true;
         }
 
