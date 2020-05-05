@@ -6,16 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
+using PartShop.EntityFramework.Services.Common;
 
 namespace PartShop.EntityFramework.Services
 {
     public class GenericDataService<T> : IDataService<T> where T : DomainObject
     {
         private readonly CarPartDbContextFactory _contentFactory;
+        private readonly NonQueryDataService<T> _nonQueryDataService;
 
         public GenericDataService(CarPartDbContextFactory contentFactory)
         {
             _contentFactory = contentFactory;
+            _nonQueryDataService = new NonQueryDataService<T>(contentFactory);
         }
         public async Task<IEnumerable<T>> GetAll()
         {
@@ -38,36 +41,17 @@ namespace PartShop.EntityFramework.Services
 
         public async Task<T> Create(T entity)
         {
-            using (CarPartDbContext context = _contentFactory.CreateDbContext())
-            {
-                EntityEntry<T> createdEntity = await context.Set<T>().AddAsync(entity);
-                await context.SaveChangesAsync();
-
-                return createdEntity.Entity;
-            }
+            return await _nonQueryDataService.Create(entity);
         }
 
         public async Task<T> Update(int id, T entity)
         {
-            using (CarPartDbContext context = _contentFactory.CreateDbContext())
-            {
-                entity.Id = id;
-                await context.SaveChangesAsync();
-
-                return entity;
-            }
+            return await _nonQueryDataService.Update(id, entity);
         }
 
         public async Task<bool> Delete(int id)
         {
-            using (CarPartDbContext context = _contentFactory.CreateDbContext())
-            {
-                T entity = await context.Set<T>().FirstOrDefaultAsync(s => s.Id == id);
-                context.Set<T>().Remove(entity);
-                await context.SaveChangesAsync();
-
-                return true;
-            }
+            return await _nonQueryDataService.Delete(id);
         }
     }
 }
