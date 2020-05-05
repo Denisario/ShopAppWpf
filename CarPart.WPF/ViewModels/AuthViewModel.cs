@@ -6,5 +6,6 @@ namespace CarPart.WPF.ViewModels
 {
     public class AuthViewModel:ViewModelBase
     {
+        public string e { get; set; }
     }
 }

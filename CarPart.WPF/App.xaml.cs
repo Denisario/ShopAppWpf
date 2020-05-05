@@ -9,10 +9,7 @@ using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Model;
-using PartShop.Domain.Services;
-using PartShop.Domain.Services.Impl;
 using PartShop.EntityFramework;
-using PartShop.EntityFramework.Service;
 
 namespace CarPart.WPF
 {
@@ -25,10 +22,7 @@ namespace CarPart.WPF
         {
             Window window = new MainWindow();
             window.DataContext = new MainViewModel();
-
             window.Show();
-
-
 
             base.OnStartup(e);
         }

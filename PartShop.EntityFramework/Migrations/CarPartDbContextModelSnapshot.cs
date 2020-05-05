@@ -22,19 +22,28 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Balance")
-                        .HasColumnType("int");
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
 
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserRole")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -44,9 +53,7 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("Apartament")
                         .HasColumnType("int");
@@ -54,13 +61,7 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("House")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PostCode")
                         .HasColumnType("int");
 
                     b.Property<string>("Street")
@@ -78,10 +79,7 @@ namespace PartShop.EntityFramework.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CarcassType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EngineVolume")
+                    b.Property<int>("CreationYear")
                         .HasColumnType("int");
 
                     b.Property<string>("FuelType")
@@ -93,9 +91,6 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Cars");
@@ -103,20 +98,20 @@ namespace PartShop.EntityFramework.Migrations
 
             modelBuilder.Entity("PartShop.Domain.Model.CarPart", b =>
                 {
-                    b.Property<int>("CarId")
-                        .HasColumnType("int");
-
                     b.Property<int>("PartId")
                         .HasColumnType("int");
 
-                    b.HasKey("CarId", "PartId");
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("PartId");
+                    b.HasKey("PartId", "CarId");
+
+                    b.HasIndex("CarId");
 
                     b.ToTable("CarParts");
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.Card", b =>
+            modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,38 +121,14 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int?>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Cash")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FinishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Pin")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Cards");
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateTime>("OrderCreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FinishDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -166,15 +137,27 @@ namespace PartShop.EntityFramework.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("PartShop.Domain.Model.OrderParts", b =>
+                {
+                    b.Property<int>("PartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PartId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderParts");
+                });
+
             modelBuilder.Entity("PartShop.Domain.Model.Part", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .HasColumnType("nvarchar(max)");
@@ -190,19 +173,25 @@ namespace PartShop.EntityFramework.Migrations
                     b.ToTable("Parts");
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.PartOrder", b =>
+            modelBuilder.Entity("PartShop.Domain.Model.PartProvider", b =>
                 {
                     b.Property<int>("PartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
-                    b.HasKey("PartId", "OrderId");
+                    b.Property<bool>("HasPartInProvider")
+                        .HasColumnType("bit");
 
-                    b.HasIndex("OrderId");
+                    b.Property<double>("PartCost")
+                        .HasColumnType("float");
 
-                    b.ToTable("PartOrders");
+                    b.HasKey("PartId", "ProviderId");
+
+                    b.HasIndex("ProviderId");
+
+                    b.ToTable("PartProviders");
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.Provider", b =>
@@ -212,81 +201,19 @@ namespace PartShop.EntityFramework.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<bool>("HasPart")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PartCost")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PartId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PartId");
 
                     b.ToTable("Providers");
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.Role", b =>
+            modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.UserRole", b =>
-                {
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoleId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserRoles");
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.Account", b =>
-                {
-                    b.HasOne("PartShop.Domain.Model.User", "User")
-                        .WithOne("Account")
-                        .HasForeignKey("PartShop.Domain.Model.Account", "Id")
+                    b.HasOne("PartShop.Domain.Model.Order", "Order")
+                        .WithOne("Address")
+                        .HasForeignKey("PartShop.Domain.Model.Address", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -306,59 +233,39 @@ namespace PartShop.EntityFramework.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.Card", b =>
-                {
-                    b.HasOne("PartShop.Domain.Model.Account", "Account")
-                        .WithMany("AccountCards")
-                        .HasForeignKey("AccountId");
-                });
-
             modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
                 {
-                    b.HasOne("PartShop.Domain.Model.Account", "Account")
+                    b.HasOne("PartShop.Domain.Model.Account", null)
                         .WithMany("Orders")
                         .HasForeignKey("AccountId");
-
-                    b.HasOne("PartShop.Domain.Model.Address", "Address")
-                        .WithOne("Order")
-                        .HasForeignKey("PartShop.Domain.Model.Order", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.PartOrder", b =>
+            modelBuilder.Entity("PartShop.Domain.Model.OrderParts", b =>
                 {
                     b.HasOne("PartShop.Domain.Model.Order", "Order")
-                        .WithMany("PartOrders")
+                        .WithMany("Parts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("PartShop.Domain.Model.Part", "Part")
-                        .WithMany("PartOrders")
+                        .WithMany()
                         .HasForeignKey("PartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PartShop.Domain.Model.Provider", b =>
+            modelBuilder.Entity("PartShop.Domain.Model.PartProvider", b =>
                 {
                     b.HasOne("PartShop.Domain.Model.Part", "Part")
-                        .WithMany("Providers")
-                        .HasForeignKey("PartId");
-                });
-
-            modelBuilder.Entity("PartShop.Domain.Model.UserRole", b =>
-                {
-                    b.HasOne("PartShop.Domain.Model.Role", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                        .WithMany("PartProviders")
+                        .HasForeignKey("PartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PartShop.Domain.Model.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
+                    b.HasOne("PartShop.Domain.Model.Provider", "Provider")
+                        .WithMany("PartProviders")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

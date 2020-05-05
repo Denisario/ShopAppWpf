@@ -6,11 +6,8 @@ namespace PartShop.Domain.Model
 {
     public class Provider:DomainObject
     {
+        public override int Id { get; set; }
         public string Name { get; set; }
-        
-        public bool HasPart { get; set; }
-        public int PartCost { get; set; }
-
-        public Part Part { get; set; }
+        public List<PartProvider> PartProviders { get; set; }
     }
 }

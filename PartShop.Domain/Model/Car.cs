@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace PartShop.Domain.Model
 {
     public class Car:DomainObject
     {
+        [Key]
+        public override int Id { get; set; }
         public string Mark { get; set; }
-        public String Model { get; set; }
-        public int Year { get; set; }
-        public string CarcassType { get; set; }
+        public string Model { get; set; }
         public string FuelType { get; set; }
-        public int EngineVolume { get; set; }
-        public IEnumerable<CarPart> CarParts { get; set; }
+        public int CreationYear { get; set; }
+        public List<CarPart> CarParts { get; set; }
     }
 }

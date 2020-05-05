@@ -4,11 +4,12 @@ using System.Text;
 
 namespace PartShop.Domain.Model
 {
-    public class PartOrder
+    public class OrderParts
     {
-        public int PartId { get; set; }
-        public Part Part { get; set; }
         public int OrderId { get; set; }
         public Order Order { get; set; }
+
+        public int PartId { get; set; }
+        public Part Part { get; set; }
     }
 }

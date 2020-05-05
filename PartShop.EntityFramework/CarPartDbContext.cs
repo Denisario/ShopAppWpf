@@ -8,18 +8,14 @@ namespace PartShop.EntityFramework
 {
     public class CarPartDbContext:DbContext
     {
-        
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<Card> Cards { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<CarPart> CarParts { get; set; }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Part> Parts { get; set; }
-        public DbSet<PartOrder> PartOrders { get; set; }
+        public DbSet<OrderParts> OrderParts { get; set; }
         public DbSet<Provider> Providers { get; set; }
+        public DbSet<PartProvider> PartProviders { get; set; }
         public DbSet<Address> Address { get; set; }
 
         public CarPartDbContext(DbContextOptions options):base(options)
@@ -29,66 +25,48 @@ namespace PartShop.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRole>()
-                .HasKey(t => new {t.RoleId, t.UserId});
+        //    modelBuilder.Entity<UserRole>()
+        //        .HasKey(t => new {t.RoleId, t.UserId});
 
-            modelBuilder.Entity<UserRole>()
-                .HasOne(u => u.User)
-                .WithMany(ur => ur.UserRoles)
-                .HasForeignKey(ui => ui.UserId);
-            
-            modelBuilder.Entity<UserRole>()
-                .HasOne(r => r.Role)
-                .WithMany(ur => ur.UserRoles)
-                .HasForeignKey(ri => ri.RoleId);
 
-            modelBuilder.Entity<CarPart>()
-                .HasKey(t => new { t.CarId, t.PartId });
+        modelBuilder.Entity<CarPart>().HasKey(t => new {t.PartId, t.CarId});
+        modelBuilder.Entity<OrderParts>().HasKey(t => new {t.PartId, t.OrderId});
+        modelBuilder.Entity<PartProvider>().HasKey(t => new {t.PartId, t.ProviderId});
 
-            modelBuilder.Entity<CarPart>()
-                .HasOne(u => u.Car)
-                .WithMany(ur => ur.CarParts)
-                .HasForeignKey(ui => ui.CarId);
 
-            modelBuilder.Entity<CarPart>()
-                .HasOne(r => r.Part)
-                .WithMany(ur => ur.CarParts)
-                .HasForeignKey(ri => ri.PartId);
+        modelBuilder.Entity<CarPart>()
+                    .HasOne(u => u.Car)
+                    .WithMany(ur => ur.CarParts)
+                    .HasForeignKey(ui => ui.CarId);
 
-            modelBuilder.Entity<PartOrder>()
-                .HasKey(t => new { t.PartId, t.OrderId });
+        modelBuilder.Entity<CarPart>()
+                    .HasOne(r => r.Part)
+                    .WithMany(ur => ur.CarParts)
+                    .HasForeignKey(ri => ri.PartId);
 
-            modelBuilder.Entity<PartOrder>()
-                .HasOne(u => u.Part)
-                .WithMany(ur => ur.PartOrders)
+
+            modelBuilder.Entity<OrderParts>()
+                .HasOne(u => u.Order)
+                .WithMany(ur => ur.Parts)
                 .HasForeignKey(ui => ui.PartId);
 
-            modelBuilder.Entity<PartOrder>()
+            modelBuilder.Entity<OrderParts>()
                 .HasOne(r => r.Order)
-                .WithMany(ur => ur.PartOrders)
+                .WithMany(ur => ur.Parts)
                 .HasForeignKey(ri => ri.OrderId);
 
-            modelBuilder.Entity<Account>().Property(a => a.Id).ValueGeneratedNever();
+            modelBuilder.Entity<PartProvider>()
+                .HasOne(r => r.Provider)
+                .WithMany(u => u.PartProviders)
+                .HasForeignKey(e => e.ProviderId);
+            
+            modelBuilder.Entity<PartProvider>()
+                .HasOne(r => r.Part)
+                .WithMany(u => u.PartProviders)
+                .HasForeignKey(e => e.PartId);
 
-            modelBuilder.Entity<Account>()
-                .HasOne(a => a.User)
-                .WithOne(b => b.Account)
-                .HasForeignKey<Account>(c => c.Id);
+            modelBuilder.Entity<Address>().Property(a => a.Id).ValueGeneratedNever();
 
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.Order)
-                .WithOne(b => b.Address)
-                .HasForeignKey<Order>(c => c.Id);
-
-
-            //Roles.Add(new Role()
-            //{
-            //    RoleName = "USER"
-            //});
-            //Roles.Add(new Role()
-            //{
-            //    RoleName = "ADMIN"
-            //});
         }
     }
 }
