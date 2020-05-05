@@ -20,11 +20,22 @@ namespace CarPart.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            IServiceProvider service = CreateServiceProvider();
+
             Window window = new MainWindow();
-            window.DataContext = new MainViewModel();
+            window.DataContext = service.GetRequiredService<MainViewModel>();
             window.Show();
 
             base.OnStartup(e);
+        }
+
+        private IServiceProvider CreateServiceProvider()
+        {
+            IServiceCollection service=new ServiceCollection();
+
+            service.AddScoped<MainViewModel>();
+
+            return service.BuildServiceProvider();
         }
     }
 }
