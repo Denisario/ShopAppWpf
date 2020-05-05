@@ -42,7 +42,7 @@
         </Grid.RowDefinitions>
 
         <Grid  Background="#FF0069C0" Grid.Row="0">
-            <Button Width="45" Height="45" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Right">
+            <Button Width="45" Height="45" Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Right" Command="{Binding CloseAppCommand}">
                 <materialDesign:PackIcon Kind="Power" Height="20" Width="20"/>
             </Button>
         </Grid>
