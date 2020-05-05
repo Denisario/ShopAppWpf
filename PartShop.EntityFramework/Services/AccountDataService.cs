@@ -10,7 +10,7 @@ using PartShop.EntityFramework.Services.Common;
 
 namespace PartShop.EntityFramework.Services
 {
-    public class AccountDataService:IDataService<Account>
+    public class AccountDataService:IAccountService
     {
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Account> _nonQueryDataService;
@@ -27,8 +27,6 @@ namespace PartShop.EntityFramework.Services
                 IEnumerable<Account> entity = await context.Accounts
                     .Include(a => a.Orders)
                     .ToListAsync();
-
-                if (entity == null) throw new UserNotFoundException("User not found");
 
                 return entity;
             }
@@ -63,6 +61,18 @@ namespace PartShop.EntityFramework.Services
         {
             //return await _nonQueryDataService.Delete(id);
             return false;
+        }
+
+        public async Task<Account> GetAccountByUsername(string username)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                Account entity = await context.Accounts
+                    .Include(a => a.Orders)
+                    .FirstOrDefaultAsync(e => e.Username== username);
+
+                return entity;
+            }
         }
     }
 }

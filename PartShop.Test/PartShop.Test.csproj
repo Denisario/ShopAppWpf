@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\PartShop.Domain\PartShop.Domain.csproj" />
     <ProjectReference Include="..\PartShop.EntityFramework\PartShop.EntityFramework.csproj" />
   </ItemGroup>
