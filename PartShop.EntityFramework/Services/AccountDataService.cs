@@ -67,11 +67,9 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Account entity = await context.Accounts
+                return await context.Accounts
                     .Include(a => a.Orders)
-                    .FirstOrDefaultAsync(e => e.Username== username);
-
-                return entity;
+                    .FirstOrDefaultAsync(e => e.Username == username);
             }
         }
     }

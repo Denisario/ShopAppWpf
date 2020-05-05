@@ -45,8 +45,8 @@ namespace PartShop.Domain.Services
 
         public async Task<Account> Login(string username, string password)
         {
-            if(_accountService.GetAccountByUsername(username).Result==null) throw new UserNotFoundException("User not found");
             Account account = await _accountService.GetAccountByUsername(username);
+            if (account==null) throw new UserNotFoundException("User not found");
             if (account.Password != HashPass(password))
             {
                 throw new IncorrectPasswordException("Incorrect password");

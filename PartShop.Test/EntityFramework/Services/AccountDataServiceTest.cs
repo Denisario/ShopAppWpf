@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
@@ -69,6 +70,16 @@ namespace PartShop.Test.EntityFramework.Services
             bool resultTask = accountDataService.Delete(1).Result;
 
             Assert.AreEqual(resultTask, false);
+        }
+
+        [Test]
+        public async Task GetUserByUsername()
+        {
+            IAccountService accountService=new AccountDataService(new CarPartDbContextFactory());
+
+            Account account =await accountService.GetAccountByUsername("1");
+
+            Assert.AreEqual(account.Username, "1");
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
 using CarPart.WPF.ViewModels.Factories;
@@ -25,23 +26,22 @@ namespace CarPart.WPF
         {
             IServiceProvider service = CreateServiceProvider();
 
-            //IAuthentificationService authentification = service.GetRequiredService<IAuthentificationService>();
-            //authentification.Register("lala", "dasda", "dasda", "dasda");
-
+            
             Window window = service.GetRequiredService<MainWindow>();
             window.Show();
 
             base.OnStartup(e);
+            
+
         }
 
         private IServiceProvider CreateServiceProvider()
         {
             IServiceCollection service=new ServiceCollection();
-
             service.AddScoped<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
             service.AddScoped<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
-
+            service.AddScoped<IAuthentificator, Authentificator>();
 
             service.AddSingleton<CarPartDbContextFactory>();
             service.AddSingleton<IAuthentificationService, AuthentificationService>();
