@@ -23,8 +23,7 @@ namespace CarPart.WPF
         {
             IServiceProvider service = CreateServiceProvider();
 
-            Window window = new MainWindow();
-            window.DataContext = service.GetRequiredService<MainViewModel>();
+            Window window = service.GetRequiredService<MainWindow>();
             window.Show();
 
             base.OnStartup(e);
@@ -36,6 +35,7 @@ namespace CarPart.WPF
 
             service.AddScoped<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
+            service.AddScoped<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
 
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
