@@ -8,6 +8,13 @@ namespace CarPart.WPF.ViewModels
 {
     class MainViewModel:ViewModelBase
     {
-        public INavigator Navigator { get; set; }=new Navigator();
+        public MainViewModel(INavigator navigator)
+        {
+            Navigator = navigator;
+
+            Navigator.UpdateCurrentViewModelCommand.Execute(ViewType.AUTH);
+        }
+
+        public INavigator Navigator { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Input;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
 
 namespace CarPart.WPF.Commands
 {
@@ -13,9 +14,12 @@ namespace CarPart.WPF.Commands
 
         private INavigator _navigator;
 
-        public UpdateCurrentViewModelCommand(INavigator navigator)
+        private readonly ICarPartViewModelAbstractFactory _viewModelFactory;
+
+        public UpdateCurrentViewModelCommand(INavigator navigator, ICarPartViewModelAbstractFactory viewModelFactory)
         {
             _navigator = navigator;
+            _viewModelFactory = viewModelFactory;
         }
 
         public bool CanExecute(object parameter)
@@ -28,17 +32,7 @@ namespace CarPart.WPF.Commands
             if (parameter is ViewType)
             {
                 ViewType viewType = (ViewType) parameter;
-                switch (viewType)
-                {
-                    case ViewType.AUTH:
-                        _navigator.CurrentViewModel=new AuthViewModel();
-                        break;
-                    case ViewType.REGISTER:
-                        _navigator.CurrentViewModel=new RegisterViewModel();
-                        break;
-                    default:
-                        break;
-                }
+                _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
             }
         }
 

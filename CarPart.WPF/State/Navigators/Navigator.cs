@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CarPart.WPF.Annotations;
 using CarPart.WPF.Commands;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
 
 namespace CarPart.WPF.State.Navigators
 {
@@ -22,7 +23,8 @@ namespace CarPart.WPF.State.Navigators
                 OnPropertyChanged(nameof(CurrentViewModel));
             }
         }
-        public ICommand UpdateCurrentViewModelCommand =>new UpdateCurrentViewModelCommand(this);
+        public ICommand UpdateCurrentViewModelCommand { get; set; }
+    
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -30,6 +32,11 @@ namespace CarPart.WPF.State.Navigators
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Navigator(ICarPartViewModelAbstractFactory viewModelFactory)
+        {
+            UpdateCurrentViewModelCommand=new UpdateCurrentViewModelCommand(this, viewModelFactory);
         }
     }
 }

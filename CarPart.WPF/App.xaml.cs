@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
 using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Model;
 using PartShop.EntityFramework;
@@ -33,8 +34,12 @@ namespace CarPart.WPF
         {
             IServiceCollection service=new ServiceCollection();
 
+            service.AddScoped<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
 
+            service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<RegisterViewModel>, RegisterViewModelFactory>();
             return service.BuildServiceProvider();
         }
     }
