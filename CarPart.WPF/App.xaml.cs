@@ -9,6 +9,7 @@ using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
 using CarPart.WPF.ViewModels.Factories;
+using CarPart.WPF.Views;
 using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
@@ -22,26 +23,25 @@ namespace CarPart.WPF
     /// </summary>
     public partial class App : Application
     {
+        public static IServiceProvider service;
         protected override void OnStartup(StartupEventArgs e)
-        {
-            IServiceProvider service = CreateServiceProvider();
+        { 
+            service = CreateServiceProvider();
 
-            
             Window window = service.GetRequiredService<MainWindow>();
+
             window.Show();
-
             base.OnStartup(e);
-            
-
         }
 
         private IServiceProvider CreateServiceProvider()
         {
             IServiceCollection service=new ServiceCollection();
-            service.AddScoped<INavigator, Navigator>();
+            service.AddSingleton<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
-            service.AddScoped<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
-            service.AddScoped<IAuthentificator, Authentificator>();
+            service.AddSingleton<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
+            //service.AddSingleton<HomeView>(s=>new HomeView(s.GetRequiredService<HomeViewModel>()));
+            service.AddSingleton<IAuthentificator, Authentificator>();
 
             service.AddSingleton<CarPartDbContextFactory>();
             service.AddSingleton<IAuthentificationService, AuthentificationService>();
@@ -50,6 +50,8 @@ namespace CarPart.WPF
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<RegisterViewModel>, RegisterViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<PartViewModel>, PartViewModelFactory>();
             return service.BuildServiceProvider();
         }
     }

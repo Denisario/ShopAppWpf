@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CarPart.WPF.ViewModels
 {
-    class MainViewModel:ViewModelBase
+    public class MainViewModel:ViewModelBase
     {
         public MainViewModel(INavigator navigator)
         {

@@ -5,7 +5,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
+using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CarPart.WPF.Commands
 {
@@ -14,6 +17,7 @@ namespace CarPart.WPF.Commands
         public event EventHandler CanExecuteChanged;
         private readonly IAuthentificator _authentificator;
         private readonly RegisterViewModel _registerViewModel;
+        
 
         public RegisterCommand(IAuthentificator authentificator, RegisterViewModel registerViewModel)
         {
@@ -28,13 +32,16 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
+            var nav = App.service.GetRequiredService<INavigator>();
+            var vmFactory = App.service.GetRequiredService<ICarPartViewModelAbstractFactory>();
+
             var values = (object[]) parameter;
             bool success = await _authentificator.Register(_registerViewModel.Username,
                                                            _registerViewModel.Email,
                                                            (values[0] as PasswordBox)?.Password,
                                               (values[1] as PasswordBox)?.Password);
 
-            MessageBox.Show(success.ToString());
+            nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.AUTH);
         }
 
         

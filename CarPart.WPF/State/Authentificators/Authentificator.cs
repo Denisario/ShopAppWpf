@@ -25,7 +25,8 @@ namespace CarPart.WPF.State.Authentificators
 
         public async Task<Account> Login(string username, string password)
         {
-            return await _authentificationService.Login(username, password);
+            CurrentAccount = await _authentificationService.Login(username, password);
+            return CurrentAccount;
         }
 
         public void Logout()

@@ -9,7 +9,9 @@ namespace CarPart.WPF.State.Navigators
     public enum ViewType
     {
         AUTH,
-        REGISTER
+        REGISTER,
+        HOME,
+        PARTS
     }
     public interface INavigator
     {

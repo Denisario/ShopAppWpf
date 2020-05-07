@@ -9,9 +9,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="400"
              Background="#FF222222">
-
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
@@ -42,24 +39,24 @@
         </StackPanel>
 
         <ListView Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Center">
-            <ListBoxItem Height="45" Width="400" >
-                <StackPanel Orientation="Horizontal">
+            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.HOME}">
+                <StackPanel Orientation="Horizontal" Height="34" Width="400">
                     <materialDesign:PackIcon Kind="Home" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Home" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
-            </ListBoxItem>
-            <ListBoxItem Height="45" Width="400">
-                <StackPanel Orientation="Horizontal">
+            </Button>
+            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.PARTS}">
+                <StackPanel Orientation="Horizontal" Height="34" Width="400">
                     <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Parts" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
-            </ListBoxItem>
-            <ListBoxItem Height="45" Width="400">
-                <StackPanel Orientation="Horizontal">
+            </Button>
+            <Button Height="45" Width="400"  Background="#FF222222">
+                <StackPanel Orientation="Horizontal" Height="34" Width="400">
                     <materialDesign:PackIcon Kind="Cart" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Cart" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
-            </ListBoxItem>
+            </Button>
         </ListView>
     </Grid>
 </UserControl>
