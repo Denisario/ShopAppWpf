@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CarPart.WPF"
              xmlns:viewmodel="clr-namespace:CarPart.WPF.ViewModels"
-             xmlns:auth="clr-namespace:CarPart.WPF.State.Authentificators"
              xmlns:view="clr-namespace:CarPart.WPF.Views">
     <Application.Resources>
         <ResourceDictionary>
@@ -26,6 +25,13 @@
             <DataTemplate DataType="{x:Type viewmodel:PartViewModel}">
                 <view:PartView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:AdminViewModel}">
+                <view:AdminView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodel:AddCarViewModel}">
+                <view:AddCarView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

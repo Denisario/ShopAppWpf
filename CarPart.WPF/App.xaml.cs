@@ -45,13 +45,16 @@ namespace CarPart.WPF
 
             service.AddSingleton<CarPartDbContextFactory>();
             service.AddSingleton<IAuthentificationService, AuthentificationService>();
-            service.AddSingleton<IDataService<Account>, AccountDataService>();
+            service.AddSingleton<IDataService<Account>, AccountDataService>();//МБ УДАЛИТЬ
             service.AddSingleton<IAccountService, AccountDataService>();
+            service.AddSingleton<ICarService, CarDataService>();
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<RegisterViewModel>, RegisterViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<PartViewModel>, PartViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<AdminViewModel>, AdminViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<AddCarViewModel>, AddCarViewModelFactory>();
             return service.BuildServiceProvider();
         }
     }

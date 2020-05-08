@@ -37,10 +37,8 @@ namespace CarPart.WPF.Commands
             var vmFactory = App.service.GetRequiredService<ICarPartViewModelAbstractFactory>();
 
             Account account= await _authentificator.Login(_authViewModel.Username, (parameter as PasswordBox)?.Password);
-
-            
-
-            nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.HOME);
+            if(account.UserRole==Role.USER) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.HOME);
+            if(account.UserRole==Role.ADMIN) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.ADMIN);
         }
 
     }

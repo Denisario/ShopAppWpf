@@ -11,7 +11,9 @@ namespace CarPart.WPF.State.Navigators
         AUTH,
         REGISTER,
         HOME,
-        PARTS
+        PARTS,
+        ADMIN,
+        ADDCARADMIN
     }
     public interface INavigator
     {

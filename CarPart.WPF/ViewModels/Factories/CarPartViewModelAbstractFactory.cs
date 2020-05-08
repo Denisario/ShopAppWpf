@@ -11,16 +11,22 @@ namespace CarPart.WPF.ViewModels.Factories
         private readonly ICarPartViewModelFactory<RegisterViewModel> _registerVMFactory;
         private readonly ICarPartViewModelFactory<HomeViewModel> _homeVmFactory;
         private readonly ICarPartViewModelFactory<PartViewModel> _partVmFactory;
+        private readonly ICarPartViewModelFactory<AdminViewModel> _adminVmFactory;
+        private readonly ICarPartViewModelFactory<AddCarViewModel> _addCarVmFactory;
 
         public CarPartViewModelAbstractFactory(ICarPartViewModelFactory<RegisterViewModel> registerVmFactory,
                                                ICarPartViewModelFactory<AuthViewModel> authVmFactory,
                                                ICarPartViewModelFactory<HomeViewModel> homeVmFactory,
-                                               ICarPartViewModelFactory<PartViewModel> partVmFactory)
+                                               ICarPartViewModelFactory<PartViewModel> partVmFactory,
+                                               ICarPartViewModelFactory<AdminViewModel> adminVmFactory,
+                                               ICarPartViewModelFactory<AddCarViewModel> addCarVmFactory)
         {
             _registerVMFactory = registerVmFactory;
             _authVMFactory = authVmFactory;
             _homeVmFactory = homeVmFactory;
             _partVmFactory = partVmFactory;
+            _adminVmFactory = adminVmFactory;
+            _addCarVmFactory = addCarVmFactory;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType)
@@ -35,6 +41,8 @@ namespace CarPart.WPF.ViewModels.Factories
                     return _homeVmFactory.CreateViewModel();
                 case ViewType.PARTS:
                     return _partVmFactory.CreateViewModel();
+                case ViewType.ADMIN:
+                    return _adminVmFactory.CreateViewModel();
                 default:
                     throw new ArgumentException("Uncorrect viewType parametr", "viewType");
             }
