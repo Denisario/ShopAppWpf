@@ -48,6 +48,7 @@ namespace CarPart.WPF
             service.AddSingleton<IDataService<Account>, AccountDataService>();//МБ УДАЛИТЬ
             service.AddSingleton<IAccountService, AccountDataService>();
             service.AddSingleton<ICarService, CarDataService>();
+            service.AddSingleton<IProviderService, ProviderDataService>();
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<RegisterViewModel>, RegisterViewModelFactory>();
@@ -55,6 +56,7 @@ namespace CarPart.WPF
             service.AddSingleton<ICarPartViewModelFactory<PartViewModel>, PartViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AdminViewModel>, AdminViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AddCarViewModel>, AddCarViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<AddProviderViewModel>, AddProviderViewModelFactory>();
             return service.BuildServiceProvider();
         }
     }

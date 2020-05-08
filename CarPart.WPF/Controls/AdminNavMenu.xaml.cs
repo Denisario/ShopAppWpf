@@ -24,9 +24,15 @@ namespace CarPart.WPF.Controls
             InitializeComponent();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void AddCarBtn_OnClick(object sender, RoutedEventArgs e)
         {
             AddCarView v = new AddCarView();
+            v.Show();
+        }
+
+        private void AddProvBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddProviderView v=new AddProviderView();
             v.Show();
         }
     }
