@@ -15,7 +15,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Add part" Grid.Column="0" ></Button>
+            <Button x:Name="AppPartBtn" Content="Add part" Grid.Column="0" Click="AppPartBtn_OnClick"></Button>
             <Button x:Name="AddCarBtn" Content="Add car" Grid.Column="1" Click="AddCarBtn_OnClick"></Button>
             <Button x:Name="AddProvBtn" Content="Add provider" Grid.Column="2" Click="AddProvBtn_OnClick"></Button>
             <Button Content="Show stats" Grid.Column="3"></Button>

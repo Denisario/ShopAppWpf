@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartShop.EntityFramework;
 
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    partial class CarPartDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200508162711_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -181,11 +183,11 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("HasPartInProvider")
+                        .HasColumnType("bit");
+
                     b.Property<double>("PartCost")
                         .HasColumnType("float");
-
-                    b.Property<int>("TotalParts")
-                        .HasColumnType("int");
 
                     b.HasKey("PartId", "ProviderId");
 

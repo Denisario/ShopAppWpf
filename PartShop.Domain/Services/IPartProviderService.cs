@@ -6,7 +6,8 @@ using PartShop.Domain.Model;
 
 namespace PartShop.Domain.Services
 {
-    public interface IPartService:IDataService<Part>
+    public interface IPartProviderService
     {
+        Task<PartProvider> AddPartProvider(Part part, Provider provider);
     }
 }

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 using PartShop.EntityFramework.Services.Common;
 
 namespace PartShop.EntityFramework.Services
 {
-    class PartDataService:IPartService
+    public class PartDataService:IPartService
     {
         private readonly NonQueryDataService<Part> _nonQueryDataService;
         private readonly CarPartDbContextFactory _contextFactory;
@@ -51,14 +52,14 @@ namespace PartShop.EntityFramework.Services
             return await _nonQueryDataService.Create(entity);
         }
 
-        public Task<Part> Update(int id, Part entity)
+        public async Task<Part> Update(int id, Part entity)
         {
-            throw new NotImplementedException();
+            return await _nonQueryDataService.Update(id, entity);
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            return _nonQueryDataService.Delete(id);
+            return await _nonQueryDataService.Delete(id);
         }
     }
 }

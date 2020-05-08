@@ -35,5 +35,11 @@ namespace CarPart.WPF.Controls
             AddProviderView v=new AddProviderView();
             v.Show();
         }
+
+        private void AppPartBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            AddPartView d=new AddPartView();
+            d.Show();
+        }
     }
 }

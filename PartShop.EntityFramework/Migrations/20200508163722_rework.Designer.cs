@@ -10,8 +10,8 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200505083118_Rework")]
-    partial class Rework
+    [Migration("20200508163722_rework")]
+    partial class rework
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -183,11 +183,11 @@ namespace PartShop.EntityFramework.Migrations
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("HasPartInProvider")
-                        .HasColumnType("bit");
-
                     b.Property<double>("PartCost")
                         .HasColumnType("float");
+
+                    b.Property<int>("TotalParts")
+                        .HasColumnType("int");
 
                     b.HasKey("PartId", "ProviderId");
 

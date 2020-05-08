@@ -12,5 +12,11 @@ namespace PartShop.Domain.Model
         public string Color { get; set; }
         public List<CarPart> CarParts { get; set; }
         public List<PartProvider> PartProviders { get; set; }
+
+        public Part()
+        {
+            PartProviders=new List<PartProvider>();
+            CarParts=new List<CarPart>();
+        }
     }
 }

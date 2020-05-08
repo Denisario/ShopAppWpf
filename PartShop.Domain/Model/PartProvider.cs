@@ -10,7 +10,8 @@ namespace PartShop.Domain.Model
         public Part Part { get; set; }
         public int ProviderId  { get; set; }
         public Provider Provider{ get; set; }
-        public bool HasPartInProvider { get; set; }
+        public int TotalParts { get; set; }
         public double PartCost { get; set; }
+
     }
 }
