@@ -10,6 +10,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CarPart.WPF.Views
 {
@@ -20,6 +23,7 @@ namespace CarPart.WPF.Views
     {
         public PartView()
         {
+            DataContext = App.service.GetRequiredService<ICarPartViewModelFactory<PartViewModel>>().CreateViewModel();
             InitializeComponent();
         }
     }

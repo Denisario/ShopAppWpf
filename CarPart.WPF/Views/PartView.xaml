@@ -14,6 +14,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
 
         </Grid.RowDefinitions>
@@ -37,18 +38,24 @@
         <TextBox Grid.Column="3" Grid.Row="3" ></TextBox>
 
         <TextBlock Grid.Column="2" Grid.Row="4" Text="Category" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="{Binding Length}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Column="3" Grid.Row="4" ></TextBox>
 
-        <DataGrid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Id"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name"></DataGridTextColumn>
+        <DataGrid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Parts}">
+
+            <!--<DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Category"></DataGridTextColumn>
                 <DataGridTextColumn Header="Article"></DataGridTextColumn>
                 <DataGridTextColumn Header="Color"></DataGridTextColumn>
+                <DataGridTextColumn Header="Model"></DataGridTextColumn>
+                <DataGridTextColumn Header="Mark"></DataGridTextColumn>
                 <DataGridTextColumn Header="Provider"></DataGridTextColumn>
                 <DataGridTextColumn Header="Price"></DataGridTextColumn>
-            </DataGrid.Columns>
+            </DataGrid.Columns>-->
         </DataGrid>
+
+        <!--<ListView Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Parts}"></ListView>-->
     </Grid>
 </UserControl>
