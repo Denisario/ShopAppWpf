@@ -8,6 +8,9 @@ namespace PartShop.Domain.Model
     {
         public override int Id { get; set; }
         public string Name { get; set; }
+
+        //public string Category { get; set; }
+        //public int Article { get; set; }
         public string Description { get; set; }
         public string Color { get; set; }
         public List<CarPart> CarParts { get; set; }

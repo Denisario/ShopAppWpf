@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
@@ -28,24 +29,22 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            Part part = new Part()
+            try
             {
-                Color = _addPartViewModel.Color,
-                Description = _addPartViewModel.Description,
-                Name = _addPartViewModel.Name,
-            };
-            
-            part.CarParts.Add(new PartShop.Domain.Model.CarPart()
+                bool success=await _partService.AddPart(
+                    new Part()
+                    {
+                        Color = _addPartViewModel.Color, Description = _addPartViewModel.Description,
+                        Name = _addPartViewModel.Name
+                    },
+                    _addPartViewModel.PartProvider.Id, _addPartViewModel.Car.Id, _addPartViewModel.Amount,
+                    _addPartViewModel.Price
+                );
+            }
+            catch (Exception e)
             {
-                PartId = part.Id, CarId = _addPartViewModel.Car.Id
-            });
-
-            part.PartProviders.Add(new PartProvider()
-            {
-                PartId = part.Id, ProviderId=_addPartViewModel.PartProvider.Id, TotalParts = _addPartViewModel.Amount, PartCost = _addPartViewModel.Price
-            });
-            await _partService.Create(part);
-           // await _partService.Update(part.Id, part);
+                MessageBox.Show("You try to add exists part!\nData will change");
+            }
 
         }
 

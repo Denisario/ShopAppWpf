@@ -36,7 +36,6 @@ namespace PartShop.EntityFramework.Services.Common
 
                 context.Set<T>().Update(entity);
                 await context.SaveChangesAsync();
-
                 return entity;
             }
         }

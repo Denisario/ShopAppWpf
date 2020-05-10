@@ -66,6 +66,11 @@ namespace PartShop.EntityFramework
                 .HasForeignKey(e => e.PartId);
 
             modelBuilder.Entity<Address>().Property(a => a.Id).ValueGeneratedNever();
+            modelBuilder.Entity<PartProvider>().Property(a => a.PartId).ValueGeneratedNever();
+            modelBuilder.Entity<PartProvider>().Property(a => a.ProviderId).ValueGeneratedNever();
+
+            modelBuilder.Entity<CarPart>().Property(a => a.PartId).ValueGeneratedNever();
+            modelBuilder.Entity<CarPart>().Property(a => a.CarId).ValueGeneratedNever();
 
         }
     }

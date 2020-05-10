@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PartShop.EntityFramework.Migrations
 {
-    public partial class init : Migration
+    public partial class part : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -121,7 +121,7 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     PartId = table.Column<int>(nullable: false),
                     ProviderId = table.Column<int>(nullable: false),
-                    HasPartInProvider = table.Column<bool>(nullable: false),
+                    TotalParts = table.Column<int>(nullable: false),
                     PartCost = table.Column<double>(nullable: false)
                 },
                 constraints: table =>
