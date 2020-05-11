@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PartShop.Domain.Model;
@@ -10,5 +11,7 @@ namespace PartShop.Domain.Services
     {
         Task<bool> AddPart(Part part, int providerId, int carId, int amountParts, double price);
         Task<bool> SaveProviderAndCar(Part part);
+
+        Task<IEnumerable<PartFullInfo>> GetAllPartsForView();
     }
 }

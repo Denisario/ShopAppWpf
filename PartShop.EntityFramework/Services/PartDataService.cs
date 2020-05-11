@@ -120,9 +120,38 @@ namespace PartShop.EntityFramework.Services
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 await context.PartProviders.AddAsync(part.PartProviders.Last());
+                await context.CarParts.AddAsync(part.CarParts.Last());
                   
                 await context.SaveChangesAsync();
                 return true;
+            }
+        }
+
+        public async Task<IEnumerable<PartFullInfo>> GetAllPartsForView()
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                IEnumerable<PartFullInfo> parts = await context.Parts
+                    .Join(context.PartProviders, part => part.Id, partprovider => partprovider.PartId,
+                        (part, partprovider) => new {part, partprovider})
+                    .Join(context.CarParts, @t => @t.partprovider.PartId, carpart => carpart.PartId,
+                        (@t, carpart) => new PartFullInfo()
+                        {
+                            PartId = @t.part.Id,
+                            ProviderId = @t.partprovider.ProviderId,
+                            PartName = @t.part.Name,
+                            PartColor = @t.part.Color,
+                            PartDescription = @t.part.Description,
+                            ProviderName = @t.partprovider.Provider.Name,
+                            ProviderPartAmount = @t.partprovider.TotalParts,
+                            ProviderPartPrice = @t.partprovider.PartCost,
+                            CarMark = carpart.Car.Mark,
+                            CarModel = carpart.Car.Model,
+                            CarCreationYear = carpart.Car.CreationYear,
+                            CarFuelType = carpart.Car.FuelType
+                        }).ToListAsync();
+
+                return parts;
             }
         }
     }

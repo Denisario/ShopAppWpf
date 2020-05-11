@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Internal;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 
@@ -30,9 +31,9 @@ namespace CarPart.WPF.ViewModels
         //    }
         //}
 
-        private List<Part> parts;
+        private List<PartFullInfo> parts;
 
-        public List<Part> Parts
+        public List<PartFullInfo> Parts
         {
             get => parts;
             set
@@ -42,22 +43,10 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private int length;
-
-        public int Length
-        {
-            get => length;
-            set
-            {
-                length = value;
-                OnPropertyChanged(nameof(length));
-            }
-        }
-
         private async void GetAllParts()
         {
-            Parts = new List<Part>(await _partService.GetAll());
-            Length = Parts[3].Id;
+            Parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
+
         }
     }
 }
