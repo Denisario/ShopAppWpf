@@ -28,19 +28,27 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Grid.Column="2" Grid.Row="1" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
-        <TextBox Grid.Column="3" Grid.Row="1" ></TextBox>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Mark" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Marks}" SelectedItem="{Binding Mark}"></ComboBox>
 
-        <TextBlock Grid.Column="2" Grid.Row="2" Text="Mark" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
-        <TextBox Grid.Column="3" Grid.Row="2" ></TextBox>
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding Models}" SelectedItem="{Binding Model}"></ComboBox>
 
         <TextBlock Grid.Column="2" Grid.Row="3" Text="Provider" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
-        <TextBox Grid.Column="3" Grid.Row="3" ></TextBox>
+        <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Providers}" SelectedItem="{Binding PartProvider}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
         <TextBlock Grid.Column="2" Grid.Row="4" Text="Category" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Column="3" Grid.Row="4" ></TextBox>
 
-        <Button Content="Find" Grid.Row="5" Grid.Column="2"></Button>
+        <Button Content="Find" Grid.Row="5" Grid.Column="2"  Command="{Binding FilterPartCommand}"></Button>
         <Button Content="Add to cart" Grid.Row="5" Grid.Column="3"></Button>
 
         <DataGrid Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Parts}" AutoGenerateColumns="False">

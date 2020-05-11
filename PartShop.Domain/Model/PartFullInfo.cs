@@ -7,7 +7,7 @@ namespace PartShop.Domain.Model
     public class PartFullInfo {
         public int PartId { get; set; }
         public int ProviderId { get; set; }
-        //public int CarId { get; set; }
+        public int CarId { get; set; }
         public string PartName { get; set; }
         public string PartColor { get; set; }
         public string PartDescription { get; set; }

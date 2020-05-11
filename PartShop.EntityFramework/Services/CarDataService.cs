@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,24 @@ namespace PartShop.EntityFramework.Services
         public async Task<bool> Delete(int id)
         {
             return await _nonQueryDataService.Delete(id);
+        }
+
+        public async Task<IEnumerable<string>> GetAllMarks()
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                IEnumerable<string> carMarks = await context.Cars.Select(i=>i.Mark).Distinct().ToListAsync();
+                return carMarks;
+            }
+        }
+
+        public async Task<IEnumerable<string>> GetAllModels(string mark)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                IEnumerable<string> carMarks = await context.Cars.Where(m=>m.Mark==mark).Select(i => i.Model).Distinct().ToListAsync();
+                return carMarks;
+            }
         }
     }
 }
