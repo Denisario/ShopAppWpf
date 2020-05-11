@@ -15,6 +15,8 @@ namespace PartShop.EntityFramework.Services
     {
         private readonly NonQueryDataService<Part> _nonQueryDataService;
         private readonly CarPartDbContextFactory _contextFactory;
+        private bool _addPartProviderFlag;
+        private bool _addCarPartFlag;
 
         public PartDataService(CarPartDbContextFactory contextFactory)
         {
@@ -67,6 +69,7 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                bool success = true;
                 Part entity = await context.Parts
                     .Include(a => a.PartProviders)
                     .Include(b => b.CarParts)
@@ -94,7 +97,7 @@ namespace PartShop.EntityFramework.Services
                 else
                 {
 
-                    //ТУТ БАГ НАДО ПОФИКСИТЬ И ДОБАВИТЬ ОБНОВЛЕНИЕ ЦЕНЫ
+                    //ТУТ ДОБАВИТЬ ОБНОВЛЕНИЕ ЦЕНЫ
                     entity.CarParts.Add(new PartShop.Domain.Model.CarPart()
                         {
                             PartId = entity.Id,
@@ -108,21 +111,36 @@ namespace PartShop.EntityFramework.Services
                             TotalParts = amountParts,
                             PartCost = price
                         });
-                        await SaveProviderAndCar(entity);
+                    success=await SaveProviderAndCar(entity);
                 }
 
-                return true;
+                return success;
             }
         }
 
+        //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС
         public async Task<bool> SaveProviderAndCar(Part part)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                await context.PartProviders.AddAsync(part.PartProviders.Last());
-                await context.CarParts.AddAsync(part.CarParts.Last());
-                  
-                await context.SaveChangesAsync();
+                PartProvider possibblePartProvider = part.PartProviders.Last();
+                CarPart possibleCarPart = part.CarParts.Last();
+
+                if (context.PartProviders.Where(a => a.PartId == possibblePartProvider.PartId && a.ProviderId == possibblePartProvider.ProviderId).Count() == 0)
+                {
+                    _addPartProviderFlag = true;
+                    await context.PartProviders.AddAsync(possibblePartProvider);
+                    await context.SaveChangesAsync();
+                }
+
+                if (context.CarParts.Where(a=>a.PartId==possibleCarPart.PartId&&a.CarId==possibleCarPart.CarId).Count()==0)
+                {
+                    _addCarPartFlag= true;
+                    await context.CarParts.AddAsync(possibleCarPart);
+                    await context.SaveChangesAsync();
+                }
+
+                if (_addCarPartFlag == false || _addPartProviderFlag == false) return false;
                 return true;
             }
         }

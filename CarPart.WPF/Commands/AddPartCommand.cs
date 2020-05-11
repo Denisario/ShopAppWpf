@@ -29,9 +29,7 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            try
-            {
-                bool success=await _partService.AddPart(
+            bool success = await _partService.AddPart(
                     new Part()
                     {
                         Color = _addPartViewModel.Color, Description = _addPartViewModel.Description,
@@ -40,12 +38,7 @@ namespace CarPart.WPF.Commands
                     _addPartViewModel.PartProvider.Id, _addPartViewModel.Car.Id, _addPartViewModel.Amount,
                     _addPartViewModel.Price
                 );
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("You try to add exists part!\nData will change");
-            }
-
+            if (success == false) MessageBox.Show("You try to add exists part.");
         }
 
         public event EventHandler CanExecuteChanged;
