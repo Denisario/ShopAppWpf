@@ -148,7 +148,8 @@ namespace PartShop.EntityFramework.Services
                             CarMark = carpart.Car.Mark,
                             CarModel = carpart.Car.Model,
                             CarCreationYear = carpart.Car.CreationYear,
-                            CarFuelType = carpart.Car.FuelType
+                            CarFuelType = carpart.Car.FuelType,
+                            CarId = carpart.CarId
                         }).ToListAsync();
 
                 return parts;
