@@ -78,14 +78,15 @@ namespace PartShop.EntityFramework.Services
                     ProviderId = partFullInfo.ProviderId,
                     AccountId = account.Id
                 });
+
                 context.Carts.Add(new Cart()
-             {
-                 Amount = amount,
-                 CarId=partFullInfo.CarId,
-                 PartId = partFullInfo.PartId,
-                 ProviderId = partFullInfo.ProviderId,
-                 AccountId = account.Id
-             });
+                {
+                     Amount = amount,
+                     CarId=partFullInfo.CarId,
+                     PartId = partFullInfo.PartId,
+                    ProviderId = partFullInfo.ProviderId,
+                    AccountId = account.Id
+                });
              await context.SaveChangesAsync();
              return account;
             }
@@ -106,6 +107,24 @@ namespace PartShop.EntityFramework.Services
             }
 
             return result;
+        }
+
+        public async Task<Cart> DeletePartFromCart(PartFullInfo partFullInfo, Account account)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                Cart partForDeleting = await context.Carts.FirstOrDefaultAsync(p =>
+                    p.PartId == partFullInfo.PartId && p.ProviderId == partFullInfo.ProviderId &&
+                    p.CarId == partFullInfo.CarId);
+
+
+                await Delete(partForDeleting.Id);
+
+
+                account.Carts.Remove(partForDeleting);
+
+                return partForDeleting;
+            }
         }
     }
 }

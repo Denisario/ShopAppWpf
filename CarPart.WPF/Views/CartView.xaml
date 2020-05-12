@@ -20,7 +20,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Row="1" Grid.Column="2" ItemsSource="{Binding PartInCart}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Grid.Column="2" ItemsSource="{Binding PartInCart}" SelectedItem="{Binding SelectedPart}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Part id" Binding="{Binding Path=PartId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Part name"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
@@ -37,7 +37,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Create order"></Button>
-            <Button Grid.Column="1" Content="Delete from cart"></Button>
+            <Button Grid.Column="1" Content="Delete from cart" Command="{Binding DeletePartCommand}"></Button>
         </Grid>
     </Grid>
 </UserControl>
