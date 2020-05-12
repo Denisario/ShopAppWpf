@@ -68,13 +68,13 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-             account.Carts.Add(new Cart()
+             context.Carts.Add(new Cart()
              {
                  Amount = amount,
                  CarId=partFullInfo.CarId,
                  PartId = partFullInfo.PartId,
                  ProviderId = partFullInfo.ProviderId,
-                 Account = account
+                 AccountId = account.Id
              });
              await context.SaveChangesAsync();
              return account;

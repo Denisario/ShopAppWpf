@@ -20,5 +20,10 @@ namespace PartShop.Domain.Model
         public List<Order> Orders { get; set; }
         public Role UserRole { get; set; }
         public List<Cart> Carts { get; set; }
+
+        public Account()
+        {
+            Carts = new List<Cart>();
+        }
     }
 }

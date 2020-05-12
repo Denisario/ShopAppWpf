@@ -26,6 +26,7 @@ namespace PartShop.EntityFramework.Services
             {
                 IEnumerable<Account> entity = await context.Accounts
                     .Include(a => a.Orders)
+                    .Include(b => b.Carts)
                     .ToListAsync();
 
                 return entity;
@@ -38,6 +39,8 @@ namespace PartShop.EntityFramework.Services
             {
                 Account entity = await context.Accounts
                     .Include(a => a.Orders)
+                    .Include(b => b.Carts)
+
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (entity == null) throw new UserNotFoundException("User not found");
@@ -69,6 +72,7 @@ namespace PartShop.EntityFramework.Services
             {
                 return await context.Accounts
                     .Include(a => a.Orders)
+                    .Include(b => b.Carts)
                     .FirstOrDefaultAsync(e => e.Username == username);
             }
         }

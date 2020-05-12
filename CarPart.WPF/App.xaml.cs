@@ -49,6 +49,7 @@ namespace CarPart.WPF
             service.AddSingleton<IAccountService, AccountDataService>();
             service.AddSingleton<ICarService, CarDataService>();
             service.AddSingleton<IPartService, PartDataService>();
+            service.AddSingleton<ICartService,CartDataService>();
             service.AddSingleton<IProviderService, ProviderDataService>();
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();

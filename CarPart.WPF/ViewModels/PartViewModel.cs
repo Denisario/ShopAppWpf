@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using CarPart.WPF.Commands;
+using CarPart.WPF.State.Authentificators;
 using Microsoft.EntityFrameworkCore.Internal;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
@@ -16,14 +17,19 @@ namespace CarPart.WPF.ViewModels
         private readonly IPartService _partService;
         private readonly ICarService _carService;
         private readonly IProviderService _providerService;
+        private readonly IAuthentificator _authentificator;
 
         public ICommand FilterPartCommand { get; set; }
-        public PartViewModel(IPartService partService, ICarService carService, IProviderService providerService)
+
+        public ICommand AddPartToCartCommand { get; set; }
+        public PartViewModel(IPartService partService, ICarService carService, IProviderService providerService, ICartService cartService, IAuthentificator authentificator)
         {
             _partService = partService;
             _carService = carService;
             _providerService = providerService;
+            _authentificator = authentificator;
             FilterPartCommand=new FilterPartCommand(this);
+            AddPartToCartCommand=new AddPartToCartCommand(this,cartService, authentificator);
             GetAllParts();
             GetAllMarks();
             GetListOfProviders();
@@ -66,6 +72,17 @@ namespace CarPart.WPF.ViewModels
             {
                 parts = value;
                 OnPropertyChanged(nameof(Parts));
+            }
+        }
+
+        private PartFullInfo part;
+        public PartFullInfo Part
+        {
+            get => part;
+            set
+            {
+                part = value;
+                OnPropertyChanged(nameof(Part));
             }
         }
 
