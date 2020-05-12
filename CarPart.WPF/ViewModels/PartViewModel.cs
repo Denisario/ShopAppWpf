@@ -18,6 +18,7 @@ namespace CarPart.WPF.ViewModels
         private readonly ICarService _carService;
         private readonly IProviderService _providerService;
         private readonly IAuthentificator _authentificator;
+        
 
         public ICommand FilterPartCommand { get; set; }
 

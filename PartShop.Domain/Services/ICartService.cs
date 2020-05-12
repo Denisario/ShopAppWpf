@@ -11,5 +11,7 @@ namespace PartShop.Domain.Services
         Task<IEnumerable<Cart>> GetAllPartsInCartByAccount(int accountId);
 
         Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount);
+
+        Task<IEnumerable<PartFullInfo>> GetAllPartsInView(Account account);
     }
 }

@@ -4,6 +4,8 @@ using System.Text;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
+using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Services;
 
 namespace CarPart.WPF.Commands
@@ -28,7 +30,7 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            await _cartService.AddPartToCart(_partViewModel.Part, _authentificator.CurrentAccount, 0);
+            await _cartService.AddPartToCart(_partViewModel.Part, _authentificator.CurrentAccount, 1);
         }
 
         public event EventHandler CanExecuteChanged;

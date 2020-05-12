@@ -13,6 +13,7 @@ namespace CarPart.WPF.ViewModels.Factories
         private readonly IProviderService _providerService;
         private readonly ICartService _cartService;
         private readonly IAuthentificator _authentificator;
+
         public PartViewModelFactory(IPartService partService, ICarService carService, IProviderService providerService, ICartService cartService, IAuthentificator authentificator)
         {
             _partService = partService;

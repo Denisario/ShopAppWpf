@@ -14,10 +14,12 @@ namespace PartShop.EntityFramework.Services
     {
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Cart> _nonQueryDataService;
+        private readonly IPartService _partService;
 
-        public CartDataService(CarPartDbContextFactory contextFactory)
+        public CartDataService(CarPartDbContextFactory contextFactory, IPartService partService)
         {
             _contextFactory = contextFactory;
+            _partService = partService;
             _nonQueryDataService=new NonQueryDataService<Cart>(contextFactory);
         }
 
@@ -68,7 +70,15 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-             context.Carts.Add(new Cart()
+                account.Carts.Add(new Cart()
+                {
+                    Amount = amount,
+                    CarId = partFullInfo.CarId,
+                    PartId = partFullInfo.PartId,
+                    ProviderId = partFullInfo.ProviderId,
+                    AccountId = account.Id
+                });
+                context.Carts.Add(new Cart()
              {
                  Amount = amount,
                  CarId=partFullInfo.CarId,
@@ -79,6 +89,23 @@ namespace PartShop.EntityFramework.Services
              await context.SaveChangesAsync();
              return account;
             }
+        }
+
+        public async Task<IEnumerable<PartFullInfo>> GetAllPartsInView(Account account)
+        {
+            List<PartFullInfo> parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
+            List<PartFullInfo> result = new List<PartFullInfo>();
+
+            foreach (var p in account.Carts)
+            {
+                //проверить
+                PartFullInfo part = parts.FirstOrDefault(c=>c.PartId==p.PartId&&c.CarId==p.CarId&&c.ProviderId==p.ProviderId);
+                part.ProviderPartAmount = p.Amount;
+
+                result.Add(part);
+            }
+
+            return result;
         }
     }
 }

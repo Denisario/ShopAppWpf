@@ -39,6 +39,7 @@ namespace CarPart.WPF
             IServiceCollection service=new ServiceCollection();
             service.AddSingleton<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
+            service.AddScoped<CartViewModel>();
             service.AddSingleton<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
             //service.AddSingleton<HomeView>(s=>new HomeView(s.GetRequiredService<HomeViewModel>()));
             service.AddSingleton<IAuthentificator, Authentificator>();
