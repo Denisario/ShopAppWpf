@@ -17,6 +17,7 @@ namespace PartShop.EntityFramework
         public DbSet<Provider> Providers { get; set; }
         public DbSet<PartProvider> PartProviders { get; set; }
         public DbSet<Address> Address { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         public CarPartDbContext(DbContextOptions options):base(options)
         {
@@ -64,6 +65,9 @@ namespace PartShop.EntityFramework
                 .HasOne(r => r.Part)
                 .WithMany(u => u.PartProviders)
                 .HasForeignKey(e => e.PartId);
+            modelBuilder.Entity<Account>().HasMany(c => c.Carts).WithOne(c => c.Account);
+
+            modelBuilder.Entity<Cart>().HasOne(a => a.Account).WithMany(a => a.Carts).HasForeignKey(s => s.AccountId);
 
             modelBuilder.Entity<Address>().Property(a => a.Id).ValueGeneratedNever();
             modelBuilder.Entity<PartProvider>().Property(a => a.PartId).ValueGeneratedNever();
@@ -71,7 +75,6 @@ namespace PartShop.EntityFramework
 
             modelBuilder.Entity<CarPart>().Property(a => a.PartId).ValueGeneratedNever();
             modelBuilder.Entity<CarPart>().Property(a => a.CarId).ValueGeneratedNever();
-
         }
     }
 }
