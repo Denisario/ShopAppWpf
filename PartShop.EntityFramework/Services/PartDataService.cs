@@ -123,6 +123,8 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                _addCarPartFlag = false;
+                _addPartProviderFlag = false;
                 PartProvider possibblePartProvider = part.PartProviders.Last();
                 CarPart possibleCarPart = part.CarParts.Last();
 
@@ -139,8 +141,11 @@ namespace PartShop.EntityFramework.Services
                     await context.CarParts.AddAsync(possibleCarPart);
                     await context.SaveChangesAsync();
                 }
-
-                if (_addCarPartFlag == false || _addPartProviderFlag == false) return false;
+                //туть баг
+                if (_addCarPartFlag == false && _addPartProviderFlag == false)
+                {
+                    return false;
+                }
                 return true;
             }
         }
