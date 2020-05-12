@@ -39,20 +39,20 @@
         </StackPanel>
 
         <ListView Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Center">
-            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.HOME}">
-                <StackPanel Orientation="Horizontal" Height="34" Width="400">
+            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.HOME}">
+                <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Home" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Home" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.PARTS}">
-                <StackPanel Orientation="Horizontal" Height="34" Width="400">
+            <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.PARTS}">
+                <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Parts" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Height="45" Width="400"  Background="#FF222222">
-                <StackPanel Orientation="Horizontal" Height="34" Width="400">
+            <Button Height="45" Width="400"  Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.CART}">
+                <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Cart" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
                     <TextBlock Text="Cart" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>

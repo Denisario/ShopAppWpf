@@ -13,7 +13,7 @@ namespace CarPart.WPF.State.Navigators
         HOME,
         PARTS,
         ADMIN,
-        ADDCARADMIN
+        CART
     }
     public interface INavigator
     {

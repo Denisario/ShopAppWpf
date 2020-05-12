@@ -63,5 +63,22 @@ namespace PartShop.EntityFramework.Services
                 return entity;
             }
         }
+
+        public async Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount=1)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+             account.Carts.Add(new Cart()
+             {
+                 Amount = amount,
+                 CarId=partFullInfo.CarId,
+                 PartId = partFullInfo.PartId,
+                 ProviderId = partFullInfo.ProviderId,
+                 Account = account
+             });
+             await context.SaveChangesAsync();
+             return account;
+            }
+        }
     }
 }

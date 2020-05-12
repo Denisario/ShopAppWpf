@@ -12,21 +12,22 @@ namespace CarPart.WPF.ViewModels.Factories
         private readonly ICarPartViewModelFactory<HomeViewModel> _homeVmFactory;
         private readonly ICarPartViewModelFactory<PartViewModel> _partVmFactory;
         private readonly ICarPartViewModelFactory<AdminViewModel> _adminVmFactory;
-        private readonly ICarPartViewModelFactory<AddCarViewModel> _addCarVmFactory;
+        private readonly ICarPartViewModelFactory<CartViewModel> _cartVmFactory;
 
         public CarPartViewModelAbstractFactory(ICarPartViewModelFactory<RegisterViewModel> registerVmFactory,
                                                ICarPartViewModelFactory<AuthViewModel> authVmFactory,
                                                ICarPartViewModelFactory<HomeViewModel> homeVmFactory,
                                                ICarPartViewModelFactory<PartViewModel> partVmFactory,
                                                ICarPartViewModelFactory<AdminViewModel> adminVmFactory,
-                                               ICarPartViewModelFactory<AddCarViewModel> addCarVmFactory)
+                                               ICarPartViewModelFactory<AddCarViewModel> addCarVmFactory,
+                                               ICarPartViewModelFactory<CartViewModel> cartVmFactory)
         {
             _registerVMFactory = registerVmFactory;
             _authVMFactory = authVmFactory;
             _homeVmFactory = homeVmFactory;
             _partVmFactory = partVmFactory;
             _adminVmFactory = adminVmFactory;
-            _addCarVmFactory = addCarVmFactory;
+            _cartVmFactory = cartVmFactory;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType)
@@ -43,6 +44,8 @@ namespace CarPart.WPF.ViewModels.Factories
                     return _partVmFactory.CreateViewModel();
                 case ViewType.ADMIN:
                     return _adminVmFactory.CreateViewModel();
+                case ViewType.CART:
+                    return _cartVmFactory.CreateViewModel();
                 default:
                     throw new ArgumentException("Uncorrect viewType parametr", "viewType");
             }
