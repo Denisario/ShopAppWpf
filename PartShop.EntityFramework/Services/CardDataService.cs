@@ -28,7 +28,7 @@ namespace PartShop.EntityFramework.Services
                 {
                     Attempts = 3,
                     Balance = new Random().Next(300, 3300),
-                    CreationDate = DateTime.Now,
+                    CreationDate = DateTime.Now.Date,
                     FinishDate = finishDate,
                     PinCode = HashPass(password.ToString())
                 });
@@ -38,9 +38,30 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        public async Task<double> Withdraw(double money)
+        public async Task<double> Withdraw(Account account, long cardNumber, int pin, DateTime finishCardDate, double money)
         {
-            return 0.1d;
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                Card checkCard =await context.Cards.Where(p => p.CardNumber == cardNumber).FirstAsync();
+                if (checkCard == null) return 0.0;
+                if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(finishCardDate)) return 0.0;
+                if (checkCard.PinCode == HashPass(pin.ToString()))
+                {
+                    checkCard.Balance -= money;
+                }
+                else
+                {
+                    checkCard.Attempts--;
+                }
+                account.Balance += money;
+
+                context.Cards.Update(checkCard);
+                context.Accounts.Update(account);
+
+                await context.SaveChangesAsync();
+
+                return money;
+            }
         }
 
         private string HashPass(string password)

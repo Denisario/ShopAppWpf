@@ -14,6 +14,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -35,7 +36,7 @@
         <TextBlock Text="{Binding CreationTime, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
         <TextBlock Text="Balance" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
-        <TextBlock Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
         <DataGrid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2">
 
@@ -47,5 +48,15 @@
                 <DataGridTextColumn Header="Price"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+
+        <Grid Row="6" Column="2" ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BalanceBtn" Grid.Column="0" Content="Append balance" Click="BalanceBtn_OnClick"></Button>
+            <Button Grid.Column="1" Content="Get check"></Button>
+        </Grid>
+
     </Grid>
 </UserControl>

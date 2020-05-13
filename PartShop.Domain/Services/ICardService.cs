@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using PartShop.Domain.Model;
 
 namespace PartShop.Domain.Services
 {
@@ -9,6 +10,6 @@ namespace PartShop.Domain.Services
     {
         Task<bool> CreateCard(int password, DateTime finishDate);
 
-        Task<double> Withdraw(double money);
+        Task<double> Withdraw(Account account, long cardNumber, int pin, DateTime finishCardDate,double money);
     }
 }
