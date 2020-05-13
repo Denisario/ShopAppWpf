@@ -45,6 +45,7 @@ namespace PartShop.EntityFramework.Services
                 Card checkCard =await context.Cards.Where(p => p.CardNumber == cardNumber).FirstAsync();
                 if (checkCard == null) return 0.0;
                 if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(finishCardDate)) return 0.0;
+                if (checkCard.Balance < money) return 0.0;
                 if (checkCard.PinCode == HashPass(pin.ToString()))
                 {
                     checkCard.Balance -= money;

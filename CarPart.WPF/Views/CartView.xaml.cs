@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,11 @@ namespace CarPart.WPF.Views
         public CartView()
         {
             InitializeComponent();
+        }
+        private void Create_OnClick(object sender, RoutedEventArgs e)
+        {
+            var t = App.service.GetRequiredService<CartViewModel>().PartInCart;
+
         }
     }
 }

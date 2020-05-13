@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.Commands;
 using CarPart.WPF.State.Authentificators;
@@ -49,7 +51,18 @@ namespace CarPart.WPF.ViewModels
             set
             {
                 selectedPart = value;
-                OnPropertyChanged(nameof(SelectedPart));
+                foreach (var p in PartInCart)
+                {
+                    if (p.Equals(selectedPart))
+                    {
+                        p.IsSelected = true;
+                        OnPropertyChanged(nameof(SelectedPart));
+                        OnPropertyChanged(nameof(SelectedPart.IsSelected));
+                        OnPropertyChanged(nameof(PartInCart));
+                        break;
+                    }
+                }
+                
             }
         }
 

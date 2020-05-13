@@ -20,8 +20,15 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Row="1" Grid.Column="2" ItemsSource="{Binding PartInCart}" SelectedItem="{Binding SelectedPart}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Grid.Column="2" ItemsSource="{Binding PartInCart}" SelectedItem="{Binding SelectedPart, Mode=TwoWay}" AutoGenerateColumns="False">
             <DataGrid.Columns>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Part id" Binding="{Binding Path=PartId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Part name"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Part color"  Binding="{Binding Path=PartColor}"></DataGridTextColumn>
@@ -36,7 +43,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Create order"></Button>
+            <Button x:Name="create"  Grid.Column="0" Content="Create order" Click="Create_OnClick"></Button>
             <Button Grid.Column="1" Content="Delete from cart" Command="{Binding DeletePartCommand}"></Button>
         </Grid>
     </Grid>

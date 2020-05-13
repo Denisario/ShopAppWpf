@@ -5,6 +5,7 @@ using System.Text;
 namespace PartShop.Domain.Model
 {
     public class PartFullInfo {
+        public bool IsSelected { get; set; }
         public int PartId { get; set; }
         public int ProviderId { get; set; }
         public int CarId { get; set; }
