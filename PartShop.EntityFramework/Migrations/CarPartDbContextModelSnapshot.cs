@@ -111,6 +111,33 @@ namespace PartShop.EntityFramework.Migrations
                     b.ToTable("CarParts");
                 });
 
+            modelBuilder.Entity("PartShop.Domain.Model.Card", b =>
+                {
+                    b.Property<long>("CardNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CardNumber");
+
+                    b.ToTable("Cards");
+                });
+
             modelBuilder.Entity("PartShop.Domain.Model.Cart", b =>
                 {
                     b.Property<int>("Id")

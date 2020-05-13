@@ -10,8 +10,8 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200510151711_part")]
-    partial class part
+    [Migration("20200513115838_cardId")]
+    partial class cardId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,62 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("CarParts");
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Card", b =>
+                {
+                    b.Property<long>("CardNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CardNumber");
+
+                    b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PartId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
@@ -231,6 +287,15 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasOne("PartShop.Domain.Model.Part", "Part")
                         .WithMany("CarParts")
                         .HasForeignKey("PartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Cart", b =>
+                {
+                    b.HasOne("PartShop.Domain.Model.Account", "Account")
+                        .WithMany("Carts")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

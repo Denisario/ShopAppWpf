@@ -30,6 +30,7 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
+            //if selected part is null
             await _cartService.AddPartToCart(_partViewModel.Part, _authentificator.CurrentAccount, 1);
         }
 

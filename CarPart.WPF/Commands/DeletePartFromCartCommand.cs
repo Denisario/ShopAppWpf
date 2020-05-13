@@ -30,6 +30,8 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
+            //if selected part is null
+
             Cart cart=await _cartService.DeletePartFromCart(_cartViewModel.SelectedPart, _authentificator.CurrentAccount);
 
             _cartViewModel.PartInCart.Remove(_cartViewModel.SelectedPart);

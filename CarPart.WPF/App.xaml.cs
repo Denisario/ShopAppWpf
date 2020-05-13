@@ -41,7 +41,6 @@ namespace CarPart.WPF
             service.AddScoped<MainViewModel>();
             service.AddScoped<CartViewModel>();
             service.AddSingleton<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
-            //service.AddSingleton<HomeView>(s=>new HomeView(s.GetRequiredService<HomeViewModel>()));
             service.AddSingleton<IAuthentificator, Authentificator>();
 
             service.AddSingleton<CarPartDbContextFactory>();
@@ -51,6 +50,7 @@ namespace CarPart.WPF
             service.AddSingleton<ICarService, CarDataService>();
             service.AddSingleton<IPartService, PartDataService>();
             service.AddSingleton<ICartService,CartDataService>();
+            service.AddSingleton<ICardService,CardDataService>();
             service.AddSingleton<IProviderService, ProviderDataService>();
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();
@@ -62,6 +62,7 @@ namespace CarPart.WPF
             service.AddSingleton<ICarPartViewModelFactory<AddProviderViewModel>, AddProviderViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AddPartViewModel>, AddPartViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<CartViewModel>, CartViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<AddCardViewModel>, AddCardViewModelFactory>();
             return service.BuildServiceProvider();
         }
     }

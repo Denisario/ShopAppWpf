@@ -10,8 +10,8 @@ using PartShop.EntityFramework;
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    [Migration("20200512113359_cart")]
-    partial class cart
+    [Migration("20200513114003_cardIdd")]
+    partial class cardIdd
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -111,6 +111,36 @@ namespace PartShop.EntityFramework.Migrations
                     b.HasIndex("CarId");
 
                     b.ToTable("CarParts");
+                });
+
+            modelBuilder.Entity("PartShop.Domain.Model.Card", b =>
+                {
+                    b.Property<long>("CardNumber")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Attempts")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Balance")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FinishDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PinCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CardNumber");
+
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.Cart", b =>

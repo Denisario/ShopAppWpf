@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PartShop.EntityFramework.Migrations
 {
-    public partial class part : Migration
+    public partial class cardIdd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,24 @@ namespace PartShop.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Accounts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Cards",
+                columns: table => new
+                {
+                    CardNumber = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "5772000000000000, 1"),
+                    Id = table.Column<int>(nullable: false),
+                    Balance = table.Column<double>(nullable: false),
+                    PinCode = table.Column<string>(nullable: true),
+                    Attempts = table.Column<int>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    FinishDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Cards", x => x.CardNumber);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,6 +85,29 @@ namespace PartShop.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Providers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountId = table.Column<int>(nullable: false),
+                    PartId = table.Column<int>(nullable: false),
+                    ProviderId = table.Column<int>(nullable: false),
+                    CarId = table.Column<int>(nullable: false),
+                    Amount = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_Accounts_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,6 +233,11 @@ namespace PartShop.EntityFramework.Migrations
                 column: "CarId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_AccountId",
+                table: "Carts",
+                column: "AccountId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderParts_OrderId",
                 table: "OrderParts",
                 column: "OrderId");
@@ -213,7 +259,13 @@ namespace PartShop.EntityFramework.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
+                name: "Cards");
+
+            migrationBuilder.DropTable(
                 name: "CarParts");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "OrderParts");
