@@ -145,18 +145,16 @@ namespace PartShop.EntityFramework.Services
                     foreach (var p in orderParts)
                     {
                         dataTable.Rows.Add(new object[]{p.PartId,p.PartName, p.PartColor, p.PartDescription, p.Provider, p.PartInOrder, p.PartPrice});
-                        price += p.PartInOrder + p.PartPrice;
+                        price += p.PartInOrder * p.PartPrice;
                     }
 
                     graphics.DrawString($"Total price:{price}", mainFont, PdfBrushes.Black, new PointF(0, 105));
 
-                    //Assign data source.
                     pdfGrid.DataSource = dataTable;
-                    //Draw grid to the page of PDF document.
                     pdfGrid.Draw(page, new PointF(0, 120));
-                    //Save the document.
+
+                    //как самому выбрать путь?
                     document.Save("Output.pdf");
-                    //close the document
                     document.Close(true);
                 }
 
@@ -207,11 +205,3 @@ namespace PartShop.EntityFramework.Services
         }
     }
 }
-
-
-//PartId=k.Id,
-//PartName = k.Name,
-//PartColor = k.Color,
-//PartDescription=k.Description,
-//PartInOrder = l.x.AmountPart,
-//PartPrice=l.x.Price

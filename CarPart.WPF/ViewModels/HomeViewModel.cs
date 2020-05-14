@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows.Input;
+using CarPart.WPF.Commands;
 using CarPart.WPF.State.Authentificators;
 using PartShop.Domain.Model;
+using PartShop.Domain.Services;
 
 namespace CarPart.WPF.ViewModels
 {
     public class HomeViewModel:ViewModelBase
     {
         private IAuthentificator _authentificator;
+
+        public ICommand GetCheckCommand { get; set; }
 
         private string username;
         public string Username {
@@ -65,7 +70,19 @@ namespace CarPart.WPF.ViewModels
                 OnPropertyChanged(nameof(Orders));
             }
         }
-        public HomeViewModel(IAuthentificator authentificator)
+
+        private Order selectedOrder;
+
+        public Order SelectedOrder
+        {
+            get => selectedOrder;
+            set
+            {
+                selectedOrder = value;
+                OnPropertyChanged(nameof(SelectedOrder));
+            }
+        }
+        public HomeViewModel(IAuthentificator authentificator, IOrderService orderService)
         {
             _authentificator = authentificator;
             //ДОБАВИТЬ ПРОВЕРКУ CURRENTACC и выводить MessgeBox и не пускать
@@ -74,7 +91,8 @@ namespace CarPart.WPF.ViewModels
             Balance = _authentificator.CurrentAccount.Balance;
             CreationTime = _authentificator.CurrentAccount.CreationTime;
             Orders = new ObservableCollection<Order>(_authentificator.CurrentAccount.Orders);
-        }
+            GetCheckCommand =new GetCheckCommand(orderService,this);
 
+        }
     }
 }
