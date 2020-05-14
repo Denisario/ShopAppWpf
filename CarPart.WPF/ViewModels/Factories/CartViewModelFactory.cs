@@ -10,17 +10,19 @@ namespace CarPart.WPF.ViewModels.Factories
     {
         private readonly IAuthentificator _authentificator;
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
 
-        public CartViewModelFactory(IAuthentificator authentificator, ICartService cartService)
+        public CartViewModelFactory(IAuthentificator authentificator, ICartService cartService, IOrderService orderService)
         {
             _authentificator = authentificator;
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         public CartViewModel CreateViewModel()
         {
             
-            return new CartViewModel(_authentificator, _cartService);
+            return new CartViewModel(_authentificator, _cartService, _orderService);
         }
     }
 }
