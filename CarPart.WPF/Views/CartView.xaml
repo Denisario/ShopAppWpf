@@ -29,7 +29,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+                <!--<DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>-->
                 <DataGridTextColumn Header="Part id" Binding="{Binding Path=PartId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Part name"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Part color"  Binding="{Binding Path=PartColor}"></DataGridTextColumn>

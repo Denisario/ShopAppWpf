@@ -6,8 +6,10 @@ using PartShop.Domain.Model;
 
 namespace PartShop.Domain.Services
 {
-    public interface IOrderService
+    public interface IOrderService:IDataService<Order>
     {
         Task<double> CreateOrder(Account account,List<PartFullInfo> partInCar);
+
+        Task<bool> PrintCheck(int orderId);
     }
 }

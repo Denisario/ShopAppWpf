@@ -11,6 +11,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Pdf.Wpf" Version="18.1.0.52" />
   </ItemGroup>
 
   <ItemGroup>
