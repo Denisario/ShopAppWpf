@@ -18,9 +18,6 @@ namespace PartShop.EntityFramework.Services
 {
     public class OrderDataService : IOrderService
     {
-
-
-
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Order> _nonQueryDataService;
         public OrderDataService(CarPartDbContextFactory contextFactory)
@@ -28,7 +25,7 @@ namespace PartShop.EntityFramework.Services
             _contextFactory = contextFactory;
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
-        //ДОПИСАТЬ УМЕНЬШЕНИЕ АССОРТИМЕСТА В PARTPROVIDERS
+        //ДОПИСАТЬ УМЕНЬШЕНИЕ АССОРТИМЕСТА В PARTPROVIDERS И ИЗМЕНЕНИЕ АДРЕСА
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
@@ -45,7 +42,6 @@ namespace PartShop.EntityFramework.Services
                         Street = "das"
                     },
                     OrderCreationTime = DateTime.Now,
-                    Status = OrderStatus.CREATED
                 };
 
                 List<OrderParts> orderParts=new List<OrderParts>();
@@ -62,7 +58,6 @@ namespace PartShop.EntityFramework.Services
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
                     PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);
                     //Проверка на количество
-
 
                     if(pp!=null&&pp.TotalParts<p.ProviderPartAmount) pp.TotalParts -= p.ProviderPartAmount;
                 }
@@ -157,6 +152,18 @@ namespace PartShop.EntityFramework.Services
                     document.Save("Output.pdf");
                     document.Close(true);
                 }
+
+                return true;
+            }
+        }
+
+        public async Task<bool> CancelOrder(Order order)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                order.Status = OrderStatus.CANCELLED;
+                context.Orders.Update(order);
+                await context.SaveChangesAsync();
 
                 return true;
             }

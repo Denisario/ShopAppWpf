@@ -9,7 +9,9 @@ namespace PartShop.Domain.Services
     public interface IOrderService:IDataService<Order>
     {
         Task<double> CreateOrder(Account account,List<PartFullInfo> partInCar);
-
         Task<bool> PrintCheck(int orderId);
+        Task<bool> CancelOrder(Order order);
+
+        Task<bool> FinishOrder(Order order);
     }
 }
