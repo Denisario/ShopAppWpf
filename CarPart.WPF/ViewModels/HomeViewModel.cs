@@ -15,6 +15,8 @@ namespace CarPart.WPF.ViewModels
         private IAuthentificator _authentificator;
 
         public ICommand GetCheckCommand { get; set; }
+        public ICommand CancelOrderCommand { get; set; }
+        public ICommand FinishOrderCommand { get; set; }
 
         private string username;
         public string Username {
@@ -92,6 +94,7 @@ namespace CarPart.WPF.ViewModels
             CreationTime = _authentificator.CurrentAccount.CreationTime;
             Orders = new ObservableCollection<Order>(_authentificator.CurrentAccount.Orders);
             GetCheckCommand =new GetCheckCommand(orderService,this);
+            CancelOrderCommand=new CancelOrderCommand(orderService, authentificator, this);
 
         }
     }

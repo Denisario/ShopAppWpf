@@ -20,6 +20,8 @@ namespace PartShop.EntityFramework.Services
     {
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Order> _nonQueryDataService;
+        private dynamic orderParts;
+
         public OrderDataService(CarPartDbContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
@@ -79,7 +81,7 @@ namespace PartShop.EntityFramework.Services
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 Order order = await Get(orderId);
-                var orderParts = await context.Orders.Where(a => a.Id == orderId)
+                orderParts = await context.Orders.Where(a => a.Id == orderId)
                     .Join(context.OrderParts,
                         t => t.Id,
                         x => x.OrderId,
@@ -103,6 +105,7 @@ namespace PartShop.EntityFramework.Services
                             PartDescription = z.d.k.Description,
                             PartInOrder = z.d.l.x.AmountPart,
                             PartPrice = z.d.l.x.Price,
+                            PartProvider=z.m.ProviderId,
                             Provider = u.Name
                         }
                         ).ToListAsync();
@@ -149,19 +152,41 @@ namespace PartShop.EntityFramework.Services
                     pdfGrid.Draw(page, new PointF(0, 120));
 
                     //как самому выбрать путь?
-                    document.Save("Output.pdf");
+                    document.Save($"Output{order.Id}.pdf");
                     document.Close(true);
                 }
 
                 return true;
             }
         }
-
-        public async Task<bool> CancelOrder(Order order)
+        public async Task<bool> CancelOrder(Account account,Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if (order.Status == OrderStatus.FINISHED) return false;
+                Order selectedOrder = await Get(order.Id);
+                double price = 0;
                 order.Status = OrderStatus.CANCELLED;
+                foreach (var p in selectedOrder.Parts)
+                {
+                    price += p.AmountPart * p.Price;
+                }
+
+                //вернуть детали на склад
+                account.Balance += price;
+                context.Accounts.Update(account);
+                context.Orders.Update(order);
+                await context.SaveChangesAsync();
+                return true;
+            }
+        }
+
+        public async Task<bool> FinishOrder(Order order)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                order.Status = OrderStatus.FINISHED;
+                order.FinishDate=DateTime.Now;
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
 

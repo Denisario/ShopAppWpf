@@ -10,8 +10,7 @@ namespace PartShop.Domain.Services
     {
         Task<double> CreateOrder(Account account,List<PartFullInfo> partInCar);
         Task<bool> PrintCheck(int orderId);
-        Task<bool> CancelOrder(Order order);
-
+        Task<bool> CancelOrder(Account account,Order order);
         Task<bool> FinishOrder(Order order);
     }
 }
