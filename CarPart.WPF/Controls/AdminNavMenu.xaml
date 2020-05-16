@@ -16,10 +16,16 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
             <Button x:Name="AppPartBtn" Content="Add part" Grid.Column="0" Click="AppPartBtn_OnClick"></Button>
             <Button x:Name="AddCarBtn" Content="Add car" Grid.Column="1" Click="AddCarBtn_OnClick"></Button>
             <Button x:Name="AddProvBtn" Content="Add provider" Grid.Column="2" Click="AddProvBtn_OnClick"></Button>
             <Button x:Name="AddCardBtn" Content="AddCard" Grid.Column="3" Click="AddCardBtn_OnClick"></Button>
             <Button Content="Show stats" Grid.Column="4"></Button>
+            <Button x:Name="OrdersBtn" Content="Show orders" Grid.Column="0" Grid.Row="1" Click="OrdersBtn_OnClick"></Button>
     </Grid>
 </UserControl>

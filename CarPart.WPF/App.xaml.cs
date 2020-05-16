@@ -62,6 +62,7 @@ namespace CarPart.WPF
             service.AddSingleton<ICarPartViewModelFactory<AddProviderViewModel>, AddProviderViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AddPartViewModel>, AddPartViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<CartViewModel>, CartViewModelFactory>();
+            service.AddSingleton<ICarPartViewModelFactory<OrderViewModel>, OrderViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AddCardViewModel>, AddCardViewModelFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AddBalanceViewModel>, AddBalanceViewModelFactory>();
             return service.BuildServiceProvider();

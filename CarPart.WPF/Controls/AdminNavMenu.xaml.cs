@@ -47,5 +47,11 @@ namespace CarPart.WPF.Controls
             AddCardView v=new AddCardView();
             v.Show();
         }
+
+        private void OrdersBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            OrderView v = new OrderView();
+            v.Show();
+        }
     }
 }

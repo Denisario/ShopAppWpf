@@ -11,10 +11,18 @@ namespace CarPart.WPF.Commands
     {
         private readonly IOrderService _orderService;
         private readonly HomeViewModel _homeViewModel;
+        private readonly OrderViewModel _orderViewModel;
         public GetCheckCommand(IOrderService orderService, HomeViewModel homeViewModel)
         {
             _orderService = orderService;
             _homeViewModel = homeViewModel;
+        }
+
+
+        public GetCheckCommand(IOrderService orderService, OrderViewModel orderViewModel)
+        {
+            _orderService = orderService;
+            _orderViewModel = orderViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -24,7 +32,15 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            await _orderService.PrintCheck(_homeViewModel.SelectedOrder.Id);
+            if (_homeViewModel == null)
+            {
+                await _orderService.PrintCheck(_orderViewModel.SelectedOrder.Id);
+            }
+
+            if (_orderViewModel == null)
+            {
+                await _orderService.PrintCheck(_homeViewModel.SelectedOrder.Id);
+            }
         }
 
         public event EventHandler CanExecuteChanged;
