@@ -13,5 +13,6 @@ namespace PartShop.Domain.Model
         public OrderStatus Status { get; set; }
         public Address Address { get; set; }
         public List<OrderParts> Parts { get; set; }
+        [NotMapped] public string AddressStr { get=> Address.ToString(); } 
     }
 }

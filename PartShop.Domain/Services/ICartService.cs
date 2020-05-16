@@ -8,7 +8,6 @@ namespace PartShop.Domain.Services
 {
     public interface ICartService:IDataService<Cart>
     {
-        Task<IEnumerable<Cart>> GetAllPartsInCartByAccount(int accountId);
 
         Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount);
 

@@ -14,5 +14,11 @@ namespace PartShop.Domain.Model
         public int House { get; set; }
         public int Apartament { get; set; }
         public Order Order { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"{City} city, {Street} str, {House}-{Apartament}";
+        }
     }
 }

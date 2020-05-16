@@ -4,6 +4,7 @@
     {
         CREATED,
         PAYED,
+        DELIVERED,
         CANCELLED,
         FINISHED,
     }

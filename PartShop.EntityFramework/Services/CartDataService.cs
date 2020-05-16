@@ -57,56 +57,55 @@ namespace PartShop.EntityFramework.Services
             return await _nonQueryDataService.Delete(id);
         }
 
-        public async Task<IEnumerable<Cart>> GetAllPartsInCartByAccount(int accountId)
-        {
-            using (CarPartDbContext context = _contextFactory.CreateDbContext())
-            {
-                IEnumerable<Cart> entity = await context.Carts.Where(e => e.AccountId == accountId).ToListAsync();
-                return entity;
-            }
-        }
-
         public async Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount=1)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                account.Carts.Add(new Cart()
-                {
-                    Amount = amount,
-                    CarId = partFullInfo.CarId,
-                    PartId = partFullInfo.PartId,
-                    ProviderId = partFullInfo.ProviderId,
-                    AccountId = account.Id
-                });
+                Cart cart = await context.Carts.FirstOrDefaultAsync(x =>
+                    x.PartId == partFullInfo.PartId && x.ProviderId == partFullInfo.ProviderId);
 
-                context.Carts.Add(new Cart()
+                if (cart == null)
                 {
-                     Amount = amount,
-                     CarId=partFullInfo.CarId,
-                     PartId = partFullInfo.PartId,
-                    ProviderId = partFullInfo.ProviderId,
-                    AccountId = account.Id
-                });
-             await context.SaveChangesAsync();
+                    await Create(new Cart()
+                    {
+                        Amount = amount,
+                        CarId = partFullInfo.CarId,
+                        PartId = partFullInfo.PartId,
+                        ProviderId = partFullInfo.ProviderId,
+                        AccountId = account.Id
+                    });
+                }
+                else
+                {
+                    cart.Amount += amount;
+                    context.Carts.Update(cart);
+                }
+                await context.SaveChangesAsync();
              return account;
             }
         }
 
         public async Task<IEnumerable<PartFullInfo>> GetAllPartsInView(Account account)
         {
-            List<PartFullInfo> parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
-            List<PartFullInfo> result = new List<PartFullInfo>();
-
-            foreach (var p in account.Carts)
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                //проверить
-                PartFullInfo part = parts.FirstOrDefault(c=>c.PartId==p.PartId&&c.CarId==p.CarId&&c.ProviderId==p.ProviderId);
-                part.ProviderPartAmount = p.Amount;
+                List<Cart> userCart=await context.Carts.Where(x => x.AccountId == account.Id).ToListAsync();
+                account.Carts = userCart;
 
-                result.Add(part);
+                List<PartFullInfo> parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
+                List<PartFullInfo> result = new List<PartFullInfo>();
+
+                foreach (var p in account.Carts)
+                {
+                    //проверить
+                    PartFullInfo part = parts.FirstOrDefault(c => c.PartId == p.PartId && c.CarId == p.CarId && c.ProviderId == p.ProviderId);
+                    part.ProviderPartAmount = p.Amount;
+
+                    result.Add(part);
+                }
+
+                return result;
             }
-
-            return result;
         }
 
         public async Task<Cart> DeletePartFromCart(PartFullInfo partFullInfo, Account account)

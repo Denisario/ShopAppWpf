@@ -45,7 +45,7 @@ namespace PartShop.EntityFramework.Services
                     },
                     OrderCreationTime = DateTime.Now,
                 };
-
+                //отправить письмо
                 List<OrderParts> orderParts=new List<OrderParts>();
 
                 foreach (var p in partInCar)
@@ -55,7 +55,8 @@ namespace PartShop.EntityFramework.Services
                         AmountPart = p.ProviderPartAmount,
                         OrderId = order.Id,
                         PartId = p.PartId,
-                        Price = p.ProviderPartPrice
+                        Price = p.ProviderPartPrice,
+                        ProviderId = p.ProviderId
                     });
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
                     PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);
@@ -163,7 +164,7 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                if (order.Status == OrderStatus.FINISHED) return false;
+                if (order.Status == OrderStatus.FINISHED||order.Status==OrderStatus.DELIVERED) return false;
                 Order selectedOrder = await Get(order.Id);
                 double price = 0;
                 order.Status = OrderStatus.CANCELLED;
@@ -171,7 +172,7 @@ namespace PartShop.EntityFramework.Services
                 {
                     price += p.AmountPart * p.Price;
                 }
-
+                //отправить письмо
                 //вернуть детали на склад
                 account.Balance += price;
                 context.Accounts.Update(account);
@@ -185,8 +186,22 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                //отправить письмо
+                if (order.Status != OrderStatus.DELIVERED) return false;
                 order.Status = OrderStatus.FINISHED;
                 order.FinishDate=DateTime.Now;
+                context.Orders.Update(order);
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
+        public async Task<bool> DelivOrder(Order order)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                order.Status = OrderStatus.DELIVERED;
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
 

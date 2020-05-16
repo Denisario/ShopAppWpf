@@ -12,5 +12,6 @@ namespace PartShop.Domain.Services
         Task<bool> PrintCheck(int orderId);
         Task<bool> CancelOrder(Account account,Order order);
         Task<bool> FinishOrder(Order order);
+        Task<bool> DelivOrder(Order order);
     }
 }

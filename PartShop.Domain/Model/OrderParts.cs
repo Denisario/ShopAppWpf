@@ -11,7 +11,7 @@ namespace PartShop.Domain.Model
 
         public int PartId { get; set; }
         public Part Part { get; set; }
-
+        public int ProviderId { get; set; }
         public int AmountPart { get; set; }
         public double Price { get; set; }
     }
