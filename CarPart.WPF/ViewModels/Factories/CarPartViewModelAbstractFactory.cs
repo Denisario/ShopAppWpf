@@ -46,7 +46,6 @@ namespace CarPart.WPF.ViewModels.Factories
                 case ViewType.ADMIN:
                     return _adminVmFactory.CreateViewModel();
                 case ViewType.CART:
-                    App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
                     return _cartVmFactory.CreateViewModel();
                 default:
                     throw new ArgumentException("Uncorrect viewType parametr", "viewType");

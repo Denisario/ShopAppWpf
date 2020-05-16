@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using CarPart.WPF.State.Authentificators;
+using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Services;
 
 namespace CarPart.WPF.ViewModels.Factories
