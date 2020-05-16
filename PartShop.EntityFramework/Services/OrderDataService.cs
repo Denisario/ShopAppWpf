@@ -27,15 +27,15 @@ namespace PartShop.EntityFramework.Services
             _contextFactory = contextFactory;
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
-        //ДОПИСАТЬ УМЕНЬШЕНИЕ АССОРТИМЕСТА В PARTPROVIDERS И ИЗМЕНЕНИЕ АДРЕСА
+        //ДОПИСАТЬ ИЗМЕНЕНИЕ АДРЕСА
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                await PrintCheck(3);
                 double price = 0;
                 Order order = new Order()
                 {
+                    //сделать view
                     Address = new Address()
                     {
                         Apartament = 1,
@@ -44,6 +44,7 @@ namespace PartShop.EntityFramework.Services
                         Street = "das"
                     },
                     OrderCreationTime = DateTime.Now,
+                    Status = OrderStatus.CREATED
                 };
                 //отправить письмо
                 List<OrderParts> orderParts=new List<OrderParts>();
@@ -60,9 +61,15 @@ namespace PartShop.EntityFramework.Services
                     });
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
                     PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);
+                    
                     //Проверка на количество
 
-                    if(pp!=null&&pp.TotalParts<p.ProviderPartAmount) pp.TotalParts -= p.ProviderPartAmount;
+                    if (pp != null && (pp.TotalParts > p.ProviderPartAmount))
+                    {
+                        pp.TotalParts -= p.ProviderPartAmount;
+                        context.PartProviders.Update(pp);
+                    }
+
                 }
 
                 if (price > account.Balance) return 0;
