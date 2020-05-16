@@ -15,11 +15,13 @@ namespace CarPart.WPF.Commands
         private readonly IOrderService _orderService;
         private readonly IAuthentificator _authentificator;
         private readonly CartViewModel _cartViewModel;
-        public CreateOrderCommand(IOrderService orderService, IAuthentificator authentificator, CartViewModel cartViewModel)
+        private readonly AddressViewModel _addressViewModel;
+        public CreateOrderCommand(IOrderService orderService, IAuthentificator authentificator, CartViewModel cartViewModel,AddressViewModel addressViewModel)
         {
             _orderService = orderService;
             _authentificator = authentificator;
             _cartViewModel = cartViewModel;
+            _addressViewModel = addressViewModel;
         }
 
         public bool CanExecute(object parameter)
@@ -30,8 +32,15 @@ namespace CarPart.WPF.Commands
 
         public void Execute(object parameter)
         {
+            
             _orderService.CreateOrder(_authentificator.CurrentAccount,
-                new List<PartFullInfo>(_cartViewModel.PartInCart.Where(x => x.IsSelected == true)));
+                new List<PartFullInfo>(_cartViewModel.PartInCart.Where(x => x.IsSelected == true)), new Address()
+                {
+                    Apartament = _addressViewModel.Apartament,
+                    City = _addressViewModel.City,
+                    House = _addressViewModel.House,
+                    Street = _addressViewModel.Street
+                });
         }
 
         public event EventHandler CanExecuteChanged;

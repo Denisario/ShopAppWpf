@@ -18,13 +18,11 @@ namespace CarPart.WPF.ViewModels
         private readonly IAuthentificator _authentificator;
         private readonly ICartService _cartService;
         public ICommand DeletePartCommand { get; set; }
-        public ICommand CreateOrderCommand { get; set; }
         public CartViewModel(IAuthentificator authentificator, ICartService cartService, IOrderService orderService)
         {
             _authentificator = authentificator;
             _cartService = cartService;
             DeletePartCommand=new DeletePartFromCartCommand(this,_cartService, _authentificator);
-            CreateOrderCommand=new CreateOrderCommand(orderService, _authentificator, this);
             GetAllPartsInCart();
         }
 

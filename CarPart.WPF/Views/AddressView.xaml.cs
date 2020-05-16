@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +8,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CarPart.WPF.ViewModels;
 using CarPart.WPF.ViewModels.Factories;
@@ -18,20 +16,14 @@ using Microsoft.Extensions.DependencyInjection;
 namespace CarPart.WPF.Views
 {
     /// <summary>
-    /// Логика взаимодействия для CartView.xaml
+    /// Логика взаимодействия для AddressView.xaml
     /// </summary>
-    public partial class CartView : UserControl
+    public partial class AddressView : Window
     {
-        public CartView()
+        public AddressView()
         {
+            DataContext = App.service.GetRequiredService<ICarPartViewModelFactory<AddressViewModel>>().CreateViewModel();
             InitializeComponent();
         }
-        private void Create_OnClick(object sender, RoutedEventArgs e)
-        {
-            AddressView a=new AddressView();
-            a.Show();
-        }
-
-        
     }
 }

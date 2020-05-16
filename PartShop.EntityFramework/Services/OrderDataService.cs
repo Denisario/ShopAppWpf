@@ -28,7 +28,7 @@ namespace PartShop.EntityFramework.Services
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
         //ДОПИСАТЬ ИЗМЕНЕНИЕ АДРЕСА
-        public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar)
+        public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar, Address address)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
@@ -36,13 +36,7 @@ namespace PartShop.EntityFramework.Services
                 Order order = new Order()
                 {
                     //сделать view
-                    Address = new Address()
-                    {
-                        Apartament = 1,
-                        City = "dsad",
-                        House = 1,
-                        Street = "das"
-                    },
+                    Address =address,
                     OrderCreationTime = DateTime.Now,
                     Status = OrderStatus.CREATED
                 };
@@ -62,7 +56,6 @@ namespace PartShop.EntityFramework.Services
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
                     PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);
                     
-                    //Проверка на количество
 
                     if (pp != null && (pp.TotalParts > p.ProviderPartAmount))
                     {
