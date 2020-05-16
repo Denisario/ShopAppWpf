@@ -30,7 +30,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="Show details" Command="{Binding ShowDetailsCommand}"></Button>
-            <Button Grid.Column="1" Content="Deliv order"></Button>
+            <Button Grid.Column="1" Content="Deliv order" Command="{Binding SendOrderCommand}"></Button>
         </Grid>
     </Grid>
 </Window>

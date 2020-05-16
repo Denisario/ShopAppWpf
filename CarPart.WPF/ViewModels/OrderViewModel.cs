@@ -20,6 +20,7 @@ namespace CarPart.WPF.ViewModels
         {
             _orderService = orderService;
             ShowDetailsCommand = new GetCheckCommand(_orderService, this);
+            SendOrderCommand=new SendOrderCommand(_orderService, this);
             GetAllOrders();
         }
 
@@ -46,7 +47,7 @@ namespace CarPart.WPF.ViewModels
         }
 
         public ICommand ShowDetailsCommand { get; set; }
-        public ICommand DelivCommand { get; set; }
+        public ICommand SendOrderCommand { get; set; }
 
         private async void GetAllOrders()
         {

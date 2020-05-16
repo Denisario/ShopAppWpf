@@ -95,6 +95,7 @@ namespace CarPart.WPF.ViewModels
             Orders = new ObservableCollection<Order>(_authentificator.CurrentAccount.Orders);
             GetCheckCommand =new GetCheckCommand(orderService,this);
             CancelOrderCommand=new CancelOrderCommand(orderService, authentificator, this);
+            FinishOrderCommand=new FinishOrderCommand(this, orderService);
 
         }
     }
