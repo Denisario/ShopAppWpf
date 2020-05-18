@@ -171,9 +171,13 @@ namespace PartShop.EntityFramework.Services
                 foreach (var p in selectedOrder.Parts)
                 {
                     price += p.AmountPart * p.Price;
+                    PartProvider pp = await context.PartProviders.FirstOrDefaultAsync(x =>
+                        x.PartId == p.PartId && x.ProviderId == p.ProviderId);
+
+                    pp.TotalParts += p.AmountPart;
                 }
                 //отправить письмо
-                //вернуть детали на склад
+                
                 account.Balance += price;
                 context.Accounts.Update(account);
                 context.Orders.Update(order);
