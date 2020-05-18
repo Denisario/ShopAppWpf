@@ -44,7 +44,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="create"  Grid.Column="0" Content="Create order" Click="Create_OnClick"></Button>
+            <Button x:Name="create"  Grid.Column="0" Content="Create order" Click="Create_OnClick" ></Button>
             <Button Grid.Column="1" Content="Delete from cart" Command="{Binding DeletePartCommand}"></Button>
         </Grid>
     </Grid>

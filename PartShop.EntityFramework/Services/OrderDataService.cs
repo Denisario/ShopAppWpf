@@ -54,7 +54,7 @@ namespace PartShop.EntityFramework.Services
                         ProviderId = p.ProviderId
                     });
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
-                    PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);
+                    PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);//acc check
                     
 
                     if (pp != null && (pp.TotalParts > p.ProviderPartAmount))

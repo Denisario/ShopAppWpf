@@ -40,6 +40,7 @@ namespace CarPart.WPF
             service.AddSingleton<INavigator, Navigator>();
             service.AddScoped<MainViewModel>();
             service.AddSingleton<CartViewModel>();
+
             service.AddSingleton<MainWindow>(s=>new MainWindow(s.GetRequiredService<MainViewModel>()));
             service.AddSingleton<IAuthentificator, Authentificator>();
             service.AddSingleton<CarPartDbContextFactory>();

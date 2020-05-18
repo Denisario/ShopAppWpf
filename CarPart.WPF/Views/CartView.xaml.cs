@@ -32,6 +32,5 @@ namespace CarPart.WPF.Views
             a.Show();
         }
 
-        
     }
 }

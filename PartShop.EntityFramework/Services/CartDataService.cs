@@ -61,8 +61,9 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                //аккаунт
                 Cart cart = await context.Carts.FirstOrDefaultAsync(x =>
-                    x.PartId == partFullInfo.PartId && x.ProviderId == partFullInfo.ProviderId);
+                    x.PartId == partFullInfo.PartId && x.ProviderId == partFullInfo.ProviderId&&x.AccountId==account.Id);
 
                 if (cart == null)
                 {

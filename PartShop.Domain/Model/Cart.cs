@@ -15,5 +15,7 @@ namespace PartShop.Domain.Model
         public int ProviderId { get; set; }
         public int CarId { get; set; }
         public int Amount { get; set; }
+
+
     }
 }

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
+using CarPart.WPF.ViewModels.Factories;
+using CarPart.WPF.Views;
+using Microsoft.Extensions.DependencyInjection;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 
@@ -20,7 +25,7 @@ namespace CarPart.WPF.Commands
         {
             _orderService = orderService;
             _authentificator = authentificator;
-            _cartViewModel = cartViewModel;
+            _cartViewModel = App.service.GetRequiredService<ICarPartViewModelFactory<CartViewModel>>().CreateViewModel();
             _addressViewModel = addressViewModel;
         }
 
@@ -32,9 +37,10 @@ namespace CarPart.WPF.Commands
 
         public void Execute(object parameter)
         {
-            
+
+
             _orderService.CreateOrder(_authentificator.CurrentAccount,
-                new List<PartFullInfo>(_cartViewModel.PartInCart.Where(x => x.IsSelected == true)), new Address()
+               _authentificator.Parts.Where(x => x.IsSelected).ToList(), new Address()
                 {
                     Apartament = _addressViewModel.Apartament,
                     City = _addressViewModel.City,
@@ -42,7 +48,6 @@ namespace CarPart.WPF.Commands
                     Street = _addressViewModel.Street
                 });
         }
-
         public event EventHandler CanExecuteChanged;
     }
 }

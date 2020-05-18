@@ -18,6 +18,7 @@ namespace CarPart.WPF.ViewModels
         private readonly IAuthentificator _authentificator;
         private readonly ICartService _cartService;
         public ICommand DeletePartCommand { get; set; }
+        public ICommand CreateOrderCommand { get; set; }
         public CartViewModel(IAuthentificator authentificator, ICartService cartService, IOrderService orderService)
         {
             _authentificator = authentificator;
@@ -58,12 +59,16 @@ namespace CarPart.WPF.ViewModels
                         OnPropertyChanged(nameof(SelectedPart));
                         OnPropertyChanged(nameof(SelectedPart.IsSelected));
                         OnPropertyChanged(nameof(PartInCart));
+                        _authentificator.Parts = new List<PartFullInfo>(PartInCart);
                         break;
                     }
                 }
                 
             }
         }
+
+
+        
 
         public async void GetAllPartsInCart()
         {

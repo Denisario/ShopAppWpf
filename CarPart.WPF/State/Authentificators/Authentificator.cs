@@ -14,6 +14,7 @@ namespace CarPart.WPF.State.Authentificators
         public Authentificator(IAuthentificationService authentificationService)
         {
             _authentificationService = authentificationService;
+            Parts=new List<PartFullInfo>();
         }
 
         public Account CurrentAccount { get; private set; }
@@ -31,7 +32,9 @@ namespace CarPart.WPF.State.Authentificators
 
         public void Logout()
         {
-            
+            CurrentAccount = null;
         }
+
+        public List<PartFullInfo> Parts { get; set; }
     }
 }
