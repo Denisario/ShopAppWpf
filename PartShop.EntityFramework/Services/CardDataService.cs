@@ -65,6 +65,15 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
+        public async Task<long> GetNumberOfCard()
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                List<Card> card = await context.Cards.ToListAsync();
+                return card.Last().CardNumber + 1;
+            }
+        }
+
         private string HashPass(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())

@@ -9,6 +9,7 @@ namespace CarPart.WPF.ViewModels
 {
     public class AddCardViewModel:ViewModelBase
     {
+        private readonly ICardService _cardService;
         private long number;
         public long Number
         {
@@ -36,6 +37,9 @@ namespace CarPart.WPF.ViewModels
 
         public AddCardViewModel(ICardService cardService)
         {
+
+            _cardService = cardService;
+            GetNumberOfCard();
             AddCardCommand = new AddCardCommand(this, cardService);
             FinishDate=DateTime.Now;
         }
@@ -51,5 +55,10 @@ namespace CarPart.WPF.ViewModels
         }
 
         public ICommand AddCardCommand { get; set; }
+
+        private async void GetNumberOfCard()
+        {
+            Number=await _cardService.GetNumberOfCard();
+        }
     }
 }
