@@ -36,9 +36,21 @@ namespace CarPart.WPF.Commands
             var nav = App.service.GetRequiredService<INavigator>();
             var vmFactory = App.service.GetRequiredService<ICarPartViewModelAbstractFactory>();
 
-            Account account= await _authentificator.Login(_authViewModel.Username, (parameter as PasswordBox)?.Password);
-            if(account.UserRole==Role.USER) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.HOME);
-            if(account.UserRole==Role.ADMIN) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.ADMIN);
+            
+            try
+            {
+                Account account = await _authentificator.Login(_authViewModel.Username, (parameter as PasswordBox)?.Password);
+                if (account != null)
+                {
+                    if (account.UserRole == Role.USER) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.HOME);
+                    if (account.UserRole == Role.ADMIN) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.ADMIN);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+           
         }
 
     }

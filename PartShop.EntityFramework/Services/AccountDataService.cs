@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PartShop.Domain.Exceptions;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 using PartShop.EntityFramework.Services.Common;
@@ -43,7 +42,7 @@ namespace PartShop.EntityFramework.Services
 
                     .FirstOrDefaultAsync(e => e.Id == id);
 
-                if (entity == null) throw new UserNotFoundException("User not found");
+                if (entity == null) throw new Exception("User not found");
 
                 return entity;
             }

@@ -205,6 +205,7 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if (order.Status != OrderStatus.PAYED) return false;
                 order.Status = OrderStatus.DELIVERED;
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();

@@ -41,7 +41,7 @@ namespace CarPart.WPF.Commands
                                                            (values[0] as PasswordBox)?.Password,
                                               (values[1] as PasswordBox)?.Password);
 
-            nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.AUTH);
+            if(success) nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.AUTH);
         }
 
         

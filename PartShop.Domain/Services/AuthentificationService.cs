@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using PartShop.Domain.Exceptions;
 using PartShop.Domain.Model;
 
 namespace PartShop.Domain.Services
@@ -21,35 +22,53 @@ namespace PartShop.Domain.Services
 
         public async Task<bool> Register(string username, string password, string confirmPassword, string email)
         {
-            //REWORK
             Account account = await _accountService.GetAccountByUsername(username);
             if (account != null)
             {
-                throw new UserHasBeenAlreadyRegisteredException("User has been already registered");
+                throw new Exception("User has been already registered");
             }
 
-            if (password!=confirmPassword) throw new IncorrectPasswordException("Passwords are not equal");
+            email = email.ToLower();
 
-               Account newAccount = new Account()
+            if (password!=confirmPassword) throw new Exception("Passwords are not equal");
+
+            Account newAccount = new Account()
                {
-                   Username = username,
+                   Username = username.ToLower(),
                    Password = HashPass(password),
                    CreationTime = DateTime.Now,
                    Email = email,
                    UserRole = Role.USER
                };
 
-              await _accountService.Create(newAccount);
+            var results = new List<ValidationResult>();
+            var context=new ValidationContext(newAccount);
+
+            StringBuilder errorResult=new StringBuilder();
+
+            if (!Validator.TryValidateObject(newAccount,context, results, true))
+            {
+                foreach (var error in results)
+                {
+                    errorResult.Append(error.ErrorMessage+'\n');
+                }
+                throw new Exception(errorResult.ToString());
+            }
+            else
+            {
+                await _accountService.Create(newAccount);
+            }
+
               return true;
         }
 
         public async Task<Account> Login(string username, string password)
         {
             Account account = await _accountService.GetAccountByUsername(username);
-            if (account==null) throw new UserNotFoundException("User not found");
+            if (account==null) throw new Exception("User not found");
             if (account.Password != HashPass(password))
             {
-                throw new IncorrectPasswordException("Incorrect password");
+                throw new Exception("Incorrect password");
             }
 
             return account;

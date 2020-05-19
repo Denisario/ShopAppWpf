@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.State.Navigators;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,13 +16,15 @@ namespace CarPart.WPF.ViewModels.Factories
         private readonly ICarPartViewModelFactory<AdminViewModel> _adminVmFactory;
         private readonly ICarPartViewModelFactory<CartViewModel> _cartVmFactory;
 
+        private readonly IAuthentificator _authentificator;
+
         public CarPartViewModelAbstractFactory(ICarPartViewModelFactory<RegisterViewModel> registerVmFactory,
                                                ICarPartViewModelFactory<AuthViewModel> authVmFactory,
                                                ICarPartViewModelFactory<HomeViewModel> homeVmFactory,
                                                ICarPartViewModelFactory<PartViewModel> partVmFactory,
                                                ICarPartViewModelFactory<AdminViewModel> adminVmFactory,
-                                               ICarPartViewModelFactory<AddCarViewModel> addCarVmFactory,
-                                               ICarPartViewModelFactory<CartViewModel> cartVmFactory)
+                                               ICarPartViewModelFactory<CartViewModel> cartVmFactory,
+                                               IAuthentificator authentificator)
         {
             _registerVMFactory = registerVmFactory;
             _authVMFactory = authVmFactory;
@@ -29,6 +32,7 @@ namespace CarPart.WPF.ViewModels.Factories
             _partVmFactory = partVmFactory;
             _adminVmFactory = adminVmFactory;
             _cartVmFactory = cartVmFactory;
+            _authentificator = authentificator;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType)
@@ -40,12 +44,14 @@ namespace CarPart.WPF.ViewModels.Factories
                 case ViewType.REGISTER:
                     return _registerVMFactory.CreateViewModel();
                 case ViewType.HOME:
+                    if (_authentificator.IsLoggedIn == false) return _authVMFactory.CreateViewModel();
                     return _homeVmFactory.CreateViewModel();
                 case ViewType.PARTS:
                     return _partVmFactory.CreateViewModel();
                 case ViewType.ADMIN:
                     return _adminVmFactory.CreateViewModel();
                 case ViewType.CART:
+                    if (_authentificator.IsLoggedIn == false) return _authVMFactory.CreateViewModel();
                     return _cartVmFactory.CreateViewModel();
                 default:
                     throw new ArgumentException("Uncorrect viewType parametr", "viewType");
