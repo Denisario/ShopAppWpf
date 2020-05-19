@@ -4,16 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarPart.WPF.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="1" BorderBrush="Black"
         Title="AddCarView" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -23,21 +26,25 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Car" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-        <TextBlock Text="Model" FontSize="36"  VerticalAlignment="Center" Grid.Row="1"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Creation year" FontSize="36"  VerticalAlignment="Center" Grid.Row="3"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Fuel type" FontSize="36"  VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+        <Button  Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
+            <materialDesign:PackIcon Kind="Close" Height="20" Width="20"/>
+        </Button>
 
-        <TextBox Grid.Column="2" Grid.Row="0" FontSize="36" Text="{Binding Mark}"></TextBox>
-        <TextBox Grid.Column="2" Grid.Row="1" FontSize="36" Text="{Binding Model}"></TextBox>
-        <ComboBox Grid.Column="2" Grid.Row="2" FontSize="36" Text="{Binding FuelType}">
+        <TextBlock Text="Марка" FontSize="36" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Text="Модель" FontSize="36"  VerticalAlignment="Center" Grid.Row="2"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Год создания" FontSize="36"  VerticalAlignment="Center" Grid.Row="3"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Тип топлива" FontSize="36"  VerticalAlignment="Center" Grid.Row="4" Grid.Column="1"></TextBlock>
+
+        <TextBox Grid.Column="2" Grid.Row="1" FontSize="36" Text="{Binding Mark}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="2" FontSize="36" Text="{Binding Model}"></TextBox>
+        <TextBox Grid.Column="2" Grid.Row="3" FontSize="36" Text="{Binding Year}"></TextBox>
+        <ComboBox Grid.Column="2" Grid.Row="4" FontSize="36" Text="{Binding FuelType}">
             <TextBlock>Diesel</TextBlock>
             <TextBlock>Petrol</TextBlock>
             <TextBlock>Gas</TextBlock>
             <TextBlock>Electro</TextBlock>
         </ComboBox>
-        <TextBox Grid.Column="2" Grid.Row="3" FontSize="36" Text="{Binding Year}"></TextBox>
 
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Content="Add" Command="{Binding AddCarCommand}"></Button>
+        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Content="Добавить" Command="{Binding AddCarCommand}"></Button>
     </Grid>
 </Window>

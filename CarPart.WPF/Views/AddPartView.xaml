@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarPart.WPF.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="1" BorderBrush="Black"
-        Title="AddPartView" Height="450" Width="800"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+        Title="AddPartView" Height="650" Width="800"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -17,6 +19,9 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,18 +31,24 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Name" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-        <TextBlock Text="Description" FontSize="36"  VerticalAlignment="Center" Grid.Row="1"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Color" FontSize="36"  VerticalAlignment="Center" Grid.Row="2"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Cars" FontSize="36"  VerticalAlignment="Center" Grid.Row="3"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Provider" FontSize="36"  VerticalAlignment="Center" Grid.Row="4"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Total parts" FontSize="36"  VerticalAlignment="Center" Grid.Row="5"  Grid.Column="1"></TextBlock>
-        <TextBlock Text="Price by unit" FontSize="36"  VerticalAlignment="Center" Grid.Row="6"  Grid.Column="1"></TextBlock>
+        <Button Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
+            <materialDesign:PackIcon Kind="Close" Height="20" Width="20"/>
+        </Button>
 
-        <TextBox Grid.Row="0" Grid.Column="2" Text="{Binding Name}"></TextBox>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Description}"></TextBox>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding Color}"></TextBox>
-        <ComboBox Grid.Row="3" Grid.Column="2" ItemsSource="{Binding Cars}" SelectedItem="{Binding Car}">
+        <TextBlock Text="Имя" FontSize="36" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Text="Описание" FontSize="36"  VerticalAlignment="Center" Grid.Row="2"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Цвет" FontSize="36"  VerticalAlignment="Center" Grid.Row="3"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Машина" FontSize="36"  VerticalAlignment="Center" Grid.Row="4"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Артикул" FontSize="36"  VerticalAlignment="Center" Grid.Row="5"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Категория" FontSize="36"  VerticalAlignment="Center" Grid.Row="6"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Поставщик" FontSize="36"  VerticalAlignment="Center" Grid.Row="7"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Всего запчастей" FontSize="36"  VerticalAlignment="Center" Grid.Row="8"  Grid.Column="1"></TextBlock>
+        <TextBlock Text="Цена за единицу" FontSize="36"  VerticalAlignment="Center" Grid.Row="9"  Grid.Column="1"></TextBlock>
+
+        <TextBox Grid.Row="1" Grid.Column="2" FontSize="36" Text="{Binding Name}"></TextBox>
+        <TextBox Grid.Row="2" Grid.Column="2" FontSize="36" Text="{Binding Description}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="2" FontSize="36" Text="{Binding Color}"></TextBox>
+        <ComboBox Grid.Row="4" Grid.Column="2" FontSize="36" ItemsSource="{Binding Cars}" SelectedItem="{Binding Car}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -52,7 +63,20 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <ComboBox Grid.Row="4" Grid.Column="2" ItemsSource="{Binding Providers}" SelectedItem="{Binding PartProvider}">
+
+        <TextBox Grid.Row="5" Grid.Column="2" FontSize="36" Text="{Binding Article}"></TextBox>
+        <ComboBox Grid.Row="6" Grid.Column="2" FontSize="36" Text="{Binding Category}" SelectedItem="{Binding SelectedCategory}">
+            <TextBlock>Двигатель</TextBlock>
+            <TextBlock>Коробка передач</TextBlock>
+            <TextBlock>Сцепление</TextBlock>
+            <TextBlock>Подвеска</TextBlock>
+            <TextBlock>Рулевая система</TextBlock>
+            <TextBlock>Тормозная система</TextBlock>
+            <TextBlock>Салон</TextBlock>
+            <TextBlock>Кузов</TextBlock>
+            <TextBlock>Электрика</TextBlock>
+        </ComboBox>
+        <ComboBox Grid.Row="7" Grid.Column="2" FontSize="36" ItemsSource="{Binding Providers}" SelectedItem="{Binding PartProvider}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -61,9 +85,9 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
-        <TextBox Grid.Row="5" Grid.Column="2" Text="{Binding Amount}"></TextBox>
-        <TextBox Grid.Row="6" Grid.Column="2" Text="{Binding Price}"></TextBox>
+        <TextBox Grid.Row="8" Grid.Column="2" FontSize="36" Text="{Binding Amount}"></TextBox>
+        <TextBox Grid.Row="9" Grid.Column="2" FontSize="36" Text="{Binding Price}"></TextBox>
 
-        <Button Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" Content="Add" Width="200" Command="{Binding AddPartCommand}"></Button>
+        <Button Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Content="Add" Width="200" Command="{Binding AddPartCommand}"></Button>
     </Grid>
 </Window>

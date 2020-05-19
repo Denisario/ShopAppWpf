@@ -11,33 +11,38 @@
     <UserControl.Resources>
         <converter:PasswordConverter x:Key="PswConverter" />
     </UserControl.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70"></ColumnDefinition>
-            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <TextBlock Text="Логин" VerticalAlignment="Center" FontSize="36px" Grid.Row="1" Grid.Column="2"/>
+        <TextBox x:Name="LoginTextBox" Height="50px"  FontSize="30px" Grid.Row="1" Grid.Column="3" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <TextBlock Text="Login" VerticalAlignment="Center" FontSize="40px" Grid.Row="1" Grid.Column="2"/>
-        <TextBox Height="50px"  FontSize="30px" Grid.Row="1" Grid.Column="3" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBlock Text="Password" FontSize="40px" Grid.Row="2"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
-        <PasswordBox Name="pswBox" Height="50px"  FontSize="30px" Grid.Row="2" Grid.Column="3" />
-        <TextBlock Text="Repeat password" FontSize="40px" Grid.Row="3"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
-        <PasswordBox Name="cpswBox" Height="50px"  FontSize="30px" Grid.Row="3" Grid.Column="3"/>
-        <TextBlock Text="Email" FontSize="40px" Grid.Row="4"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
-        <TextBox Height="50px"  FontSize="30px" Grid.Row="4" Grid.Column="3" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
-        <Button  Height="50" Grid.Row="5" Width="200"  Grid.Column="2" Grid.ColumnSpan="2" Content="Register" Command="{Binding RegisterCommand}">
+        <TextBlock Text="Пароль" FontSize="36px" Grid.Row="2"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+        <PasswordBox Name="pswBox" Height="50px"  FontSize="36px" Grid.Row="2" Grid.Column="3" />
+
+        <TextBlock Text="Повторите пароль" FontSize="36px" Grid.Row="3"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+        <PasswordBox Name="cpswBox" Height="50px"  FontSize="36px" Grid.Row="3" Grid.Column="3"/>
+
+        <TextBlock Text="Эл. почта" FontSize="36px" Grid.Row="4"  Grid.Column="2" VerticalAlignment="Center"></TextBlock>
+        <TextBox x:Name="EmailTextBox" Height="50px" FontSize="36px" Grid.Row="4" Grid.Column="3" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <Button  Height="50" Grid.Row="5" Width="200"  Grid.Column="2" Grid.ColumnSpan="2" Content="Зарегистрироваться" Command="{Binding RegisterCommand}">
             <Button.CommandParameter>
                 <MultiBinding Converter="{StaticResource PswConverter}">
                     <Binding ElementName="pswBox"></Binding>

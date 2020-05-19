@@ -30,11 +30,13 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <!--<DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>-->
-                <DataGridTextColumn Header="Part id" Binding="{Binding Path=PartId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Part name"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Part color"  Binding="{Binding Path=PartColor}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount"  Binding="{Binding Path=ProviderPartAmount}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Price by unit"  Binding="{Binding Path=ProviderPartPrice}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер запчасти" Binding="{Binding Path=PartId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Имя запчасти"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цвет"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Категория"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Артикул"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Всего"  Binding="{Binding Path=ProviderPartAmount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цена за штуку"  Binding="{Binding Path=ProviderPartPrice}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -44,8 +46,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="create"  Grid.Column="0" Content="Create order" Click="Create_OnClick" ></Button>
-            <Button Grid.Column="1" Content="Delete from cart" Command="{Binding DeletePartCommand}"></Button>
+            <Button x:Name="create"  Grid.Column="0" Content="Создать заказ" Click="Create_OnClick" ></Button>
+            <Button Grid.Column="1" Content="Удалить из корзины" Command="{Binding DeletePartCommand}"></Button>
         </Grid>
     </Grid>
 </UserControl>

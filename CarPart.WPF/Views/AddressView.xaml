@@ -4,19 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarPart.WPF.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="1" BorderBrush="Black"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
         Title="AddressView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,19 +27,23 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="City" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
+        <Button Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
+            <materialDesign:PackIcon Kind="Close" Height="20" Width="20"/>
+        </Button>
+
+        <TextBlock Text="Город" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Row="1" Grid.Column="2" FontSize="36" Text="{Binding City}"></TextBox>
 
-        <TextBlock Text="Street" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Улица" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Row="2" Grid.Column="2" FontSize="36" Text="{Binding Street}"></TextBox>
 
-        <TextBlock Text="House" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Дом" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Row="3" Grid.Column="2" FontSize="36" Text="{Binding House}"></TextBox>
 
-        <TextBlock Text="Apartament" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Квартира" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Row="4" Grid.Column="2" FontSize="36" Text="{Binding Apartament}"></TextBox>
 
-        <Button Content="Create order" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Command="{Binding CreateOrderCommand}"></Button>
+        <Button Content="Создать заказ" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Command="{Binding CreateOrderCommand}"></Button>
     </Grid>
 
 </Window>

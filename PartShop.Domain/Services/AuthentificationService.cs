@@ -25,12 +25,18 @@ namespace PartShop.Domain.Services
             Account account = await _accountService.GetAccountByUsername(username);
             if (account != null)
             {
-                throw new Exception("User has been already registered");
+                throw new Exception("Данный пользователь зарегистирован");
             }
 
             email = email.ToLower();
 
-            if (password!=confirmPassword) throw new Exception("Passwords are not equal");
+                //МБ ВЫНЕСТИ ВСЕ ОШИБКИ В ОДНУ СТРОКУ???
+
+            if (password!=confirmPassword) throw new Exception("Пароли не совпадают");
+
+
+            //В АТТРИБУТАХ НЕ ПОЛУЧАЕТСЯ
+            if((password.Length<=8)&&(password.Length>=15)) throw new Exception("Длина пароля должна быть не менее 8 и не более 15 символов");
 
             Account newAccount = new Account()
                {
@@ -40,6 +46,8 @@ namespace PartShop.Domain.Services
                    Email = email,
                    UserRole = Role.USER
                };
+
+            if (newAccount.Id == 1) newAccount.UserRole = Role.ADMIN;
 
             var results = new List<ValidationResult>();
             var context=new ValidationContext(newAccount);

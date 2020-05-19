@@ -16,11 +16,11 @@
 
         <DataGrid Grid.Row="0" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding Id}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Creation date" Binding="{Binding OrderCreationTime}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Finish date" Binding="{Binding FinishDate}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Address" Binding="{Binding AddressStr}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер заказа" Binding="{Binding Id}" ></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding OrderCreationTime}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата окончания" Binding="{Binding FinishDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Адрес доставки" Binding="{Binding AddressStr}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Row="1">
@@ -29,8 +29,8 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="Show details" Command="{Binding ShowDetailsCommand}"></Button>
-            <Button Grid.Column="1" Content="Deliv order" Command="{Binding SendOrderCommand}"></Button>
+            <Button Grid.Column="0" Content="Посмотреть подробности" Command="{Binding ShowDetailsCommand}"></Button>
+            <Button Grid.Column="1" Content="Отправить заказ" Command="{Binding SendOrderCommand}"></Button>
         </Grid>
     </Grid>
 </Window>

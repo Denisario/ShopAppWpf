@@ -4,20 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarPart.WPF.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="1" BorderBrush="Black"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
         Title="AddCardView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,14 +27,19 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Card number" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1"></TextBlock>
-        <TextBlock Text="Pin code" FontSize="36" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
-        <TextBlock Text="Finish date" FontSize="36" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
 
-        <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Number}"></TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="2" Text="{Binding Pin}"></TextBox>
-        <DatePicker Grid.Row="2" Grid.Column="2" SelectedDate="{Binding Path=FinishDate}"></DatePicker>
+        <Button  Padding="0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Center" Grid.Row="0" Grid.Column="3">
+            <materialDesign:PackIcon Kind="Close" Height="20" Width="20"/>
+        </Button>
 
-        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Content="Create" Command="{Binding AddCardCommand}"></Button>
+        <TextBlock Text="Номер карты" FontSize="36" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"></TextBlock>
+        <TextBlock Text="Pin" FontSize="36" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1"></TextBlock>
+        <TextBlock Text="Срок действия" FontSize="36" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1"></TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="2"  FontSize="36" Text="{Binding Number}"></TextBlock>
+        <TextBox Grid.Row="2" Grid.Column="2" FontSize="36" Text="{Binding Pin}"></TextBox>
+        <DatePicker Grid.Row="3" Grid.Column="2" FontSize="36" SelectedDate="{Binding Path=FinishDate}"></DatePicker>
+
+        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Width="200" Content="Создать карту" Command="{Binding AddCardCommand}"></Button>
     </Grid>
 </Window>

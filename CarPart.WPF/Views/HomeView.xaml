@@ -26,25 +26,25 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="Nickname" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Логин" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBlock Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
-        <TextBlock Text="Email" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Эл. почта" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBlock Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
-        <TextBlock Text="Creation date" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Дата создания" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBlock Text="{Binding CreationTime, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
-        <TextBlock Text="Balance" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Text="Баланс" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBlock Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
 
         <DataGrid Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Order number" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Creation date" Binding="{Binding OrderCreationTime}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Finish date" Binding="{Binding FinishDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер заказа" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Статус" Binding="{Binding Status}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding OrderCreationTime}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Дата окончания" Binding="{Binding FinishDate}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -55,10 +55,10 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="BalanceBtn" Grid.Column="0" Content="Append balance" Click="BalanceBtn_OnClick"></Button>
-            <Button Grid.Column="1" Content="Get check" Command="{Binding GetCheckCommand}"></Button>
-            <Button Grid.Column="2" Content="Cancel order" Command="{Binding CancelOrderCommand}"></Button>
-            <Button Grid.Column="3" Content="Finish order" Command="{Binding FinishOrderCommand}"></Button>
+            <Button x:Name="BalanceBtn" Grid.Column="0" Content="Пополнить баланс" Click="BalanceBtn_OnClick"></Button>
+            <Button Grid.Column="1" Content="Получить чек" Command="{Binding GetCheckCommand}"></Button>
+            <Button Grid.Column="2" Content="Отменить заказ" Command="{Binding CancelOrderCommand}"></Button>
+            <Button Grid.Column="3" Content="Закончить заказ" Command="{Binding FinishOrderCommand}"></Button>
         </Grid>
 
     </Grid>

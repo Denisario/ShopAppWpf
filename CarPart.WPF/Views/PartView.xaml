@@ -8,14 +8,16 @@
              d:DesignHeight="680" d:DesignWidth="1210">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="4*"></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
 
         </Grid.RowDefinitions>
 
@@ -28,13 +30,13 @@
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         
-        <TextBlock Grid.Column="2" Grid.Row="1" Text="Mark" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="1" Text="Марка" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <ComboBox Grid.Row="1" Grid.Column="3" ItemsSource="{Binding Marks}" SelectedItem="{Binding Mark}"></ComboBox>
 
-        <TextBlock Grid.Column="2" Grid.Row="2" Text="Model" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="2" Text="Модель" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <ComboBox Grid.Row="2" Grid.Column="3" ItemsSource="{Binding Models}" SelectedItem="{Binding Model}"></ComboBox>
 
-        <TextBlock Grid.Column="2" Grid.Row="3" Text="Provider" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="3" Text="Поставщик" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <ComboBox Grid.Row="3" Grid.Column="3" ItemsSource="{Binding Providers}" SelectedItem="{Binding PartProvider}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -45,24 +47,31 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <TextBlock Grid.Column="2" Grid.Row="4" Text="Category" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBlock Grid.Column="2" Grid.Row="4" Text="Категория" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
         <TextBox Grid.Column="3" Grid.Row="4" ></TextBox>
 
-        <Button Content="Find" Grid.Row="5" Grid.Column="2"  Command="{Binding FilterPartCommand}"></Button>
-        <Button Content="Add to cart" Grid.Row="5" Grid.Column="3" Command="{Binding AddPartToCartCommand}"></Button>
+        <TextBlock Grid.Column="2" Grid.Row="5" Text="Артикул" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="5" ></TextBox>
 
-        <DataGrid Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Parts}" AutoGenerateColumns="False" SelectedItem="{Binding Part}">
+        <TextBlock Grid.Column="2" Grid.Row="6" Text="Наименование" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="36"></TextBlock>
+        <TextBox Grid.Column="3" Grid.Row="6" ></TextBox>
+
+        <Button Content="Find" Grid.Row="7" Grid.Column="2"  Command="{Binding FilterPartCommand}"></Button>
+        <Button Content="Add to cart" Grid.Row="7" Grid.Column="3" Command="{Binding AddPartToCartCommand}"></Button>
+
+        <DataGrid Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2" ItemsSource="{Binding Parts}" AutoGenerateColumns="False" SelectedItem="{Binding Part}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding PartId}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding PartName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Color" Binding="{Binding PartColor}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Car Mark" Binding="{Binding CarMark}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Car Model" Binding="{Binding CarModel}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Car creation year" Binding="{Binding CarCreationYear}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Car fuel type" Binding="{Binding CarFuelType}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Provider" Binding="{Binding ProviderName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount part" Binding="{Binding ProviderPartAmount}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Price" Binding="{Binding ProviderPartPrice}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Номер запчасти" Binding="{Binding PartId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Категория" Binding="{Binding ProviderName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цвет" Binding="{Binding PartColor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Марка" Binding="{Binding CarMark}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Модель" Binding="{Binding CarModel}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Год создание" Binding="{Binding CarCreationYear}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Тип топлива" Binding="{Binding CarFuelType}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Поставщик" Binding="{Binding ProviderName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="В наличии" Binding="{Binding ProviderPartAmount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цена" Binding="{Binding ProviderPartPrice}"></DataGridTextColumn>
                 
             </DataGrid.Columns>
         </DataGrid>

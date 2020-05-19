@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="300"></RowDefinition>
             <RowDefinition Height="300"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -25,36 +26,30 @@
             <materialDesign:PackIcon Kind="Menu" Width="30" Height="30"/>
         </Button>
 
-        <StackPanel x:Name="UserData"  Grid.Row="1" >
-            <Ellipse Fill="Gray" Width="100" Height="100" Margin="0 40 0 0"></Ellipse>
-            <TextBlock Text="Username" FontSize="26" Foreground="Gray" HorizontalAlignment="Center" Margin="0 20 0 0">
-                <TextBlock.InputBindings>
-                    <MouseBinding Command="{Binding ShowAuthWindowCommand, Mode=OneWay}" MouseAction="LeftClick"></MouseBinding>
-                </TextBlock.InputBindings>
-            </TextBlock>
+        <StackPanel x:Name="UserData"  Grid.Row="2" >
             <StackPanel Orientation="Horizontal" Height="70">
-                <Button Width="200"  Margin="0 30 0 0" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.AUTH}">Login</Button>
-                <Button Width="200" Margin="0 30 0 0" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.REGISTER}">Register</Button>
+                <Button Width="200"  Margin="0 30 0 0" Content="Авторизация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.AUTH}"/>
+                <Button Width="200" Margin="0 30 0 0" Content="Регистрация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.REGISTER}"/>
             </StackPanel>
         </StackPanel>
 
-        <ListView Grid.Row="2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Center">
+        <ListView Grid.Row="3" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalAlignment="Center">
             <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.HOME}">
                 <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Home" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
-                    <TextBlock Text="Home" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
+                    <TextBlock Text="Домашняя страница" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button Height="45" Width="400" Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.PARTS}">
                 <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Settings" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
-                    <TextBlock Text="Parts" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
+                    <TextBlock Text="Запчасти" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
             <Button Height="45" Width="400"  Background="#FF222222" Command="{Binding UpdateCurrentViewModelCommand}" BorderThickness="0" CommandParameter="{x:Static nav:ViewType.CART}">
                 <StackPanel Orientation="Horizontal" Height="34" Width="374">
                     <materialDesign:PackIcon Kind="Cart" Width="30" Height="30" Foreground="Gray" VerticalAlignment="Center"></materialDesign:PackIcon>
-                    <TextBlock Text="Cart" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
+                    <TextBlock Text="Корзина" FontSize="26" Margin="60 0" Foreground="Gray" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
         </ListView>

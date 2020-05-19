@@ -10,9 +10,8 @@ namespace PartShop.Domain.Model
     {
         [Key]
         public override int Id { get; set; }
-        [Range(5,20, ErrorMessage = "Имя должно быть более 5 и менее 20 символов")]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "Имя должно быть более 5 и менее 20 символов")]
         public string Username { get; set; }
-        [Range(8, 15, ErrorMessage = "Пароль должен быть не менее 8 не более 15 символов")]
         public string Password { get; set; }
         [RegularExpression(@"^([a-zA-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$", ErrorMessage = "Неверный формат email")]
         public string Email { get; set; }

@@ -8,29 +8,29 @@
              d:DesignHeight="680" d:DesignWidth="1210">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="0.2*"></RowDefinition>
+            <RowDefinition Height="45"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70"></ColumnDefinition>
-            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="0.1*"></ColumnDefinition>
+            <ColumnDefinition Width="0.15*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="1" Grid.Column="2" Text="Login" FontSize="40px" VerticalAlignment="Center"></TextBlock>
-        <TextBox Grid.Row="1" Grid.Column="3" Height="50px" FontSize="30px" VerticalAlignment="Center" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="Имя пользователя" FontSize="36px" VerticalAlignment="Center"></TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="3" Height="50px" FontSize="36px" VerticalAlignment="Center" Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}"/>
 
 
-        <TextBlock Grid.Row="2" Grid.Column="2" Text="Password" FontSize="40px" VerticalAlignment="Center"></TextBlock>
-        <PasswordBox x:Name="pswBx" Grid.Row="2" Grid.Column="3" Height="50px" FontSize="30px" ></PasswordBox>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Пароль" FontSize="36px" VerticalAlignment="Center"></TextBlock>
+        <PasswordBox x:Name="pswBx" Grid.Row="2" Grid.Column="3" Height="50px" FontSize="36px" ></PasswordBox>
 
 
-        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="240px" Background="Blue" Foreground="Black" FontSize="20px" Height="80px" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pswBx}">Login</Button>
+        <Button Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="240px"  Foreground="Black" FontSize="20px" Content="Авторизоваться" Height="80" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=pswBx}"/>
     </Grid>
 </UserControl>
