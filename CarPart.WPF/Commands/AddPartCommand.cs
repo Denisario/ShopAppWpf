@@ -35,8 +35,9 @@ namespace CarPart.WPF.Commands
                     {
                         Color = _addPartViewModel.Color, 
                         Description = _addPartViewModel.Description,
-                        Name = _addPartViewModel.Name
-
+                        Name = _addPartViewModel.Name,
+                        Article = _addPartViewModel.Article,
+                        Category = _addPartViewModel.SelectedCategory
                     },
                     _addPartViewModel.PartProvider.Id, _addPartViewModel.Car.Id, _addPartViewModel.Amount,
                     _addPartViewModel.Price

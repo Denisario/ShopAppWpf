@@ -65,7 +65,7 @@
         </ComboBox>
 
         <TextBox Grid.Row="5" Grid.Column="2" FontSize="36" Text="{Binding Article}"></TextBox>
-        <ComboBox Grid.Row="6" Grid.Column="2" FontSize="36" Text="{Binding Category}" SelectedItem="{Binding SelectedCategory}">
+        <ComboBox Grid.Row="6" Grid.Column="2" FontSize="36" Text="{Binding SelectedCategory}" >
             <TextBlock>Двигатель</TextBlock>
             <TextBlock>Коробка передач</TextBlock>
             <TextBlock>Сцепление</TextBlock>

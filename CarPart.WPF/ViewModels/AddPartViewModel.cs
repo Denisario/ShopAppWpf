@@ -124,6 +124,30 @@ namespace CarPart.WPF.ViewModels
                 OnPropertyChanged(nameof(Amount));
             }
         }
+
+        private int article;
+
+        public int Article
+        {
+            get => article;
+            set
+            {
+                article = value;
+                OnPropertyChanged(nameof(Article));
+            }
+        }
+
+        private string selectedCategory;
+
+        public String SelectedCategory
+        {
+            get => selectedCategory;
+            set
+            {
+                selectedCategory = value;
+                OnPropertyChanged(nameof(SelectedCategory));
+            }
+        }
         public ICommand AddPartCommand { get; set; }
         public AddPartViewModel(IProviderService providerService, ICarService carService, IPartService partService)
         {

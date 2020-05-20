@@ -166,6 +166,8 @@ namespace PartShop.EntityFramework.Services
                             ProviderId = @t.partprovider.ProviderId,
                             PartName = @t.part.Name,
                             PartColor = @t.part.Color,
+                            PartArticle = @t.part.Article,
+                            PartCategory = @t.part.Category,
                             PartDescription = @t.part.Description,
                             ProviderName = @t.partprovider.Provider.Name,
                             ProviderPartAmount = @t.partprovider.TotalParts,

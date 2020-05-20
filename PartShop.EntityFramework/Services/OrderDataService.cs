@@ -27,7 +27,6 @@ namespace PartShop.EntityFramework.Services
             _contextFactory = contextFactory;
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
-        //ДОПИСАТЬ ИЗМЕНЕНИЕ АДРЕСА
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar, Address address)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
@@ -35,7 +34,6 @@ namespace PartShop.EntityFramework.Services
                 double price = 0;
                 Order order = new Order()
                 {
-                    //сделать view
                     Address =address,
                     OrderCreationTime = DateTime.Now,
                     Status = OrderStatus.CREATED
@@ -127,7 +125,7 @@ namespace PartShop.EntityFramework.Services
                     graphics.DrawString($"Creation date:{order.OrderCreationTime}", mainFont, PdfBrushes.Black, new PointF(0, 40));
                     graphics.DrawString($"Finish date:{order.FinishDate}", mainFont, PdfBrushes.Black, new PointF(0, 55));
                     graphics.DrawString($"Status:{order.Status}", mainFont, PdfBrushes.Black, new PointF(0, 70));
-                    graphics.DrawString($"Address: {order.Address.City}, {order.Address.Street} street, {order.Address.House}-{order.Address.Apartament}", mainFont, PdfBrushes.Black, new PointF(0, 85));
+                    graphics.DrawString($"Address: {order.Address.City} city, {order.Address.Street} street, {order.Address.House}-{order.Address.Apartament}", mainFont, PdfBrushes.Black, new PointF(0, 85));
 
 
                     PdfGrid pdfGrid = new PdfGrid();

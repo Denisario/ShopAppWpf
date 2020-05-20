@@ -123,6 +123,41 @@ namespace CarPart.WPF.ViewModels
 
         private Provider partProvider;
 
+        private int article;
+        public int Article
+        {
+            get => article;
+            set
+            {
+                article = value;
+                OnPropertyChanged(nameof(Article));
+            }
+        }
+
+        private string category;
+
+        public string Category
+        {
+            get => category;
+            set
+            {
+                category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+
+        private string name;
+
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
         public Provider PartProvider
         {
             get => partProvider;
