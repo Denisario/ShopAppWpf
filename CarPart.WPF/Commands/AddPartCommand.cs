@@ -29,11 +29,14 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
+
             bool success = await _partService.AddPart(
                     new Part()
                     {
-                        Color = _addPartViewModel.Color, Description = _addPartViewModel.Description,
+                        Color = _addPartViewModel.Color, 
+                        Description = _addPartViewModel.Description,
                         Name = _addPartViewModel.Name
+
                     },
                     _addPartViewModel.PartProvider.Id, _addPartViewModel.Car.Id, _addPartViewModel.Amount,
                     _addPartViewModel.Price

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartShop.EntityFramework;
 
 namespace PartShop.EntityFramework.Migrations
 {
     [DbContext(typeof(CarPartDbContext))]
-    partial class CarPartDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200520134620_partv4")]
+    partial class partv4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,35 +25,28 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<double>("Balance")
-                        .HasColumnName("balance")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("CreationTime")
-                        .HasColumnName("creation_date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnName("pass")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserRole")
-                        .HasColumnName("role")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnName("username")
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
@@ -63,25 +58,20 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.Address", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnName("id")
                         .HasColumnType("int");
 
                     b.Property<int?>("Apartament")
-                        .HasColumnName("apartament_number")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnName("city")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("House")
-                        .HasColumnName("house_number")
                         .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasColumnName("street")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -93,27 +83,22 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("CreationYear")
-                        .HasColumnName("creation_year")
                         .HasColumnType("int");
 
                     b.Property<string>("FuelType")
                         .IsRequired()
-                        .HasColumnName("fuel_type")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mark")
                         .IsRequired()
-                        .HasColumnName("mark")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
                         .IsRequired()
-                        .HasColumnName("model")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -124,11 +109,9 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.CarPart", b =>
                 {
                     b.Property<int>("PartId")
-                        .HasColumnName("part_id")
                         .HasColumnType("int");
 
                     b.Property<int>("CarId")
-                        .HasColumnName("car_id")
                         .HasColumnType("int");
 
                     b.HasKey("PartId", "CarId");
@@ -142,29 +125,23 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<long>("CardNumber")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("number")
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Attempts")
-                        .HasColumnName("attempts")
                         .HasColumnType("int");
 
                     b.Property<double>("Balance")
-                        .HasColumnName("balance")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnName("creation_date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("FinishDate")
-                        .HasColumnName("finish_date")
+                    b.Property<DateTime?>("FinishDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PinCode")
                         .IsRequired()
-                        .HasColumnName("pin")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("CardNumber");
@@ -176,42 +153,35 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AccountId")
-                        .HasColumnName("account_id")
                         .HasColumnType("int");
 
                     b.Property<int>("Amount")
-                        .HasColumnName("amount")
                         .HasColumnType("int");
 
                     b.Property<int>("CarId")
-                        .HasColumnName("car_id")
                         .HasColumnType("int");
 
                     b.Property<int>("PartId")
-                        .HasColumnName("part_id")
                         .HasColumnType("int");
 
                     b.Property<int>("ProviderId")
-                        .HasColumnName("provider_id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("PartShop.Domain.Model.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -219,15 +189,12 @@ namespace PartShop.EntityFramework.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("FinishDate")
-                        .HasColumnName("finish_time")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("OrderCreationTime")
-                        .HasColumnName("creation_time")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
-                        .HasColumnName("status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -240,23 +207,18 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.OrderParts", b =>
                 {
                     b.Property<int>("PartId")
-                        .HasColumnName("part_id")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderId")
-                        .HasColumnName("order_id")
                         .HasColumnType("int");
 
                     b.Property<int>("AmountPart")
-                        .HasColumnName("amount")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
-                        .HasColumnName("price")
                         .HasColumnType("float");
 
                     b.Property<int>("ProviderId")
-                        .HasColumnName("provider_id")
                         .HasColumnType("int");
 
                     b.HasKey("PartId", "OrderId");
@@ -270,32 +232,26 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Article")
-                        .HasColumnName("article")
                         .HasColumnType("int");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnName("category")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Color")
                         .IsRequired()
-                        .HasColumnName("color")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnName("description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -306,19 +262,15 @@ namespace PartShop.EntityFramework.Migrations
             modelBuilder.Entity("PartShop.Domain.Model.PartProvider", b =>
                 {
                     b.Property<int>("PartId")
-                        .HasColumnName("part_id")
                         .HasColumnType("int");
 
                     b.Property<int>("ProviderId")
-                        .HasColumnName("provider_id")
                         .HasColumnType("int");
 
                     b.Property<double>("PartCost")
-                        .HasColumnName("price")
                         .HasColumnType("float");
 
                     b.Property<int>("TotalParts")
-                        .HasColumnName("amount")
                         .HasColumnType("int");
 
                     b.HasKey("PartId", "ProviderId");
@@ -332,13 +284,11 @@ namespace PartShop.EntityFramework.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnName("name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

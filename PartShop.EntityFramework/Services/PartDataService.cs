@@ -96,7 +96,6 @@ namespace PartShop.EntityFramework.Services
                 }
                 else
                 {
-
                     //ТУТ ДОБАВИТЬ ОБНОВЛЕНИЕ ЦЕНЫ
                     entity.CarParts.Add(new PartShop.Domain.Model.CarPart()
                         {
@@ -121,10 +120,13 @@ namespace PartShop.EntityFramework.Services
         //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС
         public async Task<bool> SaveProviderAndCar(Part part)
         {
+
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 _addCarPartFlag = false;
                 _addPartProviderFlag = false;
+
+                
                 PartProvider possibblePartProvider = part.PartProviders.Last();
                 CarPart possibleCarPart = part.CarParts.Last();
 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using PartShop.Domain.Exceptions;
 using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 using PartShop.EntityFramework;
