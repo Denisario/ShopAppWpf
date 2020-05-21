@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using PartShop.Domain.Model;
@@ -28,13 +29,20 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            await _carDataService.Create(new Car()
+            try
             {
-                CreationYear = _carViewModel.Year,
-                FuelType = _carViewModel.FuelType,
-                Mark = _carViewModel.Mark,
-                Model = _carViewModel.Model
-            });
+                await _carDataService.Create(new Car()
+                {
+                    CreationYear = _carViewModel.Year,
+                    FuelType = _carViewModel.FuelType,
+                    Mark = _carViewModel.Mark,
+                    Model = _carViewModel.Model
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         

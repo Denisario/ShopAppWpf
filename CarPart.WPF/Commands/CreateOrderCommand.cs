@@ -35,18 +35,25 @@ namespace CarPart.WPF.Commands
         }
 
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
 
 
-            _orderService.CreateOrder(_authentificator.CurrentAccount,
-               _authentificator.Parts.Where(x => x.IsSelected).ToList(), new Address()
-                {
-                    Apartament = _addressViewModel.Apartament,
-                    City = _addressViewModel.City,
-                    House = _addressViewModel.House,
-                    Street = _addressViewModel.Street
-                });
+            try
+            {
+                await _orderService.CreateOrder(_authentificator.CurrentAccount,
+                    _authentificator.Parts.Where(x => x.IsSelected).ToList(), new Address()
+                    {
+                        Apartament = _addressViewModel.Apartament,
+                        City = _addressViewModel.City,
+                        House = _addressViewModel.House,
+                        Street = _addressViewModel.Street
+                    });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
         public event EventHandler CanExecuteChanged;
     }

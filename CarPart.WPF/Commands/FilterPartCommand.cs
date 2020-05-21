@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -24,6 +25,12 @@ namespace CarPart.WPF.Commands
 
         public void Execute(object parameter)
         {
+            if (_partViewModel.Article < 0)
+            {
+                MessageBox.Show("Отрицательный артикул недопустим");
+                return;
+            }
+
             if (_partViewModel.Mark != null)
             {
                 _partViewModel.Parts = _partViewModel.Parts.Where(p => p.CarMark == _partViewModel.Mark).ToList();

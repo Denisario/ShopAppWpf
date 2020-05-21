@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -29,8 +30,26 @@ namespace PartShop.EntityFramework.Services
         }
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar, Address address)
         {
+
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if(partInCar.Count()==0) throw new Exception("Вы выбрали 0 деталей для звказа");
+
+                var results = new List<ValidationResult>();
+                var addrContext = new ValidationContext(address);
+
+                StringBuilder errorResult = new StringBuilder();
+
+                if (!Validator.TryValidateObject(address, addrContext, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        errorResult.Append(error.ErrorMessage + '\n');
+                    }
+                    throw new Exception(errorResult.ToString());
+                }
+
+                StringBuilder idParts=new StringBuilder();
                 double price = 0;
                 Order order = new Order()
                 {
@@ -40,6 +59,17 @@ namespace PartShop.EntityFramework.Services
                 };
                 //отправить письмо
                 List<OrderParts> orderParts=new List<OrderParts>();
+
+                foreach (var p in partInCar)
+                {
+                    PartProvider pp = context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);//acc check
+                    if (pp.TotalParts < p.ProviderPartAmount)
+                    {
+                        idParts.Append(pp.PartId.ToString()+' ');
+                    }
+                }
+
+                if(idParts.Length!=0) throw new Exception($"Данного числа запчастей нет на складе.\nId: {idParts}\n О поступлении мы вам cообщим по e-mail");
 
                 foreach (var p in partInCar)
                 {
@@ -60,6 +90,7 @@ namespace PartShop.EntityFramework.Services
                         pp.TotalParts -= p.ProviderPartAmount;
                         context.PartProviders.Update(pp);
                     }
+                    
 
                 }
 
@@ -70,17 +101,18 @@ namespace PartShop.EntityFramework.Services
                 account.Orders.Add(order);
                 context.Accounts.Update(account);
                 await context.SaveChangesAsync();
-                await PrintCheck(3);
                 return price;
             }
         }
 
-        public async Task<bool> PrintCheck(int orderId)
+        public async Task<bool> PrintCheck(Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Order order = await Get(orderId);
-                orderParts = await context.Orders.Where(a => a.Id == orderId)
+                if (order == null) throw new Exception("Вы не выбрали заказ");
+
+
+                orderParts = await context.Orders.Where(a => a.Id == order.Id)
                     .Join(context.OrderParts,
                         t => t.Id,
                         x => x.OrderId,
@@ -162,6 +194,8 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if (order == null) throw new Exception("Вы не выбрали заказ");
+
                 if (order.Status == OrderStatus.FINISHED||order.Status==OrderStatus.DELIVERED) return false;
                 Order selectedOrder = await Get(order.Id);
                 double price = 0;
@@ -188,8 +222,9 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if (order == null) throw new Exception("Вы не выбрали заказ");
                 //отправить письмо
-                if (order.Status != OrderStatus.DELIVERED) return false;
+                if (order.Status != OrderStatus.DELIVERED) throw new Exception("Заказ не доставлен");
                 order.Status = OrderStatus.FINISHED;
                 order.FinishDate=DateTime.Now;
                 context.Orders.Update(order);
@@ -203,7 +238,8 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                if (order.Status != OrderStatus.PAYED) return false;
+                if (order == null) throw new Exception("Вы не выбрали заказ");
+                if (order.Status != OrderStatus.PAYED) throw new Exception("Заказ не оплачен");
                 order.Status = OrderStatus.DELIVERED;
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
@@ -233,7 +269,7 @@ namespace PartShop.EntityFramework.Services
                     .Include(a => a.Address)
                     .Include(b => b.Parts)
                     .FirstOrDefaultAsync(x=>x.Id==id);
-
+                if(entity==null) throw new Exception("Вы не выбрали заказ");
                 return entity;
             }
         }

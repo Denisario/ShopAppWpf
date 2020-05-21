@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using PartShop.Domain.Services;
@@ -24,7 +25,14 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            await _orderService.DelivOrder(_orderViewModel.SelectedOrder);
+            try
+            {
+                await _orderService.DelivOrder(_orderViewModel.SelectedOrder);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

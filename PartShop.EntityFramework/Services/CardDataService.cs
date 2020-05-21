@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,6 +25,9 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                if(password<1000&&password>9999) throw new Exception("Пин должен быть четырёхзначным");
+                if(finishDate<DateTime.Now) throw new Exception("Срок окончания не должен превышать текущую дату");
+
                 await context.Cards.AddAsync(new Card()
                 {
                     Attempts = 3,
@@ -38,30 +42,47 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        public async Task<double> Withdraw(Account account, long cardNumber, int pin, DateTime finishCardDate, double money)
+        public async Task<double> Withdraw(Account account,Card card)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Card checkCard =await context.Cards.Where(p => p.CardNumber == cardNumber).FirstAsync();
-                if (checkCard == null) return 0.0;
-                if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(finishCardDate)) return 0.0;
-                if (checkCard.Balance < money) return 0.0;
-                if (checkCard.PinCode == HashPass(pin.ToString()))
+                var results = new List<ValidationResult>();
+                var addrContext = new ValidationContext(card);
+
+                StringBuilder errorResult = new StringBuilder();
+
+                if (!Validator.TryValidateObject(card, addrContext, results, true))
                 {
-                    checkCard.Balance -= money;
+                    foreach (var error in results)
+                    {
+                        errorResult.Append(error.ErrorMessage + '\n');
+                    }
+                    throw new Exception(errorResult.ToString());
+                }
+
+                if (card.Pin == 0) throw new Exception("Пин обязателен");
+
+
+                Card checkCard =await context.Cards.Where(p => p.CardNumber == card.CardNumber).FirstAsync();
+                if (checkCard == null) throw new Exception("Карта не найдена");
+                if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(card.FinishDate)) throw new Exception("Карта заблокирована");
+                if (checkCard.Balance < card.Balance) return 0.0;
+                if (checkCard.PinCode == HashPass(card.Pin.ToString()))
+                {
+                    checkCard.Balance -= card.Balance;
                 }
                 else
                 {
                     checkCard.Attempts--;
                 }
-                account.Balance += money;
+                account.Balance += card.Balance;
 
                 context.Cards.Update(checkCard);
                 context.Accounts.Update(account);
 
                 await context.SaveChangesAsync();
 
-                return money;
+                return card.Balance;
             }
         }
 
@@ -70,6 +91,7 @@ namespace PartShop.EntityFramework.Services
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 List<Card> card = await context.Cards.ToListAsync();
+                if (card.Count() == 0) return 5722000000000000;
                 return card.Last().CardNumber + 1;
             }
         }

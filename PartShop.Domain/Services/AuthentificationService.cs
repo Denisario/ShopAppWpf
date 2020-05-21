@@ -22,6 +22,7 @@ namespace PartShop.Domain.Services
 
         public async Task<bool> Register(string username, string password, string confirmPassword, string email)
         {
+            username = username.ToLower();
             Account account = await _accountService.GetAccountByUsername(username);
             if (account != null)
             {
@@ -30,12 +31,9 @@ namespace PartShop.Domain.Services
 
             email = email.ToLower();
 
-                //МБ ВЫНЕСТИ ВСЕ ОШИБКИ В ОДНУ СТРОКУ???
-
             if (password!=confirmPassword) throw new Exception("Пароли не совпадают");
 
 
-            //В АТТРИБУТАХ НЕ ПОЛУЧАЕТСЯ
             if((password.Length<=8)&&(password.Length>=15)) throw new Exception("Длина пароля должна быть не менее 8 и не более 15 символов");
 
             Account newAccount = new Account()

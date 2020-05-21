@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,6 +44,20 @@ namespace PartShop.EntityFramework.Services
 
         public async Task<Car> Create(Car entity)
         {
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(entity);
+
+            StringBuilder errorResult = new StringBuilder();
+
+            if (!Validator.TryValidateObject(entity, context, results, true))
+            {
+                foreach (var error in results)
+                {
+                    errorResult.Append(error.ErrorMessage + '\n');
+                }
+                throw new Exception(errorResult.ToString());
+            }
+
             return await _nonQueryDataService.Create(entity);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
@@ -28,10 +29,22 @@ namespace CarPart.WPF.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            _cardService.Withdraw(_authentificator.CurrentAccount, _addBalanceViewModel.Number,
-                _addBalanceViewModel.Pin, _addBalanceViewModel.FinishDate, _addBalanceViewModel.Money);
+            try
+            {
+               await _cardService.Withdraw(_authentificator.CurrentAccount, new Card()
+                {
+                    CardNumber = _addBalanceViewModel.Number,
+                    Pin = _addBalanceViewModel.Pin,
+                    FinishDate = _addBalanceViewModel.FinishDate,
+                    Balance = _addBalanceViewModel.Money
+                });
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

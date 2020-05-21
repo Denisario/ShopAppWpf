@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
@@ -30,12 +31,16 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            //if selected part is null
-
-            Cart cart=await _cartService.DeletePartFromCart(_cartViewModel.SelectedPart, _authentificator.CurrentAccount);
-
-            _cartViewModel.PartInCart.Remove(_cartViewModel.SelectedPart);
-            App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
+            try
+            {
+                await _cartService.DeletePartFromCart(_cartViewModel.SelectedPart, _authentificator.CurrentAccount);
+                _cartViewModel.PartInCart.Remove(_cartViewModel.SelectedPart);
+                //App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

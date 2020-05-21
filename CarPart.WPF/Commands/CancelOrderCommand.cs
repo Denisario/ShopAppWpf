@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
@@ -25,9 +26,16 @@ namespace CarPart.WPF.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            _orderService.CancelOrder(_authentificator.CurrentAccount, _homeViewModel.SelectedOrder);
+            try
+            {
+                await _orderService.CancelOrder(_authentificator.CurrentAccount, _homeViewModel.SelectedOrder);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

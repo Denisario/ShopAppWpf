@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using PartShop.Domain.Services;
@@ -32,14 +33,21 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            if (_homeViewModel == null)
+            try
             {
-                await _orderService.PrintCheck(_orderViewModel.SelectedOrder.Id);
-            }
+                if (_homeViewModel == null)
+                {
+                    await _orderService.PrintCheck(_orderViewModel.SelectedOrder);
+                }
 
-            if (_orderViewModel == null)
+                if (_orderViewModel == null)
+                {
+                    await _orderService.PrintCheck(_homeViewModel.SelectedOrder);
+                }
+            }
+            catch (Exception e)
             {
-                await _orderService.PrintCheck(_homeViewModel.SelectedOrder.Id);
+                MessageBox.Show(e.Message);
             }
         }
 

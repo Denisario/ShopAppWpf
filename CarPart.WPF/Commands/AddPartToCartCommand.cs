@@ -35,14 +35,22 @@ namespace CarPart.WPF.Commands
             var nav = App.service.GetRequiredService<INavigator>();
             var vmFactory = App.service.GetRequiredService<ICarPartViewModelAbstractFactory>();
 
-            if (_authentificator.IsLoggedIn == false)
+            if (_authentificator.IsLoggedIn)
+            {
+                try
+                {
+                    await _cartService.AddPartToCart(_partViewModel.Part, _authentificator.CurrentAccount, 1);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message);
+                }
+            }
+            else
             {
                 nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.AUTH);
                 return;
             }
-
-            if (_partViewModel.Part == null) MessageBox.Show("You don't select the part");
-            else await _cartService.AddPartToCart(_partViewModel.Part, _authentificator.CurrentAccount, 1);
         }
 
         public event EventHandler CanExecuteChanged;

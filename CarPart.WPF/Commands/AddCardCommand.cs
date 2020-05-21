@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using PartShop.Domain.Services;
@@ -25,7 +26,14 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-           await _cardService.CreateCard(_addCardViewModel.Pin, _addCardViewModel.FinishDate);
+            try
+            {
+                await _cardService.CreateCard(_addCardViewModel.Pin, _addCardViewModel.FinishDate);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
         }
 
         public event EventHandler CanExecuteChanged;

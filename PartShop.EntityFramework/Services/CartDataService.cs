@@ -61,7 +61,7 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                //аккаунт
+                if(partFullInfo==null) throw new Exception("Вы не выбрали заказ");
                 Cart cart = await context.Carts.FirstOrDefaultAsync(x =>
                     x.PartId == partFullInfo.PartId && x.ProviderId == partFullInfo.ProviderId&&x.AccountId==account.Id);
 
@@ -113,6 +113,8 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+
+                if (partFullInfo == null) throw new Exception("Вы не выбрали запчасть для удаления");
                 Cart partForDeleting = await context.Carts.FirstOrDefaultAsync(p =>
                     p.PartId == partFullInfo.PartId && p.ProviderId == partFullInfo.ProviderId &&
                     p.CarId == partFullInfo.CarId);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,27 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
+                var results = new List<ValidationResult>();
+                var partContext = new ValidationContext(part);
+
+                StringBuilder errorResult = new StringBuilder();
+
+                if (!Validator.TryValidateObject(part, partContext, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        errorResult.Append(error.ErrorMessage + '\n');
+                    }
+
+                    if (amountParts <= 0) errorResult.Append("Неверно задано число запчастей\n");
+                    if (price <= 0) errorResult.Append("Неверная ценв\n");
+
+                    
+                    throw new Exception(errorResult.ToString());
+                }
+
+
+
                 bool success = true;
                 Part entity = await context.Parts
                     .Include(a => a.PartProviders)
