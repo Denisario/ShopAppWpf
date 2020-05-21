@@ -18,10 +18,11 @@ namespace PartShop.EntityFramework.Services
         private readonly CarPartDbContextFactory _contextFactory;
         private bool _addPartProviderFlag;
         private bool _addCarPartFlag;
-
-        public PartDataService(CarPartDbContextFactory contextFactory)
+        private IEmailService _emailService;
+        public PartDataService(CarPartDbContextFactory contextFactory, IEmailService emailService)
         {
             _contextFactory = contextFactory;
+            _emailService = emailService;
             _nonQueryDataService=new NonQueryDataService<Part>(_contextFactory);
         }
 
@@ -82,6 +83,8 @@ namespace PartShop.EntityFramework.Services
                         errorResult.Append(error.ErrorMessage + '\n');
                     }
 
+
+                    //переделать
                     if (amountParts <= 0) errorResult.Append("Неверно задано число запчастей\n");
                     if (price <= 0) errorResult.Append("Неверная ценв\n");
 
@@ -89,14 +92,12 @@ namespace PartShop.EntityFramework.Services
                     throw new Exception(errorResult.ToString());
                 }
 
-
-
                 bool success = true;
                 Part entity = await context.Parts
                     .Include(a => a.PartProviders)
                     .Include(b => b.CarParts)
                     .FirstOrDefaultAsync(i =>
-                        i.Name == part.Name && i.Color == part.Color && i.Description == part.Description);
+                        i.Name == part.Name && i.Color == part.Color && i.Description == part.Description);//ещё проверки
 
                 if (entity == null)
                 {
@@ -132,7 +133,8 @@ namespace PartShop.EntityFramework.Services
                             TotalParts = amountParts,
                             PartCost = price
                         });
-                    success=await SaveProviderAndCar(entity);
+                    success=await SaveProviderAndCar(entity, amountParts, price);
+
                 }
 
                 return success;
@@ -140,7 +142,7 @@ namespace PartShop.EntityFramework.Services
         }
 
         //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС
-        public async Task<bool> SaveProviderAndCar(Part part)
+        public async Task<bool> SaveProviderAndCar(Part part, int amountParts,double price)
         {
 
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
@@ -158,15 +160,38 @@ namespace PartShop.EntityFramework.Services
                     await context.PartProviders.AddAsync(possibblePartProvider);
                     await context.SaveChangesAsync();
                 }
+                else
+                {
+                    PartProvider pp = await context.PartProviders.FirstOrDefaultAsync(x =>
+                        x.PartId == possibblePartProvider.PartId && x.ProviderId == possibblePartProvider.ProviderId);
+
+                    pp.PartCost = price;
+                    pp.TotalParts += amountParts;
+
+                    context.PartProviders.Update(pp);
+                    await context.SaveChangesAsync();
+
+                    foreach (var p in context.Accounts.Include(a=>a.Carts))
+                    {
+                        foreach (var l in p.Carts)
+                        {
+                            if (l.PartId == pp.PartId)
+                               await _emailService.SendPartEmail(p, "Поступление на склад",
+                                    $"Сообщаем Вам о том, что запчать из вашей корзины(id: {pp.PartId}) поступила в продажу");
+                        }
+                    }
+                }
+
+                
 
                 if (context.CarParts.Where(a=>a.PartId==possibleCarPart.PartId&&a.CarId==possibleCarPart.CarId).Count()==0)
                 {
-                    _addCarPartFlag= true;
+                    //_addCarPartFlag= true;
                     await context.CarParts.AddAsync(possibleCarPart);
                     await context.SaveChangesAsync();
                 }
                 //туть баг
-                if (_addCarPartFlag == false && _addPartProviderFlag == false)
+                if (/*_addCarPartFlag == false &&*/ _addPartProviderFlag == false)
                 {
                     return false;
                 }

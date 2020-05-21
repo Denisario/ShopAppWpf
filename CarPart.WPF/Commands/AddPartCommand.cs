@@ -56,7 +56,7 @@ namespace CarPart.WPF.Commands
                     _addPartViewModel.PartProvider.Id, _addPartViewModel.Car.Id, _addPartViewModel.Amount,
                     _addPartViewModel.Price
                 );
-                if (success == false) MessageBox.Show("You try to add exists part.");
+                if (success == false) MessageBox.Show("Данная деталь уже существует.\n Данные по наличию и цене были обновлены");
 
             }
             catch (Exception e)

@@ -15,6 +15,7 @@ using PartShop.Domain.Model;
 using PartShop.Domain.Services;
 using PartShop.EntityFramework;
 using PartShop.EntityFramework.Services;
+using PartShop.EntityFramework.Services.Common;
 
 namespace CarPart.WPF
 {
@@ -52,6 +53,7 @@ namespace CarPart.WPF
             service.AddSingleton<ICartService,CartDataService>();
             service.AddSingleton<IOrderService,OrderDataService>();
             service.AddSingleton<ICardService,CardDataService>();
+            service.AddSingleton<IEmailService,EmailService>();
             service.AddSingleton<IProviderService, ProviderDataService>();
             service.AddSingleton<ICarPartViewModelAbstractFactory, CarPartViewModelAbstractFactory>();
             service.AddSingleton<ICarPartViewModelFactory<AuthViewModel>, AuthViewModelFactory>();

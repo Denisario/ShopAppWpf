@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +23,12 @@ namespace PartShop.EntityFramework.Services
     {
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Order> _nonQueryDataService;
-        private dynamic orderParts;
+        private readonly IAccountService _accountService;
 
-        public OrderDataService(CarPartDbContextFactory contextFactory)
+        public OrderDataService(CarPartDbContextFactory contextFactory, IAccountService accountService)
         {
             _contextFactory = contextFactory;
+            _accountService = accountService;
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar, Address address)
@@ -57,7 +60,6 @@ namespace PartShop.EntityFramework.Services
                     OrderCreationTime = DateTime.Now,
                     Status = OrderStatus.CREATED
                 };
-                //отправить письмо
                 List<OrderParts> orderParts=new List<OrderParts>();
 
                 foreach (var p in partInCar)
@@ -94,13 +96,16 @@ namespace PartShop.EntityFramework.Services
 
                 }
 
-                if (price > account.Balance) return 0;
+                if (price > account.Balance) throw new Exception("Недостаточно денег для заказа");
                 order.Parts = orderParts;
                 account.Balance -= price;
                 order.Status = OrderStatus.PAYED;
                 account.Orders.Add(order);
                 context.Accounts.Update(account);
                 await context.SaveChangesAsync();
+
+                //await SendEmail(order, "Магазин автозапчастей: оплата заказа", $"Ваш заказ с номером {order.Id} был оплачен");
+                
                 return price;
             }
         }
@@ -112,7 +117,7 @@ namespace PartShop.EntityFramework.Services
                 if (order == null) throw new Exception("Вы не выбрали заказ");
 
 
-                orderParts = await context.Orders.Where(a => a.Id == order.Id)
+                var orderParts = await context.Orders.Where(a => a.Id == order.Id)
                     .Join(context.OrderParts,
                         t => t.Id,
                         x => x.OrderId,
@@ -190,6 +195,8 @@ namespace PartShop.EntityFramework.Services
                 return true;
             }
         }
+
+        //переелать
         public async Task<bool> CancelOrder(Account account,Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
@@ -212,6 +219,7 @@ namespace PartShop.EntityFramework.Services
                 
                 account.Balance += price;
                 context.Accounts.Update(account);
+                //await SendEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} был отменён");
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
                 return true;
@@ -227,6 +235,7 @@ namespace PartShop.EntityFramework.Services
                 if (order.Status != OrderStatus.DELIVERED) throw new Exception("Заказ не доставлен");
                 order.Status = OrderStatus.FINISHED;
                 order.FinishDate=DateTime.Now;
+                //await SendEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} завершён");
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
 
@@ -241,6 +250,7 @@ namespace PartShop.EntityFramework.Services
                 if (order == null) throw new Exception("Вы не выбрали заказ");
                 if (order.Status != OrderStatus.PAYED) throw new Exception("Заказ не оплачен");
                 order.Status = OrderStatus.DELIVERED;
+                //await SendEmail(order, "Магазин автозапчастей: статуса заказа", $"Ваш заказ с номером {order.Id} был отправлен");
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
 
@@ -278,16 +288,14 @@ namespace PartShop.EntityFramework.Services
         {
             return await _nonQueryDataService.Create(entity);
         }
-
         public async Task<Order> Update(int id, Order entity)
         {
             return await _nonQueryDataService.Update(id, entity);
         }
-
-
         public async Task<bool> Delete(int id)
         {
             return await _nonQueryDataService.Delete(id);
         }
+
     }
 }

@@ -17,6 +17,9 @@ namespace PartShop.Domain.Model
         [Column("status")]
         public OrderStatus Status { get; set; }
         public Address Address { get; set; }
+        [Column("account_id")]
+        public int AccountId { get; set; }
+        public Account Account { get; set; }
         public List<OrderParts> Parts { get; set; }
         [NotMapped] public string AddressStr { get=> Address.ToString(); } 
     }
