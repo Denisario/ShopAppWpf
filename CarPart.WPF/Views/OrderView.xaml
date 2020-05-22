@@ -4,17 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CarPart.WPF.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         BorderThickness="1" BorderBrush="Black"
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"
         Title="OrderView" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="0" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
+        <Button x:Name="CloseBtn" Padding="0" Margin="0 0 10 0" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="Gray" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Click="CloseBtn_OnClick">
+            <materialDesign:PackIcon Kind="Close" Height="20" Width="20"/>
+        </Button>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Orders}" SelectedItem="{Binding SelectedOrder}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Номер заказа" Binding="{Binding Id}" ></DataGridTextColumn>
                 <DataGridTextColumn Header="Дата создания" Binding="{Binding OrderCreationTime}"></DataGridTextColumn>
@@ -23,7 +29,7 @@
                 <DataGridTextColumn Header="Адрес доставки" Binding="{Binding AddressStr}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Row="1">
+        <Grid Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

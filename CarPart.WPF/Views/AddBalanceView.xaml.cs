@@ -26,5 +26,10 @@ namespace CarPart.WPF.Views
             DataContext = App.service.GetRequiredService<ICarPartViewModelFactory<AddBalanceViewModel>>()
                 .CreateViewModel();
         }
+
+        private void CloseBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

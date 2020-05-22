@@ -25,5 +25,10 @@ namespace CarPart.WPF.Views
             InitializeComponent();
             DataContext = App.service.GetRequiredService<ICarPartViewModelFactory<OrderViewModel>>().CreateViewModel();
         }
+
+        private void CloseBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

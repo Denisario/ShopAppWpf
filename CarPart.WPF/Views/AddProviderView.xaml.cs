@@ -27,5 +27,10 @@ namespace CarPart.WPF.Views
             InitializeComponent();
             
         }
+
+        private void CloseBtn_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
