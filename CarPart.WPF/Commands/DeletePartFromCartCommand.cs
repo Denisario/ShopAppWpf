@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
+using CarPart.WPF.State;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,9 +35,9 @@ namespace CarPart.WPF.Commands
         {
             try
             {
-                await _cartService.DeletePartFromCart(_cartViewModel.SelectedPart, _authentificator.CurrentAccount);
+                await _cartService.DeletePartFromCart(PartCashInfo.PartCash, _authentificator.CurrentAccount);
                 _cartViewModel.PartInCart.Remove(_cartViewModel.SelectedPart);
-                //App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
+                await App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
             }
             catch (Exception e)
             {

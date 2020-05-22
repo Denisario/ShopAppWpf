@@ -63,9 +63,9 @@ namespace CarPart.WPF.ViewModels
 
         public ICommand CreateOrderCommand { get; set; }
 
-        public AddressViewModel(IOrderService orderService, IAuthentificator authentificator, CartViewModel cartViewModel)
+        public AddressViewModel(IOrderService orderService, IAuthentificator authentificator)
         {
-            CreateOrderCommand = new CreateOrderCommand(orderService, authentificator, cartViewModel, this);
+            CreateOrderCommand = new CreateOrderCommand(orderService, authentificator, this);
         }
     }
 }

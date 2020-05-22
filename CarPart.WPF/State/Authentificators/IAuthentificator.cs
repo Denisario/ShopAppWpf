@@ -10,7 +10,6 @@ namespace CarPart.WPF.State.Authentificators
     {
         Account CurrentAccount { get; }
         bool IsLoggedIn { get; }
-        public List<PartFullInfo> Parts { get; set; }
         Task<bool> Register(string username, string email, string password, string confirmPassword);
 
         Task<Account> Login(string username, string password);

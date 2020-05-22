@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using CarPart.WPF.State;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.ViewModels;
 using CarPart.WPF.ViewModels.Factories;
@@ -19,13 +20,11 @@ namespace CarPart.WPF.Commands
     {
         private readonly IOrderService _orderService;
         private readonly IAuthentificator _authentificator;
-        private readonly CartViewModel _cartViewModel;
         private readonly AddressViewModel _addressViewModel;
-        public CreateOrderCommand(IOrderService orderService, IAuthentificator authentificator, CartViewModel cartViewModel,AddressViewModel addressViewModel)
+        public CreateOrderCommand(IOrderService orderService, IAuthentificator authentificator, AddressViewModel addressViewModel)
         {
             _orderService = orderService;
             _authentificator = authentificator;
-            _cartViewModel = App.service.GetRequiredService<ICarPartViewModelFactory<CartViewModel>>().CreateViewModel();
             _addressViewModel = addressViewModel;
         }
 
@@ -37,12 +36,10 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-
-
             try
             {
                 await _orderService.CreateOrder(_authentificator.CurrentAccount,
-                    _authentificator.Parts.Where(x => x.IsSelected).ToList(), new Address()
+                    PartCashInfo.PartCash, new Address()
                     {
                         Apartament = _addressViewModel.Apartament,
                         City = _addressViewModel.City,

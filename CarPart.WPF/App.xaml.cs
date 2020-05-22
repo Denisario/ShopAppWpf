@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using CarPart.WPF.State;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.State.Navigators;
 using CarPart.WPF.ViewModels;

@@ -13,6 +13,6 @@ namespace PartShop.Domain.Services
 
         Task<IEnumerable<PartFullInfo>> GetAllPartsInView(Account account);
 
-        Task<Cart> DeletePartFromCart(PartFullInfo partFullInfo, Account account);
+        Task<Cart> DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account);
     }
 }

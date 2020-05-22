@@ -109,23 +109,23 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        public async Task<Cart> DeletePartFromCart(PartFullInfo partFullInfo, Account account)
+        public async Task<Cart> DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
 
-                if (partFullInfo == null) throw new Exception("Вы не выбрали запчасть для удаления");
-                Cart partForDeleting = await context.Carts.FirstOrDefaultAsync(p =>
-                    p.PartId == partFullInfo.PartId && p.ProviderId == partFullInfo.ProviderId &&
-                    p.CarId == partFullInfo.CarId);
+                if (partFullInfo.Count()==0) throw new Exception("Вы не выбрали запчасть для удаления");
+                foreach (var pp in partFullInfo)
+                {
+                    Cart partForDeleting = await context.Carts.FirstOrDefaultAsync(p =>
+                        p.PartId == pp.PartId && p.ProviderId == pp.ProviderId &&
+                        p.CarId == pp.CarId);
 
+                    await Delete(partForDeleting.Id);
+                    account.Carts.Remove(partForDeleting);
+                }
 
-                await Delete(partForDeleting.Id);
-
-
-                account.Carts.Remove(partForDeleting);
-
-                return partForDeleting;
+                return null;
             }
         }
     }
