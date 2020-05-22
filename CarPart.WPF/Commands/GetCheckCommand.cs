@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
+using Microsoft.Win32;
 using PartShop.Domain.Services;
 
 namespace CarPart.WPF.Commands
@@ -33,16 +34,20 @@ namespace CarPart.WPF.Commands
 
         public async void Execute(object parameter)
         {
-            try
-            {
+            try { 
+                SaveFileDialog saveFileDialog=new SaveFileDialog();
+                saveFileDialog.Filter= "Pdf-files(*.pdf)|*.pdf";
+                saveFileDialog.ShowDialog();
+
+                string path = saveFileDialog.FileName;  
                 if (_homeViewModel == null)
                 {
-                    await _orderService.PrintCheck(_orderViewModel.SelectedOrder);
+                    await _orderService.PrintCheck(_orderViewModel.SelectedOrder, path);
                 }
 
                 if (_orderViewModel == null)
                 {
-                    await _orderService.PrintCheck(_homeViewModel.SelectedOrder);
+                    await _orderService.PrintCheck(_homeViewModel.SelectedOrder, path);
                 }
             }
             catch (Exception e)

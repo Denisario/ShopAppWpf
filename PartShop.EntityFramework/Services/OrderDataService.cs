@@ -110,13 +110,14 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        public async Task<bool> PrintCheck(Order order)
+        public async Task<bool> PrintCheck(Order order, string path)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if (order == null) throw new Exception("Вы не выбрали заказ");
 
-
+                Address address = await context.Address.FirstOrDefaultAsync(x => x.Id == order.Id);
+                order.Address = address;
                 var orderParts = await context.Orders.Where(a => a.Id == order.Id)
                     .Join(context.OrderParts,
                         t => t.Id,
@@ -187,8 +188,7 @@ namespace PartShop.EntityFramework.Services
                     pdfGrid.DataSource = dataTable;
                     pdfGrid.Draw(page, new PointF(0, 120));
 
-                    //как самому выбрать путь?
-                    document.Save($"Output{order.Id}.pdf");
+                    document.Save(path);
                     document.Close(true);
                 }
 
