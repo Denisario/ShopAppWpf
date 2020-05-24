@@ -21,24 +21,27 @@ namespace PartShop.EntityFramework.Services
             _contextFactory = contextFactory;
         }
 
-        public async Task<bool> CreateCard(int password, DateTime finishDate)
+        public async Task<double> CreateCard(int password, DateTime finishDate)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if(password<1000&&password>9999) throw new Exception("Пин должен быть четырёхзначным");
                 if(finishDate<DateTime.Now) throw new Exception("Срок окончания не должен превышать текущую дату");
 
+                double balance = new Random().Next(300, 3300);
+
                 await context.Cards.AddAsync(new Card()
                 {
                     Attempts = 3,
-                    Balance = new Random().Next(300, 3300),
+                    Balance = balance,
                     CreationDate = DateTime.Now.Date,
                     FinishDate = finishDate,
                     PinCode = HashPass(password.ToString())
                 });
 
                 await context.SaveChangesAsync();
-                return true;
+
+                return balance;
             }
         }
 
@@ -91,7 +94,7 @@ namespace PartShop.EntityFramework.Services
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 List<Card> card = await context.Cards.ToListAsync();
-                if (card.Count() == 0) return 5722000000000000;
+                if (card.Count() == 0) return 5772000000000000;
                 return card.Last().CardNumber + 1;
             }
         }
@@ -101,7 +104,6 @@ namespace PartShop.EntityFramework.Services
             using (SHA256 sha256Hash = SHA256.Create())
             {
                 byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)
                 {

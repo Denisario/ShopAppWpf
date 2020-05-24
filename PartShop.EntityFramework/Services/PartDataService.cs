@@ -17,8 +17,7 @@ namespace PartShop.EntityFramework.Services
         private readonly NonQueryDataService<Part> _nonQueryDataService;
         private readonly CarPartDbContextFactory _contextFactory;
         private bool _addPartProviderFlag;
-        private bool _addCarPartFlag;
-        private IEmailService _emailService;
+        private readonly IEmailService _emailService;
         public PartDataService(CarPartDbContextFactory contextFactory, IEmailService emailService)
         {
             _contextFactory = contextFactory;
@@ -30,12 +29,17 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<Part> parts = await context
-                                                .Parts.Include(a => a.PartProviders)
-                                                .Include(b => b.CarParts)
-                                                .ToListAsync();
+                //IEnumerable<Part> parts = await context
+                //                                .Parts.Include(a => a.PartProviders)
+                //                                .Include(b => b.CarParts)
+                //                                .ToListAsync();
 
-                return parts;
+                //return parts;
+
+                return await context.Parts
+                                    .Include(a => a.PartProviders)
+                                    .Include(b => b.CarParts)
+                                    .ToListAsync();
             }
         }
 
@@ -43,12 +47,18 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Part entity = await context.Parts
+                //Part entity = await context.Parts
+                //    .Include(a => a.PartProviders)
+                //    .Include(b=>b.CarParts)
+                //    .FirstOrDefaultAsync(e => e.Id == id);
+
+                //return entity;
+
+                return await context.Parts
                     .Include(a => a.PartProviders)
-                    .Include(b=>b.CarParts)
+                    .Include(b => b.CarParts)
                     .FirstOrDefaultAsync(e => e.Id == id);
 
-                return entity;
             }
         }
 
@@ -83,21 +93,22 @@ namespace PartShop.EntityFramework.Services
                         errorResult.Append(error.ErrorMessage + '\n');
                     }
 
-
-                    //переделать
-                    if (amountParts <= 0) errorResult.Append("Неверно задано число запчастей\n");
-                    if (price <= 0) errorResult.Append("Неверная ценв\n");
-
-                    
                     throw new Exception(errorResult.ToString());
                 }
 
+                if (amountParts <= 0) throw new Exception("Неверно задано число запчастей\n");
+                if (price <= 0) throw new Exception("Цена за запчасть не может быть отрицательной\n");
+
                 bool success = true;
+
                 Part entity = await context.Parts
-                    .Include(a => a.PartProviders)
-                    .Include(b => b.CarParts)
-                    .FirstOrDefaultAsync(i =>
-                        i.Name == part.Name && i.Color == part.Color && i.Description == part.Description);//ещё проверки
+                                           .Include(a => a.PartProviders)
+                                           .Include(b => b.CarParts)
+                                           .FirstOrDefaultAsync(i => i.Name == part.Name &&
+                                                                                 i.Color == part.Color &&
+                                                                                 i.Description == part.Description &&
+                                                                                 i.Article==part.Article &&
+                                                                                 i.Category==part.Category);//ещё проверки
 
                 if (entity == null)
                 {
@@ -133,10 +144,9 @@ namespace PartShop.EntityFramework.Services
                             TotalParts = amountParts,
                             PartCost = price
                         });
+
                     success=await SaveProviderAndCar(entity, amountParts, price);
-
                 }
-
                 return success;
             }
         }
@@ -144,13 +154,10 @@ namespace PartShop.EntityFramework.Services
         //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС
         public async Task<bool> SaveProviderAndCar(Part part, int amountParts,double price)
         {
-
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                _addCarPartFlag = false;
                 _addPartProviderFlag = false;
 
-                
                 PartProvider possibblePartProvider = part.PartProviders.Last();
                 CarPart possibleCarPart = part.CarParts.Last();
 
@@ -159,8 +166,7 @@ namespace PartShop.EntityFramework.Services
                     _addPartProviderFlag = true;
                     await context.PartProviders.AddAsync(possibblePartProvider);
                     await context.SaveChangesAsync();
-                }
-                else
+                }else
                 {
                     PartProvider pp = await context.PartProviders.FirstOrDefaultAsync(x =>
                         x.PartId == possibblePartProvider.PartId && x.ProviderId == possibblePartProvider.ProviderId);
@@ -175,23 +181,19 @@ namespace PartShop.EntityFramework.Services
                     {
                         foreach (var l in p.Carts)
                         {
-                            if (l.PartId == pp.PartId)
-                               await _emailService.SendPartEmail(p, "Поступление на склад",
-                                    $"Сообщаем Вам о том, что запчать из вашей корзины(id: {pp.PartId}) поступила в продажу");
+                            if (l.PartId == pp.PartId) await _emailService.SendPartEmail(p, "Поступление на склад",
+                                                                                             $"Сообщаем Вам о том, что запчать из вашей корзины(id: {pp.PartId}) поступила в продажу");
                         }
                     }
                 }
 
-                
-
                 if (context.CarParts.Where(a=>a.PartId==possibleCarPart.PartId&&a.CarId==possibleCarPart.CarId).Count()==0)
                 {
-                    //_addCarPartFlag= true;
                     await context.CarParts.AddAsync(possibleCarPart);
                     await context.SaveChangesAsync();
                 }
-                //туть баг
-                if (/*_addCarPartFlag == false &&*/ _addPartProviderFlag == false)
+                
+                if (_addPartProviderFlag == false)
                 {
                     return false;
                 }
@@ -203,30 +205,34 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<PartFullInfo> parts = await context.Parts
-                    .Join(context.PartProviders, part => part.Id, partprovider => partprovider.PartId,
-                        (part, partprovider) => new {part, partprovider})
-                    .Join(context.CarParts, @t => @t.partprovider.PartId, carpart => carpart.PartId,
-                        (@t, carpart) => new PartFullInfo()
-                        {
-                            PartId = @t.part.Id,
-                            ProviderId = @t.partprovider.ProviderId,
-                            PartName = @t.part.Name,
-                            PartColor = @t.part.Color,
-                            PartArticle = @t.part.Article,
-                            PartCategory = @t.part.Category,
-                            PartDescription = @t.part.Description,
-                            ProviderName = @t.partprovider.Provider.Name,
-                            ProviderPartAmount = @t.partprovider.TotalParts,
-                            ProviderPartPrice = @t.partprovider.PartCost,
-                            CarMark = carpart.Car.Mark,
-                            CarModel = carpart.Car.Model,
-                            CarCreationYear = carpart.Car.CreationYear,
-                            CarFuelType = carpart.Car.FuelType,
-                            CarId = carpart.CarId
-                        }).ToListAsync();
+                return await context.Parts
+                                    .Join(context.PartProviders,
+                                          part => part.Id,
+                                          partprovider => partprovider.PartId,
+                                            (part, partprovider) => new {part, partprovider})
+                                    .Join(context.CarParts,
+                                          @t => @t.partprovider.PartId,
+                                          carpart => carpart.PartId,
+                                          (@t, carpart) => new PartFullInfo()
+                                          {
+                                              PartId = @t.part.Id,
+                                              ProviderId = @t.partprovider.ProviderId,
+                                              PartName = @t.part.Name,
+                                              PartColor = @t.part.Color,
+                                              PartArticle = @t.part.Article,
+                                              PartCategory = @t.part.Category,
+                                              PartDescription = @t.part.Description,
+                                              ProviderName = @t.partprovider.Provider.Name,
+                                              ProviderPartAmount = @t.partprovider.TotalParts,
+                                              ProviderPartPrice = @t.partprovider.PartCost,
+                                              CarMark = carpart.Car.Mark,
+                                              CarModel = carpart.Car.Model,
+                                              CarCreationYear = carpart.Car.CreationYear,
+                                              CarFuelType = carpart.Car.FuelType,
+                                              CarId = carpart.CarId
+                                        })
+                                    .ToListAsync();
 
-                return parts;
             }
         }
     }

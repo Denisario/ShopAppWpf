@@ -27,9 +27,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<Cart> entity = await context.Carts.ToListAsync();
+                //IEnumerable<Cart> entity = await context.Carts.ToListAsync();
+                //return entity;
 
-                return entity;
+                return await context.Carts.ToListAsync();
             }
         }
 
@@ -37,8 +38,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Cart entity = await context.Carts.FirstOrDefaultAsync(e => e.Id == id);
-                return entity;
+                //Cart entity = await context.Carts.FirstOrDefaultAsync(e => e.Id == id);
+                //return entity;
+
+                return await context.Carts.FirstOrDefaultAsync(e => e.Id == id);
             }
         }
 
@@ -57,14 +60,16 @@ namespace PartShop.EntityFramework.Services
             return await _nonQueryDataService.Delete(id);
         }
 
-        public async Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount=1)
+        public async Task AddPartToCart(PartFullInfo partFullInfo, Account account, int amount=1)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if(partFullInfo==null) throw new Exception("Вы не выбрали заказ");
-                Cart cart = await context.Carts.FirstOrDefaultAsync(x =>
-                    x.PartId == partFullInfo.PartId && x.ProviderId == partFullInfo.ProviderId&&x.AccountId==account.Id);
-
+                Cart cart = await context.Carts
+                                         .FirstOrDefaultAsync(x => x.PartId == partFullInfo.PartId
+                                                                   && x.ProviderId == partFullInfo.ProviderId
+                                                                   && x.AccountId==account.Id);
+                
                 if (cart == null)
                 {
                     await Create(new Cart()
@@ -81,8 +86,8 @@ namespace PartShop.EntityFramework.Services
                     cart.Amount += amount;
                     context.Carts.Update(cart);
                 }
+
                 await context.SaveChangesAsync();
-             return account;
             }
         }
 
@@ -90,8 +95,7 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                List<Cart> userCart=await context.Carts.Where(x => x.AccountId == account.Id).ToListAsync();
-                account.Carts = userCart;
+                account.Carts = await context.Carts.Where(x => x.AccountId == account.Id).ToListAsync();
 
                 List<PartFullInfo> parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
                 List<PartFullInfo> result = new List<PartFullInfo>();
@@ -109,23 +113,23 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        public async Task<Cart> DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account)
+        public async Task DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-
                 if (partFullInfo.Count()==0) throw new Exception("Вы не выбрали запчасть для удаления");
+
                 foreach (var pp in partFullInfo)
                 {
-                    Cart partForDeleting = await context.Carts.FirstOrDefaultAsync(p =>
-                        p.PartId == pp.PartId && p.ProviderId == pp.ProviderId &&
-                        p.CarId == pp.CarId);
+                    Cart partForDeleting = await context.Carts
+                                                        .FirstOrDefaultAsync(p =>
+                                                                                     p.PartId == pp.PartId &&
+                                                                                     p.ProviderId == pp.ProviderId &&
+                                                                                     p.CarId == pp.CarId);
 
                     await Delete(partForDeleting.Id);
                     account.Carts.Remove(partForDeleting);
                 }
-
-                return null;
             }
         }
     }

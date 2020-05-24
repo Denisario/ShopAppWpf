@@ -18,23 +18,6 @@ namespace CarPart.WPF.ViewModels
         private readonly ICarService _carService;
         private readonly IProviderService _providerService;
         private readonly IAuthentificator _authentificator;
-        
-
-        public ICommand FilterPartCommand { get; set; }
-
-        public ICommand AddPartToCartCommand { get; set; }
-        public PartViewModel(IPartService partService, ICarService carService, IProviderService providerService, ICartService cartService, IAuthentificator authentificator)
-        {
-            _partService = partService;
-            _carService = carService;
-            _providerService = providerService;
-            _authentificator = authentificator;
-            FilterPartCommand=new FilterPartCommand(this);
-            AddPartToCartCommand=new AddPartToCartCommand(this,cartService, authentificator);
-            GetAllParts();
-            GetAllMarks();
-            GetListOfProviders();
-        }
 
         private string mark;
 
@@ -60,7 +43,7 @@ namespace CarPart.WPF.ViewModels
             {
                 model = value;
                 OnPropertyChanged(nameof(Model));
-                
+
             }
         }
 
@@ -121,7 +104,6 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private Provider partProvider;
 
         private int article;
         public int Article
@@ -158,6 +140,9 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
+        private Provider partProvider;
+
+
         public Provider PartProvider
         {
             get => partProvider;
@@ -166,6 +151,22 @@ namespace CarPart.WPF.ViewModels
                 partProvider = value;
                 OnPropertyChanged(nameof(PartProvider));
             }
+        }
+
+        public ICommand FilterPartCommand { get; set; }
+
+        public ICommand AddPartToCartCommand { get; set; }
+        public PartViewModel(IPartService partService, ICarService carService, IProviderService providerService, ICartService cartService, IAuthentificator authentificator)
+        {
+            _partService = partService;
+            _carService = carService;
+            _providerService = providerService;
+            _authentificator = authentificator;
+            FilterPartCommand=new FilterPartCommand(this);
+            AddPartToCartCommand=new AddPartToCartCommand(this,cartService, authentificator);
+            GetAllParts();
+            GetAllMarks();
+            GetListOfProviders();
         }
 
         private async void GetAllParts()

@@ -39,10 +39,9 @@ namespace PartShop.EntityFramework.Services
                 Account entity = await context.Accounts
                     .Include(a => a.Orders)
                     .Include(b => b.Carts)
-
                     .FirstOrDefaultAsync(e => e.Id == id);
 
-                if (entity == null) throw new Exception("User not found");
+                if (entity == null) throw new Exception("Пользователь не найден.");
 
                 return entity;
             }
@@ -58,11 +57,9 @@ namespace PartShop.EntityFramework.Services
         {
             return await _nonQueryDataService.Update(id, entity);
         }
-        //СМЫСЛ УДАЛЯТЬ АККАУНТ???
         public async Task<bool> Delete(int id)
         {
-            //return await _nonQueryDataService.Delete(id);
-            return false;
+            return await _nonQueryDataService.Delete(id);
         }
 
         public async Task<Account> GetAccountByUsername(string username)

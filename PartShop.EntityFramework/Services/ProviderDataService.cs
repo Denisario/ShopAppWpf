@@ -25,9 +25,9 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<Provider> providers = await context.Providers.ToListAsync();
-
-                return providers;
+                //IEnumerable<Provider> providers = await context.Providers.ToListAsync();
+                //return providers;
+                return await context.Providers.ToListAsync();
             }
         }
 
@@ -35,9 +35,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Provider provider = await context.Providers.FirstOrDefaultAsync(i => i.Id == id);
+                //Provider provider = await context.Providers.FirstOrDefaultAsync(i => i.Id == id);
+                //return provider;
 
-                return provider;
+                return await context.Providers.FirstOrDefaultAsync(i => i.Id == id);
             }
         }
 

@@ -10,7 +10,6 @@ namespace CarPart.WPF.ViewModels
 {
     public class AddCarViewModel:ViewModelBase
     {
-        //private readonly IDataService<Car> _carService;
         private string mark;
 
         public string Mark
@@ -49,11 +48,6 @@ namespace CarPart.WPF.ViewModels
 
         private string fuelType;
 
-        public AddCarViewModel(ICarService carService)
-        {
-            AddCarCommand = new AddCarCommand(carService,this);
-        }
-
         public string FuelType
         {
             get => fuelType;
@@ -65,5 +59,12 @@ namespace CarPart.WPF.ViewModels
         }
 
         public ICommand AddCarCommand { get; set; }
+
+        public AddCarViewModel(ICarService carService)
+        {
+            AddCarCommand = new AddCarCommand(carService,this);
+        }
+
+
     }
 }

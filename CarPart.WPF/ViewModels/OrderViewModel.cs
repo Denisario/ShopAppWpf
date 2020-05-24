@@ -12,17 +12,9 @@ namespace CarPart.WPF.ViewModels
     public class OrderViewModel:ViewModelBase
     {
         private readonly IOrderService _orderService;
-
-
         private ObservableCollection<Order> orders;
 
-        public OrderViewModel(IOrderService orderService)
-        {
-            _orderService = orderService;
-            ShowDetailsCommand = new GetCheckCommand(_orderService, this);
-            SendOrderCommand=new SendOrderCommand(_orderService, this);
-            GetAllOrders();
-        }
+
 
         public ObservableCollection<Order> Orders
         {
@@ -44,6 +36,14 @@ namespace CarPart.WPF.ViewModels
                 selectedOrder = value;
                 OnPropertyChanged(nameof(SelectedOrder));
             }
+        }
+
+        public OrderViewModel(IOrderService orderService)
+        {
+            _orderService = orderService;
+            ShowDetailsCommand = new GetCheckCommand(_orderService, this);
+            SendOrderCommand = new SendOrderCommand(_orderService, this);
+            GetAllOrders();
         }
 
         public ICommand ShowDetailsCommand { get; set; }

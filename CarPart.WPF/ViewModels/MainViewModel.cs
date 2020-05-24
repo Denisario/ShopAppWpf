@@ -10,16 +10,14 @@ namespace CarPart.WPF.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
+        public INavigator Navigator { get; set; }
+        public ICommand CloseAppCommand { get; set; }
         public MainViewModel(INavigator navigator)
         {
             Navigator = navigator;
-
             Navigator.UpdateCurrentViewModelCommand.Execute(ViewType.AUTH);
-
             CloseAppCommand=new CloseAppCommand();
         }
 
-        public INavigator Navigator { get; set; }
-        public ICommand CloseAppCommand { get; set; }
     }
 }

@@ -25,8 +25,10 @@ namespace PartShop.EntityFramework.Services
 
             using (CarPartDbContext context = _contentFactory.CreateDbContext())
             {
-                IEnumerable<T> entities = await context.Set<T>().ToListAsync();
-                return entities;
+                //IEnumerable<T> entities = await context.Set<T>().ToListAsync();
+                //return entities;
+
+                return await context.Set<T>().ToListAsync();
             }
         }
 
@@ -34,8 +36,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contentFactory.CreateDbContext())
             {
-                T entity = await context.Set<T>().FirstOrDefaultAsync(s => s.Id == id);
-                return entity;
+                //T entity = await context.Set<T>().FirstOrDefaultAsync(s => s.Id == id);
+                //return entity;
+
+                return await context.Set<T>().FirstOrDefaultAsync(s => s.Id == id);
             }
         }
 

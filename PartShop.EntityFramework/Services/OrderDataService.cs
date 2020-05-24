@@ -23,20 +23,22 @@ namespace PartShop.EntityFramework.Services
     {
         private readonly CarPartDbContextFactory _contextFactory;
         private readonly NonQueryDataService<Order> _nonQueryDataService;
+        private readonly IEmailService _emailService;
         private readonly IAccountService _accountService;
 
-        public OrderDataService(CarPartDbContextFactory contextFactory, IAccountService accountService)
+        public OrderDataService(CarPartDbContextFactory contextFactory, IAccountService accountService, IEmailService emailService)
         {
             _contextFactory = contextFactory;
             _accountService = accountService;
+            _emailService = emailService;
             _nonQueryDataService = new NonQueryDataService<Order>(contextFactory);
         }
+
         public async Task<double> CreateOrder(Account account, List<PartFullInfo> partInCar, Address address)
         {
-
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                if(partInCar.Count()==0) throw new Exception("Вы выбрали 0 деталей для звказа");
+                if(partInCar.Count()==0) throw new Exception("Вы не выбрали деталей для заказа");
 
                 var results = new List<ValidationResult>();
                 var addrContext = new ValidationContext(address);
@@ -71,7 +73,7 @@ namespace PartShop.EntityFramework.Services
                     }
                 }
 
-                if(idParts.Length!=0) throw new Exception($"Данного числа запчастей нет на складе.\nId: {idParts}\n О поступлении мы вам cообщим по e-mail");
+                if(idParts.Length!=0) throw new Exception($"Данного числа запчастей нет на складе.\nId: {idParts}\nО поступлении мы вам cообщим по e-mail");
 
                 foreach (var p in partInCar)
                 {
@@ -83,17 +85,15 @@ namespace PartShop.EntityFramework.Services
                         Price = p.ProviderPartPrice,
                         ProviderId = p.ProviderId
                     });
+
                     price += p.ProviderPartPrice * p.ProviderPartAmount;
                     PartProvider pp=context.PartProviders.FirstOrDefault(x => x.PartId == p.PartId && x.ProviderId == p.ProviderId);//acc check
-                    
 
                     if (pp != null && (pp.TotalParts > p.ProviderPartAmount))
                     {
                         pp.TotalParts -= p.ProviderPartAmount;
                         context.PartProviders.Update(pp);
                     }
-                    
-
                 }
 
                 if (price > account.Balance) throw new Exception("Недостаточно денег для заказа");
@@ -103,14 +103,12 @@ namespace PartShop.EntityFramework.Services
                 account.Orders.Add(order);
                 context.Accounts.Update(account);
                 await context.SaveChangesAsync();
-
-                //await SendEmail(order, "Магазин автозапчастей: оплата заказа", $"Ваш заказ с номером {order.Id} был оплачен");
-                
+                await _emailService.SendOrderEmail(order, "Магазин автозапчастей: оплата заказа", $"Ваш заказ с номером {order.Id} был оплачен. Cтоимость: {price}. Ожидайте смены статуса заказа на DELIVERED.");
                 return price;
             }
         }
 
-        public async Task<bool> PrintCheck(Order order, string path)
+        public async Task PrintCheck(Order order, string path)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
@@ -147,24 +145,20 @@ namespace PartShop.EntityFramework.Services
                         }
                         ).ToListAsync();
 
-
                 using (PdfDocument document = new PdfDocument())
                 {
                     double price = 0;
-                    //Add a page to the document
                     PdfPage page = document.Pages.Add();
                     PdfGraphics graphics = page.Graphics;
                     PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
                     PdfFont mainFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14);
 
-                    //Draw the text
                     graphics.DrawString("Part shop check", font, PdfBrushes.Black, new PointF(200, 0));
                     graphics.DrawString($"Order id:{order.Id}", mainFont, PdfBrushes.Black, new PointF(0, 25));
                     graphics.DrawString($"Creation date:{order.OrderCreationTime}", mainFont, PdfBrushes.Black, new PointF(0, 40));
                     graphics.DrawString($"Finish date:{order.FinishDate}", mainFont, PdfBrushes.Black, new PointF(0, 55));
                     graphics.DrawString($"Status:{order.Status}", mainFont, PdfBrushes.Black, new PointF(0, 70));
                     graphics.DrawString($"Address: {order.Address.City} city, {order.Address.Street} street, {order.Address.House}-{order.Address.Apartament}", mainFont, PdfBrushes.Black, new PointF(0, 85));
-
 
                     PdfGrid pdfGrid = new PdfGrid();
                     DataTable dataTable = new DataTable();
@@ -191,22 +185,20 @@ namespace PartShop.EntityFramework.Services
                     document.Save(path);
                     document.Close(true);
                 }
-
-                return true;
             }
         }
-
         //переелать
-        public async Task<bool> CancelOrder(Account account,Order order)
+        public async Task CancelOrder(Account account,Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if (order == null) throw new Exception("Вы не выбрали заказ");
 
-                if (order.Status == OrderStatus.FINISHED||order.Status==OrderStatus.DELIVERED) return false;
+                if (order.Status == OrderStatus.FINISHED || order.Status == OrderStatus.DELIVERED) throw new Exception("Вы не можете отменить отправленный либо законченный заказ");
                 Order selectedOrder = await Get(order.Id);
                 double price = 0;
                 order.Status = OrderStatus.CANCELLED;
+
                 foreach (var p in selectedOrder.Parts)
                 {
                     price += p.AmountPart * p.Price;
@@ -215,46 +207,40 @@ namespace PartShop.EntityFramework.Services
 
                     pp.TotalParts += p.AmountPart;
                 }
-                //отправить письмо
                 
                 account.Balance += price;
                 context.Accounts.Update(account);
-                //await SendEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} был отменён");
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
-                return true;
+                await _emailService.SendOrderEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} был отменён. Деньги вернутся в ближайшее время.");
             }
         }
 
-        public async Task<bool> FinishOrder(Order order)
+        public async Task FinishOrder(Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if (order == null) throw new Exception("Вы не выбрали заказ");
-                //отправить письмо
                 if (order.Status != OrderStatus.DELIVERED) throw new Exception("Заказ не доставлен");
                 order.Status = OrderStatus.FINISHED;
                 order.FinishDate=DateTime.Now;
-                //await SendEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} завершён");
                 context.Orders.Update(order);
                 await context.SaveChangesAsync();
-
-                return true;
+                await _emailService.SendOrderEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} завершён");
             }
         }
 
-        public async Task<bool> DelivOrder(Order order)
+        public async Task DelivOrder(Order order)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
                 if (order == null) throw new Exception("Вы не выбрали заказ");
                 if (order.Status != OrderStatus.PAYED) throw new Exception("Заказ не оплачен");
                 order.Status = OrderStatus.DELIVERED;
-                //await SendEmail(order, "Магазин автозапчастей: статуса заказа", $"Ваш заказ с номером {order.Id} был отправлен");
                 context.Orders.Update(order);
-                await context.SaveChangesAsync();
 
-                return true;
+                await context.SaveChangesAsync();
+                await _emailService.SendOrderEmail(order, "Магазин автозапчастей: изменение статуса заказа", $"Ваш заказ с номером {order.Id} был отправлен. При получении измените статус заказа на FINISHED.");
             }
         }
 

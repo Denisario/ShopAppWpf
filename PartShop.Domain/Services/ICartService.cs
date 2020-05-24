@@ -9,10 +9,10 @@ namespace PartShop.Domain.Services
     public interface ICartService:IDataService<Cart>
     {
 
-        Task<Account> AddPartToCart(PartFullInfo partFullInfo, Account account, int amount);
+        Task AddPartToCart(PartFullInfo partFullInfo, Account account, int amount);
 
         Task<IEnumerable<PartFullInfo>> GetAllPartsInView(Account account);
 
-        Task<Cart> DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account);
+        Task DeletePartFromCart(List<PartFullInfo> partFullInfo, Account account);
     }
 }

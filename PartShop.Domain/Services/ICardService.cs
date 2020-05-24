@@ -8,7 +8,7 @@ namespace PartShop.Domain.Services
 {
     public interface ICardService
     {
-        Task<bool> CreateCard(int password, DateTime finishDate);
+        Task<double> CreateCard(int password, DateTime finishDate);
 
         Task<double> Withdraw(Account account, Card card);
 

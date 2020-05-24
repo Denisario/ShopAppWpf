@@ -26,9 +26,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<Car> cars = await context.Cars.ToListAsync();
+                //IEnumerable<Car> cars = await context.Cars.ToListAsync();
+                //return cars;
 
-                return cars;
+                return await context.Cars.ToListAsync();
             }
         }
 
@@ -36,9 +37,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                Car car = await context.Cars.FirstOrDefaultAsync(i=>i.Id==id);
+                //Car car = await context.Cars.FirstOrDefaultAsync(i=>i.Id==id);
+                //return car;
 
-                return car;
+                return await context.Cars.FirstOrDefaultAsync(i => i.Id == id);
             }
         }
 
@@ -75,8 +77,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<string> carMarks = await context.Cars.Select(i=>i.Mark).Distinct().ToListAsync();
-                return carMarks;
+                //IEnumerable<string> carMarks = await context.Cars.Select(i=>i.Mark).Distinct().ToListAsync();
+                //return carMarks;
+
+                return await context.Cars.Select(i => i.Mark).Distinct().ToListAsync();
             }
         }
 
@@ -84,8 +88,10 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                IEnumerable<string> carMarks = await context.Cars.Where(m=>m.Mark==mark).Select(i => i.Model).Distinct().ToListAsync();
-                return carMarks;
+                //IEnumerable<string> carMarks = await context.Cars.Where(m=>m.Mark==mark).Select(i => i.Model).Distinct().ToListAsync();
+                //return carMarks;
+
+                return await context.Cars.Where(m => m.Mark == mark).Select(i => i.Model).Distinct().ToListAsync();
             }
         }
     }

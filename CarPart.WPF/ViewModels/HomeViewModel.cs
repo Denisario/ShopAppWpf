@@ -87,7 +87,6 @@ namespace CarPart.WPF.ViewModels
         public HomeViewModel(IAuthentificator authentificator, IOrderService orderService)
         {
             _authentificator = authentificator;
-            //ДОБАВИТЬ ПРОВЕРКУ CURRENTACC и выводить MessgeBox и не пускать
             Username = _authentificator.CurrentAccount.Username;
             Email = _authentificator.CurrentAccount.Email;
             Balance = _authentificator.CurrentAccount.Balance;

@@ -35,15 +35,6 @@ namespace CarPart.WPF.ViewModels
 
         private DateTime finishDate;
 
-        public AddCardViewModel(ICardService cardService)
-        {
-
-            _cardService = cardService;
-            GetNumberOfCard();
-            AddCardCommand = new AddCardCommand(this, cardService);
-            FinishDate=DateTime.Now;
-        }
-
         public DateTime FinishDate
         {
             get => finishDate;
@@ -55,6 +46,17 @@ namespace CarPart.WPF.ViewModels
         }
 
         public ICommand AddCardCommand { get; set; }
+
+        public AddCardViewModel(ICardService cardService)
+        {
+
+            _cardService = cardService;
+            GetNumberOfCard();
+            AddCardCommand = new AddCardCommand(this, cardService);
+            FinishDate=DateTime.Now;
+        }
+
+
 
         private async void GetNumberOfCard()
         {

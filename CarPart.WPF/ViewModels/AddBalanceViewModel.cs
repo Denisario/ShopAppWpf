@@ -22,7 +22,6 @@ namespace CarPart.WPF.ViewModels
         }
 
         private int pin;
-
         public int Pin
         {
             get => pin;
@@ -45,13 +44,6 @@ namespace CarPart.WPF.ViewModels
         }
 
         private double money;
-
-        public AddBalanceViewModel(ICardService cardService, IAuthentificator authentificator)
-        {
-            FinishDate=DateTime.Now;
-            AddBalanceCommand = new AddMoneyCommand(cardService, authentificator, this);
-        }
-
         public double Money
         {
             get => money;
@@ -61,8 +53,13 @@ namespace CarPart.WPF.ViewModels
                 OnPropertyChanged(nameof(Money));
             }
         }
-
-
         public ICommand AddBalanceCommand { get; set; }
+
+        public AddBalanceViewModel(ICardService cardService, IAuthentificator authentificator)
+        {
+            FinishDate=DateTime.Now;
+            AddBalanceCommand = new AddMoneyCommand(cardService, authentificator, this);
+        }
+        
     }
 }

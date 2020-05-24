@@ -21,12 +21,12 @@ namespace PartShop.EntityFramework.Services
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())
             {
-                PartProvider pp = new PartProvider()
+                
+                EntityEntry<PartProvider> createdResult = await context.Set<PartProvider>().AddAsync(new PartProvider()
                 {
                     Part = part,
                     Provider = provider
-                };
-                EntityEntry<PartProvider> createdResult = await context.Set<PartProvider>().AddAsync(pp);
+                });
                 await context.SaveChangesAsync();
 
                 return createdResult.Entity;

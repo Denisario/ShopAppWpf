@@ -31,7 +31,6 @@ namespace CarPart.WPF.ViewModels
 
         private ObservableCollection<PartFullInfo> partInCart;
 
-
         public ObservableCollection<PartFullInfo> PartInCart
         {
             get
@@ -46,7 +45,6 @@ namespace CarPart.WPF.ViewModels
         }
 
         private PartFullInfo selectedPart;
-
         public PartFullInfo SelectedPart
         {
             get => selectedPart;
@@ -60,8 +58,8 @@ namespace CarPart.WPF.ViewModels
                         p.IsSelected = true;
                         PartCashInfo.PartCash.Add(selectedPart);
                         OnPropertyChanged(nameof(SelectedPart));
-                        OnPropertyChanged(nameof(SelectedPart.IsSelected));
-                        OnPropertyChanged(nameof(PartInCart));
+                        //OnPropertyChanged(nameof(SelectedPart.IsSelected));
+                        //OnPropertyChanged(nameof(PartInCart));
                         break;
                     }
                 }
@@ -69,10 +67,7 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-
-        
-
-        public async Task GetAllPartsInCart()
+        public async void GetAllPartsInCart()
         {
             PartInCart= new ObservableCollection<PartFullInfo>(await _cartService.GetAllPartsInView(_authentificator.CurrentAccount));
         }
