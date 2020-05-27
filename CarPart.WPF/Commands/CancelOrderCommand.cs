@@ -14,6 +14,8 @@ namespace CarPart.WPF.Commands
         private readonly IOrderService _orderService;
         private readonly IAuthentificator _authentificator;
         private readonly HomeViewModel _homeViewModel;
+        public event EventHandler CanExecuteChanged;
+
         public CancelOrderCommand(IOrderService orderService, IAuthentificator authentificator, HomeViewModel homeViewModel)
         {
             _orderService = orderService;
@@ -38,6 +40,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

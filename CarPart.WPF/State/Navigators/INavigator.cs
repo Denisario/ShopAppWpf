@@ -8,6 +8,7 @@ namespace CarPart.WPF.State.Navigators
 {
     public enum ViewType
     {
+        START,
         AUTH,
         REGISTER,
         HOME,

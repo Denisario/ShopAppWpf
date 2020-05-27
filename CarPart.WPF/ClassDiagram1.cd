@@ -1,0 +1,959 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddBalanceViewModelFactory">
+    <Position X="4" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\AddBalanceViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cardService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddCardViewModelFactory">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\AddCardViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cardService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddCarViewModelFactory">
+    <Position X="8.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\AddCarViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_carService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddPartViewModelFactory">
+    <Position X="11" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAIAACAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\AddPartViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_providerService" />
+      <Field Name="_carService" />
+      <Field Name="_partService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddProviderViewModelFactory">
+    <Position X="13.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\AddProviderViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_providerService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AddressViewModelFactory">
+    <Position X="15.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAACAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\AddressViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AdminViewModelFactory">
+    <Position X="18" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\AdminViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.AuthViewModelFactory">
+    <Position X="20" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\AuthViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.CarPartViewModelAbstractFactory">
+    <Position X="22.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAACIAAAAQABAAAARAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\CarPartViewModelAbstractFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authVMFactory" />
+      <Field Name="_registerVMFactory" />
+      <Field Name="_homeVmFactory" />
+      <Field Name="_partVmFactory" />
+      <Field Name="_adminVmFactory" />
+      <Field Name="_cartVmFactory" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.CartViewModelFactory">
+    <Position X="24.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAgAAAAAAAIACAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\CartViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+      <Field Name="_cartService" />
+      <Field Name="_orderService" />
+      <Field Name="_addressViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddressViewModel" Collapsed="true">
+    <Position X="15.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAACAAAACAAAgAgAAIAAAACACA=</HashCode>
+      <FileName>ViewModels\AddressViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.HomeViewModelFactory">
+    <Position X="27" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAACAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\HomeViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+      <Field Name="_orderService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.OrderViewModelFactory">
+    <Position X="29.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\OrderViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.PartViewModelFactory">
+    <Position X="31.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAIAAiAAAAABAAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\PartViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partService" />
+      <Field Name="_carService" />
+      <Field Name="_providerService" />
+      <Field Name="_cartService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.Factories.RegisterViewModelFactory">
+    <Position X="34" Y="3.25" Width="1.5" />
+    <AssociationLine Name="_authentificator" Type="CarPart.WPF.State.Authentificators.IAuthentificator" ManuallyRouted="true">
+      <Path>
+        <Point X="34.75" Y="4.546" />
+        <Point X="34.75" Y="11.43" />
+        <Point X="34.333" Y="11.43" Type="JumpStart" />
+        <Point X="34.167" Y="11.43" Type="JumpEnd" />
+        <Point X="32.13" Y="11.43" Type="JumpStart" />
+        <Point X="31.964" Y="11.43" Type="JumpEnd" />
+        <Point X="29.708" Y="11.43" Type="JumpStart" />
+        <Point X="29.542" Y="11.43" Type="JumpEnd" />
+        <Point X="28.036" Y="11.43" Type="JumpStart" />
+        <Point X="27.87" Y="11.43" Type="JumpEnd" />
+        <Point X="27.13" Y="11.43" Type="JumpStart" />
+        <Point X="26.964" Y="11.43" Type="JumpEnd" />
+        <Point X="25.685" Y="11.43" Type="JumpStart" />
+        <Point X="25.518" Y="11.43" Type="JumpEnd" />
+        <Point X="25.38" Y="11.43" Type="JumpStart" />
+        <Point X="25.214" Y="11.43" Type="JumpEnd" />
+        <Point X="23.708" Y="11.43" Type="JumpStart" />
+        <Point X="23.542" Y="11.43" Type="JumpEnd" />
+        <Point X="23.021" Y="11.43" Type="JumpStart" />
+        <Point X="22.854" Y="11.43" Type="JumpEnd" />
+        <Point X="22.24" Y="11.43" Type="JumpStart" />
+        <Point X="22.073" Y="11.43" Type="JumpEnd" />
+        <Point X="21.458" Y="11.43" Type="JumpStart" />
+        <Point X="21.292" Y="11.43" Type="JumpEnd" />
+        <Point X="20.771" Y="11.43" Type="JumpStart" />
+        <Point X="20.604" Y="11.43" Type="JumpEnd" />
+        <Point X="19.958" Y="11.43" Type="JumpStart" />
+        <Point X="19.792" Y="11.43" Type="JumpEnd" />
+        <Point X="16.63" Y="11.43" Type="JumpStart" />
+        <Point X="16.464" Y="11.43" Type="JumpEnd" />
+        <Point X="15.927" Y="11.43" Type="JumpStart" />
+        <Point X="15.76" Y="11.43" Type="JumpEnd" />
+        <Point X="14.583" Y="11.43" Type="JumpStart" />
+        <Point X="14.417" Y="11.43" Type="JumpEnd" />
+        <Point X="13.31" Y="11.43" />
+        <Point X="13.31" Y="12.172" />
+        <Point X="12.536" Y="12.172" Type="JumpStart" />
+        <Point X="12.37" Y="12.172" Type="JumpEnd" />
+        <Point X="10.083" Y="12.172" Type="JumpStart" />
+        <Point X="9.917" Y="12.172" Type="JumpEnd" />
+        <Point X="8.958" Y="12.172" Type="JumpStart" />
+        <Point X="8.792" Y="12.172" Type="JumpEnd" />
+        <Point X="7.833" Y="12.172" Type="JumpStart" />
+        <Point X="7.667" Y="12.172" Type="JumpEnd" />
+        <Point X="6.833" Y="12.172" Type="JumpStart" />
+        <Point X="6.667" Y="12.172" Type="JumpEnd" />
+        <Point X="5.833" Y="12.172" Type="JumpStart" />
+        <Point X="5.667" Y="12.172" Type="JumpEnd" />
+        <Point X="4.427" Y="12.172" Type="JumpStart" />
+        <Point X="4.26" Y="12.172" Type="JumpEnd" />
+        <Point X="3.755" Y="12.172" Type="JumpStart" />
+        <Point X="3.589" Y="12.172" Type="JumpEnd" />
+        <Point X="2.75" Y="12.172" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>ViewModels\Factories\RegisterViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddCarCommand">
+    <Position X="3" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAACAAQAAEAAAAAAAAAAAAAAAAAAAAgAAAA=</HashCode>
+      <FileName>Commands\AddCarCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_carDataService" />
+      <Field Name="_carViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddCarViewModel" Collapsed="true">
+    <Position X="2.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAAAAAAAAAAAAQIAAAEAiAAAAIgAA=</HashCode>
+      <FileName>ViewModels\AddCarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddCardCommand">
+    <Position X="1" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACACAAQEAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AddCardCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cardService" />
+      <Field Name="_addCardViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddCardViewModel" Collapsed="true">
+    <Position X="1" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAACACUAIAAEACAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AddCardViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cardService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddMoneyCommand">
+    <Position X="5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACASAAQAAEAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Commands\AddMoneyCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cardService" />
+      <Field Name="_authentificator" />
+      <Field Name="_addBalanceViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddBalanceViewModel" Collapsed="true">
+    <Position X="5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAACQAIAAEAiAAAAAAACAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>ViewModels\AddBalanceViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddPartCommand">
+    <Position X="7" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAACAAQAAEAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AddPartCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partService" />
+      <Field Name="_addPartViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddPartViewModel" Collapsed="true">
+    <Position X="7" Y="18.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgBBAQCAQQkKgAAICAAMASCEAAEgBCAAAAggAAgAAA=</HashCode>
+      <FileName>ViewModels\AddPartViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_providerService" />
+      <Field Name="_carService" />
+      <Field Name="_partService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddPartToCartCommand">
+    <Position X="9.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAQAAAgAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Commands\AddPartToCartCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partViewModel" />
+      <Field Name="_cartService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.PartViewModel" Collapsed="true">
+    <Position X="9.25" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAwAIABEMCAAADAAMCQCMAAEBBAAAIzIAAAIjAA=</HashCode>
+      <FileName>ViewModels\PartViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partService" />
+      <Field Name="_carService" />
+      <Field Name="_providerService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.AddProviderCommand">
+    <Position X="11.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAACAAQAAEAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\AddProviderCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_providerDataService" />
+      <Field Name="_addProvideriewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AddProviderViewModel" Collapsed="true">
+    <Position X="11.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\AddProviderViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.CancelOrderCommand">
+    <Position X="13.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAACAAQAAEAAAAAAAAAAAAAAACAAAAAABAA=</HashCode>
+      <FileName>Commands\CancelOrderCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_authentificator" />
+      <Field Name="_homeViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.HomeViewModel" Collapsed="true">
+    <Position X="13.75" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEABACAgAAAgIQgAAAEIEAAAAACAAAAggAAABIA=</HashCode>
+      <FileName>ViewModels\HomeViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.ClearFindCommand">
+    <Position X="15.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAQAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\ClearFindCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partService" />
+      <Field Name="_partViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.CloseAppCommand">
+    <Position X="18.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\CloseAppCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.CreateOrderCommand">
+    <Position X="20.5" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAIACAAAAAABAA=</HashCode>
+      <FileName>Commands\CreateOrderCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_authentificator" />
+      <Field Name="_addressViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.DeletePartFromCartCommand">
+    <Position X="22.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAGAAAAAgAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Commands\DeletePartFromCartCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_cartViewModel" />
+      <Field Name="_cartService" />
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.CartViewModel" Collapsed="true">
+    <Position X="18.5" Y="18.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAFgAAAAQQAAAAAAQAAABAA=</HashCode>
+      <FileName>ViewModels\CartViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+      <Field Name="_cartService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.FilterPartCommand">
+    <Position X="24.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\FilterPartCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_partViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.FinishOrderCommand">
+    <Position X="26.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAACAAQAAEAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Commands\FinishOrderCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_homeViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.GetCheckCommand">
+    <Position X="29" Y="15.75" Width="1.5" />
+    <AssociationLine Name="_orderService" Type="PartShop.Domain.Services.IOrderService" ManuallyRouted="true">
+      <Path>
+        <Point X="29.625" Y="15.75" />
+        <Point X="29.625" Y="8.312" />
+        <Point X="28.036" Y="8.312" Type="JumpStart" />
+        <Point X="27.87" Y="8.312" Type="JumpEnd" />
+        <Point X="27.13" Y="8.312" Type="JumpStart" />
+        <Point X="26.964" Y="8.312" Type="JumpEnd" />
+        <Point X="25.685" Y="8.312" Type="JumpStart" />
+        <Point X="25.518" Y="8.312" Type="JumpEnd" />
+        <Point X="25.38" Y="8.312" Type="JumpStart" />
+        <Point X="25.214" Y="8.312" Type="JumpEnd" />
+        <Point X="23.708" Y="8.312" Type="JumpStart" />
+        <Point X="23.542" Y="8.312" Type="JumpEnd" />
+        <Point X="23.021" Y="8.312" Type="JumpStart" />
+        <Point X="22.854" Y="8.312" Type="JumpEnd" />
+        <Point X="21.458" Y="8.312" Type="JumpStart" />
+        <Point X="21.292" Y="8.312" Type="JumpEnd" />
+        <Point X="20.771" Y="8.312" Type="JumpStart" />
+        <Point X="20.604" Y="8.312" Type="JumpEnd" />
+        <Point X="19.958" Y="8.312" Type="JumpStart" />
+        <Point X="19.792" Y="8.312" Type="JumpEnd" />
+        <Point X="15.927" Y="8.312" Type="JumpStart" />
+        <Point X="15.76" Y="8.312" Type="JumpEnd" />
+        <Point X="14.583" Y="8.312" Type="JumpStart" />
+        <Point X="14.417" Y="8.312" Type="JumpEnd" />
+        <Point X="14.083" Y="8.312" Type="JumpStart" />
+        <Point X="13.917" Y="8.312" Type="JumpEnd" />
+        <Point X="12.24" Y="8.312" Type="JumpStart" />
+        <Point X="12.073" Y="8.312" Type="JumpEnd" />
+        <Point X="11.833" Y="8.312" Type="JumpStart" />
+        <Point X="11.667" Y="8.312" Type="JumpEnd" />
+        <Point X="10.083" Y="8.312" Type="JumpStart" />
+        <Point X="9.917" Y="8.312" Type="JumpEnd" />
+        <Point X="8.958" Y="8.312" Type="JumpStart" />
+        <Point X="8.792" Y="8.312" Type="JumpEnd" />
+        <Point X="7.083" Y="8.312" Type="JumpStart" />
+        <Point X="6.917" Y="8.312" Type="JumpEnd" />
+        <Point X="6.833" Y="8.312" Type="JumpStart" />
+        <Point X="6.667" Y="8.312" Type="JumpEnd" />
+        <Point X="4.833" Y="8.312" Type="JumpStart" />
+        <Point X="4.667" Y="8.312" Type="JumpEnd" />
+        <Point X="4.427" Y="8.312" Type="JumpStart" />
+        <Point X="4.26" Y="8.312" Type="JumpEnd" />
+        <Point X="3.716" Y="8.312" />
+        <Point X="3.716" Y="8.171" />
+        <Point X="2.75" Y="8.171" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAACAAQAAEAAAAAAAAAAAAAAACAAAAIAAAA=</HashCode>
+      <FileName>Commands\GetCheckCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_homeViewModel" />
+      <Field Name="_orderViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.OrderViewModel" Collapsed="true">
+    <Position X="20.75" Y="18.5" Width="1.5" />
+    <AssociationLine Name="_orderService" Type="PartShop.Domain.Services.IOrderService" ManuallyRouted="true">
+      <Path>
+        <Point X="22.156" Y="18.5" />
+        <Point X="22.156" Y="8.24" />
+        <Point X="21.458" Y="8.24" Type="JumpStart" />
+        <Point X="21.292" Y="8.24" Type="JumpEnd" />
+        <Point X="20.771" Y="8.24" Type="JumpStart" />
+        <Point X="20.604" Y="8.24" Type="JumpEnd" />
+        <Point X="19.958" Y="8.24" Type="JumpStart" />
+        <Point X="19.792" Y="8.24" Type="JumpEnd" />
+        <Point X="15.927" Y="8.24" Type="JumpStart" />
+        <Point X="15.76" Y="8.24" Type="JumpEnd" />
+        <Point X="14.583" Y="8.24" Type="JumpStart" />
+        <Point X="14.417" Y="8.24" Type="JumpEnd" />
+        <Point X="14.083" Y="8.24" Type="JumpStart" />
+        <Point X="13.917" Y="8.24" Type="JumpEnd" />
+        <Point X="12.24" Y="8.24" Type="JumpStart" />
+        <Point X="12.073" Y="8.24" Type="JumpEnd" />
+        <Point X="11.833" Y="8.24" Type="JumpStart" />
+        <Point X="11.667" Y="8.24" Type="JumpEnd" />
+        <Point X="10.083" Y="8.24" Type="JumpStart" />
+        <Point X="9.917" Y="8.24" Type="JumpEnd" />
+        <Point X="8.958" Y="8.24" Type="JumpStart" />
+        <Point X="8.792" Y="8.24" Type="JumpEnd" />
+        <Point X="7.083" Y="8.24" Type="JumpStart" />
+        <Point X="6.917" Y="8.24" Type="JumpEnd" />
+        <Point X="6.833" Y="8.24" Type="JumpStart" />
+        <Point X="6.667" Y="8.24" Type="JumpEnd" />
+        <Point X="4.833" Y="8.24" Type="JumpStart" />
+        <Point X="4.667" Y="8.24" Type="JumpEnd" />
+        <Point X="4.427" Y="8.24" Type="JumpStart" />
+        <Point X="4.26" Y="8.24" Type="JumpEnd" />
+        <Point X="3.755" Y="8.24" Type="JumpStart" />
+        <Point X="3.589" Y="8.24" Type="JumpEnd" />
+        <Point X="3.447" Y="8.24" />
+        <Point X="3.447" Y="8.132" />
+        <Point X="2.75" Y="8.132" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAABAAAgAAAAIAACAAAAAAAAAAAAACABAAAAAAg=</HashCode>
+      <FileName>ViewModels\OrderViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.LoginCommand">
+    <Position X="31.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAgAAAAAABAA=</HashCode>
+      <FileName>Commands\LoginCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+      <Field Name="_authViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.AuthViewModel" Collapsed="true">
+    <Position X="33.75" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>ViewModels\AuthViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.LogoutCommand">
+    <Position X="33.75" Y="15.75" Width="1.5" />
+    <AssociationLine Name="_authentificator" Type="CarPart.WPF.State.Authentificators.IAuthentificator" ManuallyRouted="true">
+      <Path>
+        <Point X="34.25" Y="15.75" />
+        <Point X="34.25" Y="11.161" />
+        <Point X="32.13" Y="11.161" Type="JumpStart" />
+        <Point X="31.964" Y="11.161" Type="JumpEnd" />
+        <Point X="29.708" Y="11.161" Type="JumpStart" />
+        <Point X="29.542" Y="11.161" Type="JumpEnd" />
+        <Point X="28.036" Y="11.161" Type="JumpStart" />
+        <Point X="27.87" Y="11.161" Type="JumpEnd" />
+        <Point X="27.13" Y="11.161" Type="JumpStart" />
+        <Point X="26.964" Y="11.161" Type="JumpEnd" />
+        <Point X="25.685" Y="11.161" Type="JumpStart" />
+        <Point X="25.518" Y="11.161" Type="JumpEnd" />
+        <Point X="25.38" Y="11.161" Type="JumpStart" />
+        <Point X="25.214" Y="11.161" Type="JumpEnd" />
+        <Point X="23.708" Y="11.161" Type="JumpStart" />
+        <Point X="23.542" Y="11.161" Type="JumpEnd" />
+        <Point X="23.021" Y="11.161" Type="JumpStart" />
+        <Point X="22.854" Y="11.161" Type="JumpEnd" />
+        <Point X="22.24" Y="11.161" Type="JumpStart" />
+        <Point X="22.073" Y="11.161" Type="JumpEnd" />
+        <Point X="21.458" Y="11.161" Type="JumpStart" />
+        <Point X="21.292" Y="11.161" Type="JumpEnd" />
+        <Point X="20.771" Y="11.161" Type="JumpStart" />
+        <Point X="20.604" Y="11.161" Type="JumpEnd" />
+        <Point X="19.958" Y="11.161" Type="JumpStart" />
+        <Point X="19.792" Y="11.161" Type="JumpEnd" />
+        <Point X="16.63" Y="11.161" Type="JumpStart" />
+        <Point X="16.464" Y="11.161" Type="JumpEnd" />
+        <Point X="15.927" Y="11.161" Type="JumpStart" />
+        <Point X="15.76" Y="11.161" Type="JumpEnd" />
+        <Point X="14.583" Y="11.161" Type="JumpStart" />
+        <Point X="14.417" Y="11.161" Type="JumpEnd" />
+        <Point X="13.145" Y="11.161" />
+        <Point X="13.145" Y="12.023" />
+        <Point X="12.536" Y="12.023" Type="JumpStart" />
+        <Point X="12.37" Y="12.023" Type="JumpEnd" />
+        <Point X="10.083" Y="12.023" Type="JumpStart" />
+        <Point X="9.917" Y="12.023" Type="JumpEnd" />
+        <Point X="8.958" Y="12.023" Type="JumpStart" />
+        <Point X="8.792" Y="12.023" Type="JumpEnd" />
+        <Point X="7.833" Y="12.023" Type="JumpStart" />
+        <Point X="7.667" Y="12.023" Type="JumpEnd" />
+        <Point X="6.833" Y="12.023" Type="JumpStart" />
+        <Point X="6.667" Y="12.023" Type="JumpEnd" />
+        <Point X="5.833" Y="12.023" Type="JumpStart" />
+        <Point X="5.667" Y="12.023" Type="JumpEnd" />
+        <Point X="4.427" Y="12.023" Type="JumpStart" />
+        <Point X="4.26" Y="12.023" Type="JumpEnd" />
+        <Point X="3.755" Y="12.023" Type="JumpStart" />
+        <Point X="3.589" Y="12.023" Type="JumpEnd" />
+        <Point X="2.75" Y="12.023" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Commands\LogoutCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.RegisterCommand">
+    <Position X="36" Y="15.75" Width="1.5" />
+    <AssociationLine Name="_authentificator" Type="CarPart.WPF.State.Authentificators.IAuthentificator" ManuallyRouted="true">
+      <Path>
+        <Point X="36.75" Y="15.75" />
+        <Point X="36.75" Y="12.52" />
+        <Point X="34.333" Y="12.52" Type="JumpStart" />
+        <Point X="34.167" Y="12.52" Type="JumpEnd" />
+        <Point X="31.732" Y="12.52" Type="JumpStart" />
+        <Point X="31.565" Y="12.52" Type="JumpEnd" />
+        <Point X="29.708" Y="12.52" Type="JumpStart" />
+        <Point X="29.542" Y="12.52" Type="JumpEnd" />
+        <Point X="27.13" Y="12.52" Type="JumpStart" />
+        <Point X="26.964" Y="12.52" Type="JumpEnd" />
+        <Point X="25.38" Y="12.52" Type="JumpStart" />
+        <Point X="25.214" Y="12.52" Type="JumpEnd" />
+        <Point X="23.708" Y="12.52" Type="JumpStart" />
+        <Point X="23.542" Y="12.52" Type="JumpEnd" />
+        <Point X="23.333" Y="12.52" Type="JumpStart" />
+        <Point X="23.167" Y="12.52" Type="JumpEnd" />
+        <Point X="22.24" Y="12.52" Type="JumpStart" />
+        <Point X="22.073" Y="12.52" Type="JumpEnd" />
+        <Point X="21.458" Y="12.52" Type="JumpStart" />
+        <Point X="21.292" Y="12.52" Type="JumpEnd" />
+        <Point X="19.99" Y="12.52" Type="JumpStart" />
+        <Point X="19.792" Y="12.52" Type="JumpEnd" />
+        <Point X="16.63" Y="12.52" Type="JumpStart" />
+        <Point X="16.464" Y="12.52" Type="JumpEnd" />
+        <Point X="14.583" Y="12.52" Type="JumpStart" />
+        <Point X="14.417" Y="12.52" Type="JumpEnd" />
+        <Point X="13.97" Y="12.52" />
+        <Point X="13.97" Y="12.355" />
+        <Point X="13.818" Y="12.355" Type="JumpStart" />
+        <Point X="13.652" Y="12.355" Type="JumpEnd" />
+        <Point X="12.536" Y="12.355" Type="JumpStart" />
+        <Point X="12.37" Y="12.355" Type="JumpEnd" />
+        <Point X="10.083" Y="12.355" Type="JumpStart" />
+        <Point X="9.917" Y="12.355" Type="JumpEnd" />
+        <Point X="8.958" Y="12.355" Type="JumpStart" />
+        <Point X="8.792" Y="12.355" Type="JumpEnd" />
+        <Point X="7.833" Y="12.355" Type="JumpStart" />
+        <Point X="7.667" Y="12.355" Type="JumpEnd" />
+        <Point X="6.833" Y="12.355" Type="JumpStart" />
+        <Point X="6.667" Y="12.355" Type="JumpEnd" />
+        <Point X="5.833" Y="12.355" Type="JumpStart" />
+        <Point X="5.667" Y="12.355" Type="JumpEnd" />
+        <Point X="4.427" Y="12.355" Type="JumpStart" />
+        <Point X="4.26" Y="12.355" Type="JumpEnd" />
+        <Point X="3.755" Y="12.355" Type="JumpStart" />
+        <Point X="3.589" Y="12.355" Type="JumpEnd" />
+        <Point X="3.021" Y="12.355" Type="JumpStart" />
+        <Point X="2.854" Y="12.355" Type="JumpEnd" />
+        <Point X="2.75" Y="12.355" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAABABAA=</HashCode>
+      <FileName>Commands\RegisterCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificator" />
+      <Field Name="_registerViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.ViewModels.RegisterViewModel" Collapsed="true">
+    <Position X="36.25" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAgAQAAAAEAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\RegisterViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarPart.WPF.Commands.SendOrderCommand">
+    <Position X="38.25" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAACAAAAIAAAA=</HashCode>
+      <FileName>Commands\SendOrderCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_orderService" />
+      <Field Name="_orderViewModel" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.Commands.UpdateCurrentViewModelCommand">
+    <Position X="40.75" Y="15.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAACIAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Commands\UpdateCurrentViewModelCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_navigator" />
+      <Field Name="_viewModelFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.State.Authentificators.Authentificator">
+    <Position X="2.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAQBAQAAAAASAAAAAAA=</HashCode>
+      <FileName>State\Authentificators\Authentificator.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_authentificationService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="CarPart.WPF.State.Navigators.Navigator">
+    <Position X="42.5" Y="18.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAEACIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>State\Navigators\Navigator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.Common.EmailService" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.Common.NonQueryDataService&lt;T&gt;">
+    <Position X="17.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.AccountDataService" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.CarDataService" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.CardDataService" BaseTypeListCollapsed="true">
+    <Position X="10" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.CartDataService" BaseTypeListCollapsed="true">
+    <Position X="11.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.GenericDataService&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="15.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.OrderDataService" BaseTypeListCollapsed="true">
+    <Position X="19.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.PartDataService" BaseTypeListCollapsed="true">
+    <Position X="22" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.PartProviderService" BaseTypeListCollapsed="true">
+    <Position X="23.75" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.EntityFramework.Services.ProviderDataService" BaseTypeListCollapsed="true">
+    <Position X="25.5" Y="20.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Account" Collapsed="true">
+    <Position X="1" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Address" Collapsed="true">
+    <Position X="5" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Car" Collapsed="true">
+    <Position X="3" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Card" Collapsed="true">
+    <Position X="6.75" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.CarPart" Collapsed="true">
+    <Position X="17" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Cart" Collapsed="true">
+    <Position X="11.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.DomainObject" Collapsed="true">
+    <Position X="2.5" Y="23.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Order" Collapsed="true">
+    <Position X="9" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.OrderParts" Collapsed="true">
+    <Position X="23" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Part" Collapsed="true">
+    <Position X="13.25" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.PartProvider" Collapsed="true">
+    <Position X="19" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Provider" Collapsed="true">
+    <Position X="15" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PartShop.Domain.Model.Role" Collapsed="true">
+    <Position X="21" Y="24.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Interface Name="CarPart.WPF.State.Authentificators.IAuthentificator" Collapsed="true">
+    <Position X="1.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAABAQAAAAASAAAAAAA=</HashCode>
+      <FileName>State\Authentificators\IAuthentificator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.ICardService" Collapsed="true">
+    <Position X="1.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.ICarService" Collapsed="true">
+    <Position X="1.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IPartService" Collapsed="true">
+    <Position X="1.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IProviderService" Collapsed="true">
+    <Position X="1.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IOrderService" Collapsed="true">
+    <Position X="1.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CarPart.WPF.ViewModels.Factories.ICarPartViewModelFactory&lt;T&gt;">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\ICarPartViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.ICartService" Collapsed="true">
+    <Position X="1.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="CarPart.WPF.State.Navigators.INavigator" Collapsed="true">
+    <Position X="45.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>State\Navigators\INavigator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="CarPart.WPF.ViewModels.Factories.ICarPartViewModelAbstractFactory" Collapsed="true">
+    <Position X="45.5" Y="17" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Factories\ICarPartViewModelAbstractFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IAuthentificationService" Collapsed="true">
+    <Position X="1.25" Y="12" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IAccountService" Collapsed="true">
+    <Position X="1.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IDataService&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IEmailService" Collapsed="true">
+    <Position X="1.25" Y="12.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="PartShop.Domain.Services.IPartProviderService" Collapsed="true">
+    <Position X="1.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

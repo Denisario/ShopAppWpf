@@ -14,14 +14,14 @@ namespace CarPart.WPF.Commands
     {
         private readonly ICarService _carDataService;
         private AddCarViewModel _carViewModel;
-
+        public event EventHandler CanExecuteChanged;
         public AddCarCommand(ICarService carDataService, AddCarViewModel carViewModel)
         {
             _carDataService = carDataService;
             _carViewModel = carViewModel;
         }
 
-        public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter)
         {
             return true;

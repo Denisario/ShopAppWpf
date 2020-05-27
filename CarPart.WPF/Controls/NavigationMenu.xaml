@@ -27,9 +27,9 @@
         </Button>
 
         <StackPanel x:Name="UserData"  Grid.Row="2" >
-            <StackPanel Orientation="Horizontal" Height="70">
-                <Button Width="200"  Margin="0 30 0 0" Content="Авторизация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.AUTH}"/>
-                <Button Width="200" Margin="0 30 0 0" Content="Регистрация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.REGISTER}"/>
+            <StackPanel Height="100">
+                <Button Width="400" Content="Авторизация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.AUTH}"/>
+                <Button Width="400" Content="Регистрация" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.REGISTER}"/>
             </StackPanel>
         </StackPanel>
 

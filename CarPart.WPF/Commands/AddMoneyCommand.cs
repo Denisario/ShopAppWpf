@@ -16,6 +16,7 @@ namespace CarPart.WPF.Commands
         private readonly ICardService _cardService;
         private readonly IAuthentificator _authentificator;
         private readonly AddBalanceViewModel _addBalanceViewModel;
+        public event EventHandler CanExecuteChanged;
 
         public AddMoneyCommand(ICardService cardService, IAuthentificator authentificator, AddBalanceViewModel addBalanceViewModel)
         {
@@ -47,6 +48,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

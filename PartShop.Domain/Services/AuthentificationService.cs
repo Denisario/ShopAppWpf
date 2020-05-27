@@ -22,13 +22,13 @@ namespace PartShop.Domain.Services
 
         public async Task<bool> Register(string username, string password, string confirmPassword, string email)
         {
-            username = username.ToLower();
+            
             Account account = await _accountService.GetAccountByUsername(username);
             if (account != null)
             {
                 throw new Exception("Данный пользователь зарегистирован");
             }
-
+            username = username.ToLower();
             email = email.ToLower();
 
             if (password!=confirmPassword) throw new Exception("Пароли не совпадают");

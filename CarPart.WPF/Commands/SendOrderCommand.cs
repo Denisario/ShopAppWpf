@@ -12,6 +12,8 @@ namespace CarPart.WPF.Commands
     {
         private readonly IOrderService _orderService;
         private readonly OrderViewModel _orderViewModel;
+        public event EventHandler CanExecuteChanged;
+
         public SendOrderCommand(IOrderService orderService, OrderViewModel orderViewModel)
         {
             _orderService = orderService;
@@ -35,6 +37,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

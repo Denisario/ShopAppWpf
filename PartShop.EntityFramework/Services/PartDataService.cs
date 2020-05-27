@@ -109,7 +109,7 @@ namespace PartShop.EntityFramework.Services
                                                                                  i.Description == part.Description &&
                                                                                  i.Article==part.Article &&
                                                                                  i.Category==part.Category);//ещё проверки
-
+                
                 if (entity == null)
                 {
                     part.CarParts.Add(new PartShop.Domain.Model.CarPart()
@@ -151,7 +151,7 @@ namespace PartShop.EntityFramework.Services
             }
         }
 
-        //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС
+        //НЕ СМОТРЕТЬ НА ЭТОТ УЖАС, может добавить полное изменение запчасти
         public async Task<bool> SaveProviderAndCar(Part part, int amountParts,double price)
         {
             using (CarPartDbContext context = _contextFactory.CreateDbContext())

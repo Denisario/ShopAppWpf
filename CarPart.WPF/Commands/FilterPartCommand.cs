@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using CarPart.WPF.ViewModels;
 using Microsoft.EntityFrameworkCore.Internal;
+using PartShop.Domain.Model;
 
 namespace CarPart.WPF.Commands
 {
     public class FilterPartCommand:ICommand
     {
         private readonly PartViewModel _partViewModel;
+        public event EventHandler CanExecuteChanged;
 
         public FilterPartCommand(PartViewModel partViewModel)
         {
@@ -33,36 +36,35 @@ namespace CarPart.WPF.Commands
 
             if (_partViewModel.Mark != null)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.CarMark == _partViewModel.Mark).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarMark == _partViewModel.Mark).ToList());
             }
 
             if (_partViewModel.Model != null)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.CarModel == _partViewModel.Model).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarModel == _partViewModel.Model).ToList());
             }
 
             if (_partViewModel.PartProvider != null)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.ProviderName == _partViewModel.PartProvider.Name).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.ProviderName == _partViewModel.PartProvider.Name).ToList());
             }
 
             if (_partViewModel.Article != 0)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.PartArticle == _partViewModel.Article).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.PartArticle == _partViewModel.Article).ToList());
             }
 
             if (_partViewModel.Category != null)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.PartCategory == _partViewModel.Category).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.PartCategory == _partViewModel.Category).ToList());
             }
 
             if (_partViewModel.Name != null)
             {
-                _partViewModel.Parts = _partViewModel.Parts.Where(p => p.PartName.StartsWith(_partViewModel.Name)).ToList();
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.PartName.StartsWith(_partViewModel.Name)).ToList());
             }
 
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

@@ -12,7 +12,7 @@ namespace PartShop.Domain.Model
         [Column("id")]
         public override int Id { get; set; }
         [Column("name")]
-        [Required(ErrorMessage = "Наименование запчасти обязательн0")]
+        [Required(ErrorMessage = "Наименование запчасти обязательно")]
         public string Name { get; set; }
         [Column("category")]
         [Required(ErrorMessage = "Катергория обязательна")]

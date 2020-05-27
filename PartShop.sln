@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.Domain", "PartShop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.EntityFramework", "PartShop.EntityFramework\PartShop.EntityFramework.csproj", "{D2CF6B4E-4440-4C75-A1D1-D862B1C27610}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPart.WPF", "CarPart.WPF\CarPart.WPF.csproj", "{B7A3FB04-ACB2-445D-918A-D69450E59847}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartShop.WPF", "CarPart.WPF\PartShop.WPF.csproj", "{B7A3FB04-ACB2-445D-918A-D69450E59847}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

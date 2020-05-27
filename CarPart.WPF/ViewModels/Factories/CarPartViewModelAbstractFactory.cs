@@ -4,6 +4,7 @@ using System.Text;
 using CarPart.WPF.State.Authentificators;
 using CarPart.WPF.State.Navigators;
 using Microsoft.Extensions.DependencyInjection;
+using PartShop.Domain.Model;
 
 namespace CarPart.WPF.ViewModels.Factories
 {
@@ -15,7 +16,6 @@ namespace CarPart.WPF.ViewModels.Factories
         private readonly ICarPartViewModelFactory<PartViewModel> _partVmFactory;
         private readonly ICarPartViewModelFactory<AdminViewModel> _adminVmFactory;
         private readonly ICarPartViewModelFactory<CartViewModel> _cartVmFactory;
-
         private readonly IAuthentificator _authentificator;
 
         public CarPartViewModelAbstractFactory(ICarPartViewModelFactory<RegisterViewModel> registerVmFactory,
@@ -40,11 +40,14 @@ namespace CarPart.WPF.ViewModels.Factories
             switch (viewType)
             {
                 case ViewType.AUTH:
+                    if (_authentificator.IsLoggedIn) return _homeVmFactory.CreateViewModel();
                     return _authVMFactory.CreateViewModel();
                 case ViewType.REGISTER:
+                    if (_authentificator.IsLoggedIn)  return _homeVmFactory.CreateViewModel();
                     return _registerVMFactory.CreateViewModel();
                 case ViewType.HOME:
                     if (_authentificator.IsLoggedIn == false) return _authVMFactory.CreateViewModel();
+                    if (_authentificator.CurrentAccount.UserRole == Role.ADMIN) return _adminVmFactory.CreateViewModel();
                     return _homeVmFactory.CreateViewModel();
                 case ViewType.PARTS:
                     return _partVmFactory.CreateViewModel();

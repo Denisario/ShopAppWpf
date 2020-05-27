@@ -18,6 +18,8 @@ namespace CarPart.WPF.ViewModels
         public ICommand CancelOrderCommand { get; set; }
         public ICommand FinishOrderCommand { get; set; }
 
+        public ICommand LogoutCommand { get; set; }
+
         private string username;
         public string Username {
             get=>username;
@@ -87,6 +89,7 @@ namespace CarPart.WPF.ViewModels
         public HomeViewModel(IAuthentificator authentificator, IOrderService orderService)
         {
             _authentificator = authentificator;
+            LogoutCommand = new LogoutCommand(authentificator);
             Username = _authentificator.CurrentAccount.Username;
             Email = _authentificator.CurrentAccount.Email;
             Balance = _authentificator.CurrentAccount.Balance;

@@ -21,6 +21,8 @@ namespace CarPart.WPF.Commands
         private readonly IOrderService _orderService;
         private readonly IAuthentificator _authentificator;
         private readonly AddressViewModel _addressViewModel;
+        public event EventHandler CanExecuteChanged;
+
         public CreateOrderCommand(IOrderService orderService, IAuthentificator authentificator, AddressViewModel addressViewModel)
         {
             _orderService = orderService;
@@ -52,6 +54,5 @@ namespace CarPart.WPF.Commands
                 MessageBox.Show(e.Message);
             }
         }
-        public event EventHandler CanExecuteChanged;
     }
 }

@@ -15,7 +15,7 @@ namespace CarPart.WPF.Commands
     {
         private IPartService _partService;
         private readonly AddPartViewModel _addPartViewModel;
-
+        public event EventHandler CanExecuteChanged;
         public AddPartCommand(IPartService partService, AddPartViewModel addPartViewModel)
         {
             _partService = partService;
@@ -65,6 +65,6 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
+
     }
 }

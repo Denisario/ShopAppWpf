@@ -18,6 +18,7 @@ namespace CarPart.WPF.Commands
         private readonly CartViewModel _cartViewModel;
         private readonly ICartService _cartService;
         private readonly IAuthentificator _authentificator;
+        public event EventHandler CanExecuteChanged;
 
         public DeletePartFromCartCommand(CartViewModel cartViewModel, ICartService cartService, IAuthentificator authentificator)
         {
@@ -37,7 +38,7 @@ namespace CarPart.WPF.Commands
             {
                 await _cartService.DeletePartFromCart(PartCashInfo.PartCash, _authentificator.CurrentAccount);
                 _cartViewModel.PartInCart.Remove(_cartViewModel.SelectedPart);
-                await App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
+                //await App.service.GetRequiredService<CartViewModel>().GetAllPartsInCart();
             }
             catch (Exception e)
             {
@@ -45,6 +46,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

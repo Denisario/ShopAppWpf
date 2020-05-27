@@ -12,6 +12,8 @@ namespace CarPart.WPF.Commands
     {
         private readonly IOrderService _orderService;
         private readonly HomeViewModel _homeViewModel;
+        public event EventHandler CanExecuteChanged;
+
 
         public FinishOrderCommand(HomeViewModel homeViewModel, IOrderService orderService)
         {
@@ -36,6 +38,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

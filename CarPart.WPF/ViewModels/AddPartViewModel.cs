@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -17,8 +18,8 @@ namespace CarPart.WPF.ViewModels
         private readonly ICarService _carService;
         private readonly IPartService _partService;
 
-        private List<Provider> providers;
-        public List<Provider> Providers
+        private ObservableCollection<Provider> providers;
+        public ObservableCollection<Provider> Providers
         {
             get { return providers; }
             set
@@ -28,9 +29,9 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private List<Car> cars;
+        private ObservableCollection<Car> cars;
 
-        public List<Car> Cars
+        public ObservableCollection<Car> Cars
         {
             get => cars;
             set
@@ -160,12 +161,12 @@ namespace CarPart.WPF.ViewModels
 
         private async void GetListOfProviders()
         {
-            Providers = new List<Provider>(await _providerService.GetAll());
+            Providers = new ObservableCollection<Provider>(new List<Provider>(await _providerService.GetAll()));
         }
 
         private async void GetListOfCars()
         {
-            Cars=new List<Car>(await _carService.GetAll());
+            Cars=new ObservableCollection<Car>(new List<Car>(await _carService.GetAll()));
         }
     }
 }

@@ -47,9 +47,9 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private List<PartFullInfo> parts;
+        private ObservableCollection<PartFullInfo> parts;
 
-        public List<PartFullInfo> Parts
+        public ObservableCollection<PartFullInfo> Parts
         {
             get => parts;
             set
@@ -70,8 +70,8 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private List<string> marks;
-        public List<string> Marks
+        private ObservableCollection<string> marks;
+        public ObservableCollection<string> Marks
         {
             get => marks;
             set
@@ -81,9 +81,9 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private List<string> models;
+        private ObservableCollection<string> models;
 
-        public List<string> Models
+        public ObservableCollection<string> Models
         {
             get => models;
             set
@@ -93,8 +93,8 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
-        private List<Provider> providers;
-        public List<Provider> Providers
+        private ObservableCollection<Provider> providers;
+        public ObservableCollection<Provider> Providers
         {
             get { return providers; }
             set
@@ -156,6 +156,8 @@ namespace CarPart.WPF.ViewModels
         public ICommand FilterPartCommand { get; set; }
 
         public ICommand AddPartToCartCommand { get; set; }
+
+        public ICommand ClearFindCommand { get; set; }
         public PartViewModel(IPartService partService, ICarService carService, IProviderService providerService, ICartService cartService, IAuthentificator authentificator)
         {
             _partService = partService;
@@ -164,6 +166,7 @@ namespace CarPart.WPF.ViewModels
             _authentificator = authentificator;
             FilterPartCommand=new FilterPartCommand(this);
             AddPartToCartCommand=new AddPartToCartCommand(this,cartService, authentificator);
+            ClearFindCommand=new ClearFindCommand(partService, this);
             GetAllParts();
             GetAllMarks();
             GetListOfProviders();
@@ -171,22 +174,22 @@ namespace CarPart.WPF.ViewModels
 
         private async void GetAllParts()
         {
-            Parts = new List<PartFullInfo>(await _partService.GetAllPartsForView());
+            Parts = new ObservableCollection<PartFullInfo>(new List<PartFullInfo>(await _partService.GetAllPartsForView()));
         }
 
         private async void GetAllMarks()
         {
-            Marks=new List<string>(await _carService.GetAllMarks());
+            Marks=new ObservableCollection<string>(new List<string>(await _carService.GetAllMarks()));
         }
 
         private async void GetAllModels(string mark)
         {
-            Models = new List<string>(await _carService.GetAllModels(mark));
+            Models = new ObservableCollection<string>(new List<string>(await _carService.GetAllModels(mark)));
         }
 
         private async void GetListOfProviders()
         {
-            Providers = new List<Provider>(await _providerService.GetAll());
+            Providers = new ObservableCollection<Provider>(new List<Provider>(await _providerService.GetAll()));
         }
     }
 }

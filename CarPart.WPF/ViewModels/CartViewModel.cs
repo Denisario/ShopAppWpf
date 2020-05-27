@@ -14,20 +14,12 @@ using PartShop.Domain.Services;
 
 namespace CarPart.WPF.ViewModels
 {
+
+    //УЖАС
     public class CartViewModel:ViewModelBase
     {
         private readonly IAuthentificator _authentificator;
         private readonly ICartService _cartService;
-        
-        public ICommand DeletePartCommand { get; set; }
-        public CartViewModel(IAuthentificator authentificator, ICartService cartService, IOrderService orderService)
-        {
-            PartCashInfo.PartCash.Clear();
-            _authentificator = authentificator;
-            _cartService = cartService;
-            DeletePartCommand=new DeletePartFromCartCommand(this,_cartService, _authentificator);
-            GetAllPartsInCart();
-        }
 
         private ObservableCollection<PartFullInfo> partInCart;
 
@@ -63,9 +55,21 @@ namespace CarPart.WPF.ViewModels
                         break;
                     }
                 }
-                
+
             }
         }
+
+        public ICommand DeletePartCommand { get; set; }
+        public CartViewModel(IAuthentificator authentificator, ICartService cartService, IOrderService orderService)
+        {
+            PartCashInfo.PartCash.Clear();
+            _authentificator = authentificator;
+            _cartService = cartService;
+            DeletePartCommand=new DeletePartFromCartCommand(this,_cartService, _authentificator);
+            GetAllPartsInCart();
+        }
+
+
 
         public async void GetAllPartsInCart()
         {

@@ -17,6 +17,7 @@ namespace CarPart.WPF.Commands
         private readonly PartViewModel _partViewModel;
         private readonly ICartService _cartService;
         private readonly IAuthentificator _authentificator;
+        public event EventHandler CanExecuteChanged;
 
         public AddPartToCartCommand(PartViewModel partViewModel, ICartService cartService, IAuthentificator authentificator)
         {
@@ -53,6 +54,5 @@ namespace CarPart.WPF.Commands
             }
         }
 
-        public event EventHandler CanExecuteChanged;
     }
 }

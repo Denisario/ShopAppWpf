@@ -13,9 +13,7 @@ namespace CarPart.WPF.ViewModels
     {
         private readonly IOrderService _orderService;
         private ObservableCollection<Order> orders;
-
-
-
+        
         public ObservableCollection<Order> Orders
         {
             get => orders;
@@ -38,6 +36,9 @@ namespace CarPart.WPF.ViewModels
             }
         }
 
+        public ICommand ShowDetailsCommand { get; set; }
+        public ICommand SendOrderCommand { get; set; }
+
         public OrderViewModel(IOrderService orderService)
         {
             _orderService = orderService;
@@ -46,8 +47,7 @@ namespace CarPart.WPF.ViewModels
             GetAllOrders();
         }
 
-        public ICommand ShowDetailsCommand { get; set; }
-        public ICommand SendOrderCommand { get; set; }
+      
 
         private async void GetAllOrders()
         {

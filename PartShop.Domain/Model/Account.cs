@@ -13,11 +13,13 @@ namespace PartShop.Domain.Model
         [Column("id")]
         public override int Id { get; set; }
         [Required(ErrorMessage = "Имя пользователя обязательно")]
-        [StringLength(20, MinimumLength = 5, ErrorMessage = "Имя должно быть более 5 и менее 20 символов")]
+        [StringLength(20, MinimumLength = 5, ErrorMessage = "Имя должно быть не менее 5 и не более 20 символов")]
+        [RegularExpression(@"^[A-Za-z0-9]+$", ErrorMessage = "Логин должен состоять только из английских символов и цифр")]
         [Column("username")]
         public string Username { get; set; }
         [Column("pass")]
         [Required(ErrorMessage = "Пароль обязателен")]
+        [RegularExpression(@"^[A-Za-z0-9]+$", ErrorMessage = "Пароль должен состоять только из английских символов и цифр")]
         public string Password { get; set; }
         [Column("email")]
         [Required(ErrorMessage = "Электронная почта обязательна")]
