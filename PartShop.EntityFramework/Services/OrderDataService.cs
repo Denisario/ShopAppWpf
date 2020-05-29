@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -137,7 +138,6 @@ namespace PartShop.EntityFramework.Services
                             PartId = z.d.k.Id,
                             PartName = z.d.k.Name,
                             PartColor = z.d.k.Color,
-                            PartDescription = z.d.k.Description,
                             PartInOrder = z.d.l.x.AmountPart,
                             PartPrice = z.d.l.x.Price,
                             PartProvider=z.m.ProviderId,
@@ -150,37 +150,42 @@ namespace PartShop.EntityFramework.Services
                     double price = 0;
                     PdfPage page = document.Pages.Add();
                     PdfGraphics graphics = page.Graphics;
-                    PdfFont font = new PdfStandardFont(PdfFontFamily.Helvetica, 20);
-                    PdfFont mainFont = new PdfStandardFont(PdfFontFamily.Helvetica, 14);
+                    PdfFont mainFont = new PdfTrueTypeFont(new Font("Arial Unicode MS", 14), true);
+                    PdfFont font = new PdfTrueTypeFont(new Font("Arial Unicode MS", 12), true);
 
-                    graphics.DrawString("Part shop check", font, PdfBrushes.Black, new PointF(200, 0));
-                    graphics.DrawString($"Order id:{order.Id}", mainFont, PdfBrushes.Black, new PointF(0, 25));
-                    graphics.DrawString($"Creation date:{order.OrderCreationTime}", mainFont, PdfBrushes.Black, new PointF(0, 40));
-                    graphics.DrawString($"Finish date:{order.FinishDate}", mainFont, PdfBrushes.Black, new PointF(0, 55));
-                    graphics.DrawString($"Status:{order.Status}", mainFont, PdfBrushes.Black, new PointF(0, 70));
-                    graphics.DrawString($"Address: {order.Address.City} city, {order.Address.Street} street, {order.Address.House}-{order.Address.Apartament}", mainFont, PdfBrushes.Black, new PointF(0, 85));
+                    graphics.DrawString("Магазин автозапчастей чек", font, PdfBrushes.Black, new PointF(200, 0));
+                    graphics.DrawString($"Номер заказа: {order.Id}", mainFont, PdfBrushes.Black, new PointF(0, 25));
+                    graphics.DrawString($"Дата создания заказа: {order.OrderCreationTime}", mainFont, PdfBrushes.Black, new PointF(0, 40));
+                    graphics.DrawString($"Дата окончания заказа: {order.FinishDate}", mainFont, PdfBrushes.Black, new PointF(0, 55));
+                    graphics.DrawString($"Статус: {order.Status}", mainFont, PdfBrushes.Black, new PointF(0, 70));
+                    graphics.DrawString($"Адрес: г. {order.Address.City}, ул. {order.Address.Street} , {order.Address.House}-{order.Address.Apartament}", mainFont, PdfBrushes.Black, new PointF(0, 85));
+                    
 
                     PdfGrid pdfGrid = new PdfGrid();
                     DataTable dataTable = new DataTable();
+                    
+                    
 
-                    dataTable.Columns.Add("Id");
-                    dataTable.Columns.Add("Name");
-                    dataTable.Columns.Add("Color");
-                    dataTable.Columns.Add("Description");
-                    dataTable.Columns.Add("Provider");
-                    dataTable.Columns.Add("Amount");
-                    dataTable.Columns.Add("Price by part unit");
+                    dataTable.Columns.Add("Номер запчасти");
+                    dataTable.Columns.Add("Имя");
+                    dataTable.Columns.Add("Цвет");
+                    dataTable.Columns.Add("Поставщик");
+                    dataTable.Columns.Add("Всего");
+                    dataTable.Columns.Add("Цена за единицу");
 
                     foreach (var p in orderParts)
                     {
-                        dataTable.Rows.Add(new object[]{p.PartId,p.PartName, p.PartColor, p.PartDescription, p.Provider, p.PartInOrder, p.PartPrice});
+                        dataTable.Rows.Add(new object[]{p.PartId,p.PartName, p.PartColor, p.Provider, p.PartInOrder, p.PartPrice});
                         price += p.PartInOrder * p.PartPrice;
                     }
+                    PdfGridStyle gridStyle = new PdfGridStyle();
+                    gridStyle.Font = font;
+                    pdfGrid.Style = gridStyle;
 
-                    graphics.DrawString($"Total price:{price}", mainFont, PdfBrushes.Black, new PointF(0, 105));
+                    graphics.DrawString($"Итого: {price}", mainFont, PdfBrushes.Black, new PointF(0, 105));
 
                     pdfGrid.DataSource = dataTable;
-                    pdfGrid.Draw(page, new PointF(0, 120));
+                    pdfGrid.Draw(page, new PointF(0, 125));
 
                     document.Save(path);
                     document.Close(true);
@@ -282,6 +287,7 @@ namespace PartShop.EntityFramework.Services
         {
             return await _nonQueryDataService.Delete(id);
         }
+
 
     }
 }

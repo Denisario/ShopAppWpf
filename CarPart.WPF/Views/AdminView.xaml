@@ -28,5 +28,6 @@
        <controls:AdminNavMenu Grid.Row="1" Grid.Column="2" Loaded="AdminNavMenu_Loaded"></controls:AdminNavMenu>
 
         <ContentControl Grid.Row="2" Grid.Column="2" ></ContentControl>
+        <Button Content="Выход" Grid.Row="2" Grid.Column="2" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Right" Command="{Binding LogoutCommand}"/>
     </Grid>
 </UserControl>

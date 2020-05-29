@@ -64,12 +64,11 @@ namespace PartShop.EntityFramework.Services
                 }
 
                 if (card.Pin == 0) throw new Exception("Пин обязателен");
-
-
-                Card checkCard =await context.Cards.Where(p => p.CardNumber == card.CardNumber).FirstAsync();
+                
+                Card checkCard =await context.Cards.Where(p => p.CardNumber == card.CardNumber).FirstOrDefaultAsync();
                 if (checkCard == null) throw new Exception("Карта не найдена");
                 if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(card.FinishDate)) throw new Exception("Карта заблокирована");
-                if (checkCard.Balance < card.Balance) return 0.0;
+                if (checkCard.Balance < card.Balance) throw new Exception("На карте отсутсвует данная сумма");
                 if (checkCard.PinCode == HashPass(card.Pin.ToString()))
                 {
                     checkCard.Balance -= card.Balance;

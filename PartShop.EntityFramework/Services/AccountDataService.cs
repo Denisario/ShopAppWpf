@@ -72,5 +72,16 @@ namespace PartShop.EntityFramework.Services
                     .FirstOrDefaultAsync(e => e.Username == username);
             }
         }
+
+        public async Task<Account> GetAccountByEmail(string email)
+        {
+            using (CarPartDbContext context = _contextFactory.CreateDbContext())
+            {
+                return await context.Accounts
+                    .Include(a => a.Orders)
+                    .Include(b => b.Carts)
+                    .FirstOrDefaultAsync(e => e.Email == email);
+            }
+        }
     }
 }

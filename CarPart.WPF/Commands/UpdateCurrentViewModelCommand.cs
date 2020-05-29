@@ -11,9 +11,7 @@ namespace CarPart.WPF.Commands
     public class UpdateCurrentViewModelCommand:ICommand 
     {
         public event EventHandler CanExecuteChanged;
-
         private INavigator _navigator;
-
         private readonly ICarPartViewModelAbstractFactory _viewModelFactory;
 
         public UpdateCurrentViewModelCommand(INavigator navigator, ICarPartViewModelAbstractFactory viewModelFactory)
@@ -35,7 +33,5 @@ namespace CarPart.WPF.Commands
                 _navigator.CurrentViewModel = _viewModelFactory.CreateViewModel(viewType);
             }
         }
-
-
     }
 }

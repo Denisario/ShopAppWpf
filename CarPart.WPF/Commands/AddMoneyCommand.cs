@@ -34,13 +34,14 @@ namespace CarPart.WPF.Commands
         {
             try
             {
-               await _cardService.Withdraw(_authentificator.CurrentAccount, new Card()
+               double balance=await _cardService.Withdraw(_authentificator.CurrentAccount, new Card()
                 {
                     CardNumber = _addBalanceViewModel.Number,
                     Pin = _addBalanceViewModel.Pin,
                     FinishDate = _addBalanceViewModel.FinishDate,
                     Balance = _addBalanceViewModel.Money
                 });
+               MessageBox.Show($"На ваш баланс зачислено {balance}");
             }
             catch (Exception e)
             {

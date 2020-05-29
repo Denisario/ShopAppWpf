@@ -32,9 +32,9 @@
                 <!--<DataGridCheckBoxColumn Binding="{Binding Path=IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>-->
                 <DataGridTextColumn Header="Номер запчасти" Binding="{Binding Path=PartId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Имя запчасти"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Цвет"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Категория"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Артикул"  Binding="{Binding Path=PartName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Цвет"  Binding="{Binding Path=PartColor}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Категория"  Binding="{Binding Path=PartCategory}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Артикул"  Binding="{Binding Path=PartArticle}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Всего"  Binding="{Binding Path=ProviderPartAmount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Цена за штуку"  Binding="{Binding Path=ProviderPartPrice}"></DataGridTextColumn>
             </DataGrid.Columns>

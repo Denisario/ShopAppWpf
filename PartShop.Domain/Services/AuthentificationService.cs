@@ -24,9 +24,10 @@ namespace PartShop.Domain.Services
         {
             
             Account account = await _accountService.GetAccountByUsername(username);
-            if (account != null)
+            Account eAccount = await _accountService.GetAccountByEmail(email);
+            if (account != null||eAccount!=null)
             {
-                throw new Exception("Данный пользователь зарегистирован");
+                throw new Exception("Данный пользователь зарегистрирован");
             }
             username = username.ToLower();
             email = email.ToLower();
@@ -34,7 +35,7 @@ namespace PartShop.Domain.Services
             if (password!=confirmPassword) throw new Exception("Пароли не совпадают");
 
 
-            if((password.Length<=8)&&(password.Length>=15)) throw new Exception("Длина пароля должна быть не менее 8 и не более 15 символов");
+            if((password.Length<=8)||(password.Length>=15)) throw new Exception("Длина пароля должна быть не менее 8 и не более 15 символов");
 
             Account newAccount = new Account()
                {
@@ -45,7 +46,7 @@ namespace PartShop.Domain.Services
                    UserRole = Role.USER
                };
 
-            if (newAccount.Id == 1) newAccount.UserRole = Role.ADMIN;
+            
 
             var results = new List<ValidationResult>();
             var context=new ValidationContext(newAccount);
@@ -63,9 +64,13 @@ namespace PartShop.Domain.Services
             else
             {
                 await _accountService.Create(newAccount);
+                if (newAccount.Id == 1)
+                {
+                    newAccount.UserRole = Role.ADMIN;
+                    await _accountService.Update(1, newAccount);
+                }
             }
-
-              return true;
+            return true;
         }
 
         public async Task<Account> Login(string username, string password)

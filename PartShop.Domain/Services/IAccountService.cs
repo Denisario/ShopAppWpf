@@ -9,6 +9,7 @@ namespace PartShop.Domain.Services
     public interface IAccountService:IDataService<Account>
     {
         Task<Account> GetAccountByUsername(string username);
+        Task<Account> GetAccountByEmail(string email);
 
     }
 }
