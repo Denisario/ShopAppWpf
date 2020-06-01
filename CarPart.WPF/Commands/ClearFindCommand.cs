@@ -23,7 +23,16 @@ namespace CarPart.WPF.Commands
 
         public bool CanExecute(object parameter) => true;
 
-        public async void Execute(object parameter)=>_partViewModel.Parts=new ObservableCollection<PartFullInfo>(await _partService.GetAllPartsForView());
+        public async void Execute(object parameter)
+        {
+            _partViewModel.Parts = new ObservableCollection<PartFullInfo>(await _partService.GetAllPartsForView());
+            _partViewModel.Article = 0;
+            _partViewModel.Category = null;
+            _partViewModel.Mark = null;
+            _partViewModel.Model = null;
+            _partViewModel.Name = null;
+            _partViewModel.PartProvider = null;
+        }
 
     }
 }

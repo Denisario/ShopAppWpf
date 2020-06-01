@@ -47,7 +47,6 @@ namespace CarPart.WPF
             service.AddSingleton<IAuthentificator, Authentificator>();
             service.AddSingleton<CarPartDbContextFactory>();
             service.AddSingleton<IAuthentificationService, AuthentificationService>();
-            service.AddSingleton<IDataService<Account>, AccountDataService>();//МБ УДАЛИТЬ
             service.AddSingleton<IAccountService, AccountDataService>();
             service.AddSingleton<ICarService, CarDataService>();
             service.AddSingleton<IPartService, PartDataService>();

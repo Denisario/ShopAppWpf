@@ -28,7 +28,8 @@ namespace CarPart.WPF.Commands
         {
             try
             {
-                await _cardService.CreateCard(_addCardViewModel.Pin, _addCardViewModel.FinishDate);
+                double balance=await _cardService.CreateCard(_addCardViewModel.Pin, _addCardViewModel.FinishDate);
+                MessageBox.Show($"Баланс на карте: {balance}");
             }
             catch (Exception e)
             {

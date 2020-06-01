@@ -105,8 +105,6 @@ namespace PartShop.EntityFramework.Services
                                            .Include(a => a.PartProviders)
                                            .Include(b => b.CarParts)
                                            .FirstOrDefaultAsync(i => i.Name == part.Name &&
-                                                                                 i.Color == part.Color &&
-                                                                                 i.Description == part.Description &&
                                                                                  i.Article==part.Article &&
                                                                                  i.Category==part.Category);//ещё проверки
                 
@@ -130,7 +128,6 @@ namespace PartShop.EntityFramework.Services
                 }
                 else
                 {
-                    //ТУТ ДОБАВИТЬ ОБНОВЛЕНИЕ ЦЕНЫ
                     entity.CarParts.Add(new PartShop.Domain.Model.CarPart()
                         {
                             PartId = entity.Id,
@@ -182,7 +179,7 @@ namespace PartShop.EntityFramework.Services
                         foreach (var l in p.Carts)
                         {
                             if (l.PartId == pp.PartId) await _emailService.SendPartEmail(p, "Поступление на склад",
-                                                                                             $"Сообщаем Вам о том, что запчать из вашей корзины(id: {pp.PartId}) поступила в продажу");
+                                                                                             $"Сообщаем Вам о том, что запчаcть из вашей корзины(id: {pp.PartId}) поступила в продажу");
                         }
                     }
                 }

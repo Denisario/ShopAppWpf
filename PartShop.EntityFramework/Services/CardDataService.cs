@@ -65,9 +65,10 @@ namespace PartShop.EntityFramework.Services
 
                 if (card.Pin == 0) throw new Exception("Пин обязателен");
                 
-                Card checkCard =await context.Cards.Where(p => p.CardNumber == card.CardNumber).FirstOrDefaultAsync();
+                Card checkCard =await context.Cards.FirstOrDefaultAsync(p => p.CardNumber == card.CardNumber);
                 if (checkCard == null) throw new Exception("Карта не найдена");
-                if (checkCard.Attempts == 0||!checkCard.FinishDate.Equals(card.FinishDate)) throw new Exception("Карта заблокирована");
+                if (checkCard.Attempts == 1) throw new Exception("Карта заблокирована");
+                if(checkCard.FinishDate.Equals(card.FinishDate)) throw new Exception("Неверная дата окончания");
                 if (checkCard.Balance < card.Balance) throw new Exception("На карте отсутсвует данная сумма");
                 if (checkCard.PinCode == HashPass(card.Pin.ToString()))
                 {
@@ -76,6 +77,7 @@ namespace PartShop.EntityFramework.Services
                 else
                 {
                     checkCard.Attempts--;
+                    throw new Exception($"Неверный пароль. Попыток до блокировки: {checkCard.Attempts}");
                 }
                 account.Balance += card.Balance;
 

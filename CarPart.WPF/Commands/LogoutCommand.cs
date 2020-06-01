@@ -24,7 +24,11 @@ namespace CarPart.WPF.Commands
 
         public void Execute(object parameter)
         {
+            var nav = App.service.GetRequiredService<INavigator>();
+            var vmFactory = App.service.GetRequiredService<ICarPartViewModelAbstractFactory>();
             _authentificator.Logout();
+
+            nav.CurrentViewModel = vmFactory.CreateViewModel(ViewType.AUTH);
         }
     }
 }

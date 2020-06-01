@@ -36,12 +36,12 @@ namespace CarPart.WPF.Commands
 
             if (_partViewModel.Mark != null)
             {
-                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarMark == _partViewModel.Mark).ToList());
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarMark == _partViewModel.Mark).ToList().OrderBy(x=>x.CarMark));
             }
 
             if (_partViewModel.Model != null)
             {
-                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarModel == _partViewModel.Model).ToList());
+                _partViewModel.Parts = new ObservableCollection<PartFullInfo>(_partViewModel.Parts.Where(p => p.CarModel == _partViewModel.Model).ToList().OrderBy(x=>x.CarModel));
             }
 
             if (_partViewModel.PartProvider != null)
